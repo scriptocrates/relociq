@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Relociq — Move countries. With certainty.</title>
+<meta name="description" content="Your personalised visa pathway, document checklist, and deadline tracker — built for your specific situation."/>
+<meta property="og:title" content="Relociq — Move countries. With certainty."/>
+<meta property="og:description" content="Your exact visa pathway in minutes, not months. 60+ corridors, step-by-step guides, deadline tracking."/>
+<meta property="og:url" content="https://relociq.app"/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Relociq — Move countries. With certainty."/>
+<meta name="twitter:description" content="Your exact visa pathway in minutes, not months."/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 44 44%22><rect width=%2244%22 height=%2244%22 rx=%2210%22 fill=%22%231A1A1A%22/><text x=%224%22 y=%2234%22 font-family=%22-apple-system,BlinkMacSystemFont,sans-serif%22 font-size=%2230%22 font-weight=%22900%22 fill=%22%23FAFAF8%22 letter-spacing=%22-1.5%22>R<%2Ftext><circle cx=%2227%22 cy=%2211%22 r=%227%22 fill=%22%23C85A0A%22/><circle cx=%2227%22 cy=%2211%22 r=%223%22 fill=%22%23FAFAF8%22/><%2Fsvg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1}
+
+/* NAV */
+.nav{background:#FAFAF8;border-bottom:1px solid #EBEBEA;padding:0 40px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{font-size:16px;font-weight:700;color:#1A1A1A;letter-spacing:-0.3px;text-decoration:none}
+.nav-logo b{color:#C85A0A}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-a{font-size:13px;color:#888;font-weight:500;text-decoration:none;transition:color 0.15s}
+.nav-a:hover{color:#1A1A1A}
+.nav-cta{font-size:13px;background:#1A1A1A;color:#FAFAF8;padding:9px 20px;border-radius:6px;font-weight:600;text-decoration:none;transition:opacity 0.15s}
+.nav-cta:hover{opacity:0.85}
+
+/* HERO */
+.hero{padding:88px 40px 72px;max-width:1100px;margin:0 auto}
+.hero-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#AAA;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:28px;display:flex;align-items:center;gap:10px}
+.hero-label::before{content:'';width:16px;height:1px;background:#CCC;display:block}
+.hero-h1{font-size:64px;font-weight:800;color:#1A1A1A;line-height:1.0;letter-spacing:-3px;margin-bottom:10px}
+.hero-h1-2{font-size:64px;font-weight:800;color:#1A1A1A;line-height:1.0;letter-spacing:-3px;margin-bottom:28px}
+.hero-h1-2 em{font-style:italic;font-weight:300;color:#C85A0A}
+.hero-sub{font-size:17px;color:#666;line-height:1.65;max-width:560px;margin-bottom:40px;font-weight:400}
+.hero-trust{display:flex;gap:20px;font-size:12px;color:#AAA;font-family:'IBM Plex Mono',monospace;flex-wrap:wrap;margin-top:24px}
+.hero-trust b{color:#2D7A2D}
+
+/* SELECTORS */
+.sel-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:0;position:relative;z-index:50}
+.sel-wrap{position:relative;display:inline-block}
+.sel-btn{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid #E8E8E4;border-radius:12px;padding:12px 16px;cursor:pointer;min-width:185px;user-select:none;transition:border-color 0.15s}
+.sel-btn:hover{border-color:#C85A0A}
+.sel-btn.open{border-color:#C85A0A;box-shadow:0 0 0 3px rgba(200,90,10,0.08)}
+.sel-flag{font-size:20px;line-height:1}
+.sel-inner{flex:1}
+.sel-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#AAA;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.sel-val{font-size:14px;font-weight:600;color:#1A1A1A}
+.sel-chev{font-size:10px;color:#AAA;transition:transform 0.15s}
+.sel-btn.open .sel-chev{transform:rotate(180deg);color:#C85A0A}
+.sel-dd{position:absolute;top:calc(100% + 8px);left:0;background:#fff;border:1.5px solid #E8E8E4;border-radius:12px;min-width:220px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.08);z-index:200;display:none}
+.sel-dd.open{display:block}
+.sel-dds{padding:10px 12px;border-bottom:1px solid #F0F0EE}
+.sel-dds input{width:100%;border:none;outline:none;font-size:13px;color:#1A1A1A;background:transparent;font-family:'Plus Jakarta Sans',sans-serif}
+.sel-ddi{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;transition:background 0.1s}
+.sel-ddi:hover{background:#FFF8F5}
+.sel-ddi.sel{background:#FFF5F0}
+.sel-ddi-flag{font-size:18px}
+.sel-ddi-name{font-size:13px;font-weight:500;color:#1A1A1A}
+.sel-ddi-code{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#AAA;margin-left:auto}
+.sel-arr{display:flex;flex-direction:column;align-items:center;gap:2px;padding:0 4px}
+.sel-arr-line{width:28px;height:1.5px;background:#E8E8E4;border-radius:2px}
+.sel-arr-head{font-size:14px;color:#C85A0A;margin-top:-8px;line-height:1}
+.sel-cta{font-size:14px;background:#C85A0A;color:#fff;padding:13px 24px;border-radius:12px;font-weight:600;border:none;cursor:pointer;white-space:nowrap;transition:opacity 0.15s;font-family:'Plus Jakarta Sans',sans-serif}
+.sel-cta:hover{opacity:0.88}
+
+/* STATS BAR */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #EBEBEA;border-bottom:1px solid #EBEBEA}
+.stat{padding:22px 40px;border-right:1px solid #EBEBEA}
+.stat:last-child{border-right:none}
+.stat-n{font-size:14px;font-weight:600;color:#1A1A1A;font-family:'IBM Plex Mono',monospace}
+.stat-n b{color:#C85A0A}
+.stat-l{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#AAA;margin-top:5px;letter-spacing:0.5px;text-transform:uppercase}
+
+/* PRODUCT SECTION */
+.product{padding:80px 40px;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.prod-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#AAA;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
+.prod-h{font-size:40px;font-weight:800;color:#1A1A1A;letter-spacing:-1.5px;line-height:1.1;margin-bottom:14px}
+.prod-h em{font-style:italic;font-weight:300;color:#C85A0A}
+.prod-sub{font-size:15px;color:#666;line-height:1.65;margin-bottom:28px}
+.prod-link{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#C85A0A;text-decoration:none}
+.prod-link:hover{text-decoration:underline}
+.card{background:#fff;border:1px solid #EBEBEA;border-radius:12px;padding:20px}
+.card-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #F0F0EE}
+.card-title{font-size:13px;font-weight:600;color:#1A1A1A}
+.card-badge{font-family:'IBM Plex Mono',monospace;font-size:10px;background:#FFF5F0;color:#C85A0A;border:1px solid #F5D5C0;padding:3px 8px;border-radius:4px}
+.step{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid #F5F5F3}
+.step:last-child{border-bottom:none}
+.chk{width:18px;height:18px;border-radius:50%;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700}
+.chk-done{background:#2D7A2D;color:#fff}
+.chk-now{border:1.5px solid #C85A0A;background:#FFF8F5}
+.chk-empty{border:1.5px solid #DDD;background:transparent}
+.step-t{font-size:13px;font-weight:500;color:#1A1A1A}
+.step-s{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#AAA;margin-top:2px}
+.step-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;border:1px solid #F5C0A0;color:#C85A0A;padding:1px 7px;border-radius:3px;margin-top:4px;letter-spacing:0.5px;text-transform:uppercase}
+.step-ok{border-color:#A0D0A0!important;color:#2D7A2D!important}
+
+/* FEATURES */
+.features{background:#1A1A1A;padding:80px 40px}
+.feat-inner{max-width:1100px;margin:0 auto}
+.feat-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
+.feat-h{font-size:40px;font-weight:800;color:#FAFAF8;letter-spacing:-1.5px;line-height:1.1;margin-bottom:48px}
+.feat-h em{font-style:italic;font-weight:300;color:#C85A0A}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#2A2A2A}
+.feat-card{background:#1A1A1A;padding:28px}
+.feat-num{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;letter-spacing:1px;margin-bottom:14px}
+.feat-title{font-size:16px;font-weight:600;color:#FAFAF8;margin-bottom:8px}
+.feat-text{font-size:13px;color:#555;line-height:1.65}
+
+/* HOW IT WORKS */
+.how{padding:80px 40px;max-width:1100px;margin:0 auto}
+.how-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#AAA;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
+.how-h{font-size:40px;font-weight:800;color:#1A1A1A;letter-spacing:-1.5px;line-height:1.1;margin-bottom:48px}
+.how-h em{font-style:italic;font-weight:300;color:#C85A0A}
+.how-steps{display:flex;flex-direction:column;max-width:640px}
+.how-step{display:flex;gap:24px;padding:24px 0;border-bottom:1px solid #EBEBEA}
+.how-step:last-child{border-bottom:none}
+.how-n{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#CCC;width:24px;flex-shrink:0;margin-top:4px}
+.how-title{font-size:17px;font-weight:600;color:#1A1A1A;margin-bottom:6px}
+.how-text{font-size:14px;color:#888;line-height:1.6}
+.how-pill{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10px;border:1px solid #DDDDD8;color:#AAA;padding:3px 10px;border-radius:4px;margin-top:8px;letter-spacing:0.5px}
+
+/* TESTIMONIALS */
+.tests{padding:80px 40px;background:#FAFAF8;border-top:1px solid #EBEBEA}
+.tests-inner{max-width:1100px;margin:0 auto}
+.tests-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#AAA;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
+.tests-h{font-size:40px;font-weight:800;color:#1A1A1A;letter-spacing:-1.5px;margin-bottom:48px}
+.tests-h em{font-style:italic;font-weight:300;color:#C85A0A}
+.tests-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.test-card{background:#fff;border:1px solid #EBEBEA;border-radius:12px;padding:24px}
+.test-route{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#C85A0A;letter-spacing:0.5px;margin-bottom:14px;text-transform:uppercase}
+.test-q{font-size:14px;color:#444;line-height:1.7;margin-bottom:20px;font-style:italic}
+.test-author{display:flex;align-items:center;gap:10px}
+.test-av{width:32px;height:32px;border-radius:50%;background:#1A1A1A;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#FAFAF8;flex-shrink:0}
+.test-name{font-size:13px;font-weight:600;color:#1A1A1A}
+.test-role{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#AAA;margin-top:2px}
+
+/* PRICING */
+.pricing{padding:80px 40px;border-top:1px solid #EBEBEA}
+.pricing-inner{max-width:1100px;margin:0 auto}
+.pricing-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#AAA;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
+.pricing-h{font-size:40px;font-weight:800;color:#1A1A1A;letter-spacing:-1.5px;margin-bottom:48px}
+.pricing-h em{font-style:italic;font-weight:300;color:#C85A0A}
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:720px}
+.p-card{background:#fff;border:1px solid #EBEBEA;border-radius:12px;padding:32px}
+.p-card-pro{background:#1A1A1A;border:1px solid #1A1A1A;border-radius:12px;padding:32px}
+.p-name{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#AAA;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+.p-name-pro{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+.p-price{font-size:48px;font-weight:800;color:#1A1A1A;letter-spacing:-2px;line-height:1}
+.p-price-pro{font-size:48px;font-weight:800;color:#FAFAF8;letter-spacing:-2px;line-height:1}
+.p-price sub,.p-price-pro sub{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:400;color:#AAA;letter-spacing:0;vertical-align:middle}
+.p-desc{font-size:13px;color:#888;margin:12px 0 22px;line-height:1.6}
+.p-desc-pro{font-size:13px;color:#555;margin:12px 0 22px;line-height:1.6}
+.p-feats{margin-bottom:24px;display:flex;flex-direction:column;gap:9px}
+.p-feat{font-size:13px;color:#AAA;display:flex;gap:8px}
+.p-feat-on{font-size:13px;color:#1A1A1A;display:flex;gap:8px}
+.p-feat-pro{font-size:13px;color:#FAFAF8;display:flex;gap:8px}
+.p-btn{display:block;text-align:center;padding:13px;border-radius:8px;font-size:14px;font-weight:600;border:1px solid #EBEBEA;color:#1A1A1A;background:#FAFAF8;text-decoration:none;transition:opacity 0.15s}
+.p-btn:hover{opacity:0.85}
+.p-btn-pro{display:block;text-align:center;padding:13px;border-radius:8px;font-size:14px;font-weight:600;background:#C85A0A;border:1px solid #C85A0A;color:#fff;text-decoration:none;transition:opacity 0.15s}
+.p-btn-pro:hover{opacity:0.88}
+
+/* CTA */
+.cta{background:#1A1A1A;padding:96px 40px;text-align:center}
+.cta-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
+.cta-h{font-size:56px;font-weight:800;color:#FAFAF8;letter-spacing:-2.5px;line-height:1.05;margin-bottom:14px}
+.cta-h em{font-style:italic;font-weight:300;color:#C85A0A}
+.cta-sub{font-size:16px;color:#444;margin-bottom:36px}
+.cta-btn{display:inline-block;font-size:14px;font-weight:600;background:#C85A0A;color:#fff;padding:14px 32px;border-radius:8px;text-decoration:none;transition:opacity 0.15s}
+.cta-btn:hover{opacity:0.88}
+.cta-note{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#333;margin-top:14px;letter-spacing:0.5px}
+
+/* FOOTER */
+.footer{background:#1A1A1A;border-top:1px solid #222;padding:20px 40px;display:flex;justify-content:space-between;align-items:center}
+.f-logo{font-size:14px;font-weight:700;color:#FAFAF8;text-decoration:none}
+.f-logo b{color:#C85A0A}
+.f-links{display:flex;gap:20px}
+.f-a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#333;text-decoration:none}
+.f-a:hover{color:#555}
+.f-copy{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#333}
+
+/* DIVIDER */
+.divider{border:none;border-top:1px solid #EBEBEA;margin:0}
+
+
+/* PATHWAY META GRID */
+.pathway-meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 768px) {
+
+  /* NAV */
+  .nav{padding:0 20px;height:52px}
+  .nav-links .nav-a{display:none}
+  .nav-cta{font-size:12px;padding:7px 14px}
+  .nav-user-wrap{gap:8px}
+  .nav-user-email{font-size:12px;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+  /* HERO */
+  .hero{padding:48px 20px 40px}
+  .hero-h1{font-size:36px;letter-spacing:-1.5px;margin-bottom:6px}
+  .hero-h1-2{font-size:36px;letter-spacing:-1.5px;margin-bottom:20px}
+  .hero-sub{font-size:15px;margin-bottom:28px}
+  .hero-label{margin-bottom:18px}
+
+  /* SELECTORS — stack vertically */
+  .sel-row{flex-direction:column;align-items:stretch;gap:10px}
+  .sel-wrap{display:block;width:100%}
+  .sel-btn{min-width:unset;width:100%}
+  .sel-arr{flex-direction:row;padding:0;justify-content:center}
+  .sel-arr-line{width:1.5px;height:20px;margin:0}
+  .sel-arr-head{margin-top:0;margin-left:-6px;transform:rotate(90deg);display:inline-block}
+  .sel-cta{width:100%;padding:14px;font-size:15px}
+  .sel-dd{min-width:unset;width:100%;left:0;right:0}
+  .hero-trust{gap:12px;font-size:11px}
+
+  /* STATS BAR — 2x2 grid */
+  .stats{grid-template-columns:1fr 1fr}
+  .stat{padding:16px 20px;border-right:1px solid #EBEBEA;border-bottom:1px solid #EBEBEA}
+  .stat:nth-child(2){border-right:none}
+  .stat:nth-child(3){border-bottom:none}
+  .stat:nth-child(4){border-right:none;border-bottom:none}
+
+  /* PRODUCT — single column */
+  .product{padding:48px 20px;grid-template-columns:1fr;gap:32px}
+  .prod-h{font-size:28px;letter-spacing:-0.8px}
+
+  /* FEATURES — single column */
+  .features{padding:48px 20px}
+  .feat-h{font-size:28px;letter-spacing:-0.8px;margin-bottom:32px}
+  .feat-grid{grid-template-columns:1fr;gap:1px}
+
+  /* HOW IT WORKS */
+  .how{padding:48px 20px}
+  .how-h{font-size:28px;letter-spacing:-0.8px;margin-bottom:32px}
+  .how-step{gap:16px;padding:18px 0}
+  .how-title{font-size:15px}
+
+  /* TESTIMONIALS — single column */
+  .tests{padding:48px 20px}
+  .tests-h{font-size:28px;letter-spacing:-0.8px;margin-bottom:32px}
+  .tests-grid{grid-template-columns:1fr;gap:12px}
+
+  /* PRICING — single column */
+  .pricing{padding:48px 20px}
+  .pricing-h{font-size:28px;letter-spacing:-0.8px;margin-bottom:32px}
+  .price-grid{grid-template-columns:1fr;max-width:100%}
+
+  /* CTA */
+  .cta{padding:60px 20px}
+  .cta-h{font-size:36px;letter-spacing:-1.5px}
+  .cta-sub{font-size:15px}
+  .cta-btn{padding:13px 24px;font-size:14px}
+
+  /* FOOTER */
+  .footer{padding:20px;flex-direction:column;gap:12px;text-align:center}
+  .f-links{gap:16px}
+
+  /* AUTH MODAL */
+  .auth-modal{padding:28px 20px;border-radius:12px}
+  .auth-h{font-size:20px}
+
+  /* PATHWAY RESULT CARD — fix 3-col grid */
+  #pathwayResult > div,
+  .pathway-meta-grid{grid-template-columns:1fr!important}
+  #fullGuide > div{padding:20px}
+}
+
+@media (max-width: 480px) {
+  /* Extra small phones */
+  .hero-h1{font-size:30px;letter-spacing:-1px}
+  .hero-h1-2{font-size:30px;letter-spacing:-1px}
+  .hero-sub{font-size:14px}
+  .feat-h,.how-h,.tests-h,.pricing-h,.cta-h{font-size:26px;letter-spacing:-0.5px}
+  .prod-h{font-size:24px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat{padding:12px 16px}
+  .stat-n{font-size:13px}
+}
+
+/* AUTH MODAL */
+.auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.auth-overlay.open{display:flex}
+.auth-modal{background:#fff;border-radius:16px;padding:40px;max-width:440px;width:100%;position:relative;box-shadow:0 24px 64px rgba(0,0,0,0.12)}
+.auth-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:22px;color:#AAA;cursor:pointer;line-height:1;padding:4px}
+.auth-close:hover{color:#1A1A1A}
+.auth-logo{font-size:15px;font-weight:700;color:#1A1A1A;margin-bottom:20px}.auth-logo b{color:#C85A0A}
+.auth-h{font-size:22px;font-weight:800;color:#1A1A1A;letter-spacing:-0.5px;margin-bottom:6px}
+.auth-sub{font-size:14px;color:#888;margin-bottom:20px;line-height:1.5}
+.auth-pill{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;background:#FFF5F0;color:#C85A0A;border:1px solid #F5D5C0;padding:4px 12px;border-radius:20px;margin-bottom:20px}
+.auth-form{display:flex;flex-direction:column;gap:12px}
+.auth-label{font-size:11px;font-weight:600;color:#1A1A1A;font-family:'IBM Plex Mono',monospace;letter-spacing:0.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.auth-input{font-size:14px;border:1.5px solid #E8E8E4;border-radius:8px;padding:11px 14px;font-family:'Plus Jakarta Sans',sans-serif;color:#1A1A1A;outline:none;width:100%;transition:border-color 0.15s}
+.auth-input:focus{border-color:#C85A0A}
+.auth-btn{font-size:14px;font-weight:600;background:#C85A0A;color:#fff;padding:13px;border-radius:8px;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:opacity 0.15s;width:100%;margin-top:4px}
+.auth-btn:hover{opacity:0.88}
+.auth-btn:disabled{opacity:0.5;cursor:not-allowed}
+.auth-google{font-size:14px;font-weight:500;background:#fff;color:#1A1A1A;padding:12px;border-radius:8px;border:1.5px solid #E8E8E4;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;transition:border-color 0.15s}
+.auth-google:hover{border-color:#C85A0A}
+.auth-divider{display:flex;align-items:center;gap:12px;margin:4px 0;font-size:12px;color:#CCC}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:#EBEBEA}
+.auth-msg{font-size:13px;padding:10px 14px;border-radius:6px;display:none;margin-top:4px}
+.auth-msg.error{color:#B22222;background:#FEF0F0;border:1px solid #F5C0C0}
+.auth-msg.success{color:#2D7A2D;background:#F0F8F0;border:1px solid #A0D0A0}
+.auth-switch{font-size:13px;color:#888;text-align:center;margin-top:14px}
+.auth-switch a{color:#C85A0A;cursor:pointer;font-weight:600;text-decoration:none}
+.auth-verify-wrap{display:none;flex-direction:column;gap:12px}
+.nav-user-wrap{display:flex;align-items:center;gap:12px}
+.nav-user-email{font-size:13px;color:#1A1A1A;font-weight:500}
+.nav-signout{font-size:12px;color:#888;cursor:pointer;font-family:'IBM Plex Mono',monospace;background:none;border:none;padding:0}
+.nav-signout:hover{color:#1A1A1A}
+</style>
+<script async crossorigin="anonymous" data-clerk-publishable-key="pk_test_cGlja2VkLW11dHQtMTguY2xlcmsuYWNjb3VudHMuZGV2JA" src="https://picked-mutt-18.clerk.accounts.dev/npm/@clerk/clerk-js@5/dist/clerk.browser.js" type="text/javascript"></script>
+</head>
+<body>
+
+<!-- AUTH MODAL -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-modal">
+    <button class="auth-close" onclick="closeAuth()">×</button>
+    <div class="auth-logo" style="display:flex;align-items:center;gap:8px;margin-bottom:20px"><svg width="24" height="24" viewBox="0 0 44 44" fill="none"><rect width="44" height="44" rx="10" fill="#1A1A1A"/><text x="4" y="34" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="30" font-weight="900" fill="#FAFAF8" letter-spacing="-1.5">R</text><circle cx="27" cy="11" r="7" fill="#C85A0A"/><circle cx="27" cy="11" r="3" fill="#FAFAF8"/></svg><span style="font-size:15px;font-weight:700;color:#1A1A1A;letter-spacing:-0.3px">reloc<b style="color:#C85A0A">iq</b></span></div>
+
+    <!-- Sign Up View -->
+    <div id="authSignup">
+      <h2 class="auth-h">Get your free pathway</h2>
+      <p class="auth-sub">Create a free account to unlock the full step-by-step guide, document checklist, and deadline tracker.</p>
+      <div class="auth-pill" id="authPill">Your pathway is ready</div>
+      <button class="auth-google" onclick="signInWithGoogle()">
+        <svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/><path d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+        Continue with Google
+      </button>
+      <div class="auth-divider">or</div>
+      <div class="auth-form">
+        <div>
+          <label class="auth-label">Full name</label>
+          <input class="auth-input" id="signupName" type="text" placeholder="Your name"/>
+        </div>
+        <div>
+          <label class="auth-label">Email address</label>
+          <input class="auth-input" id="signupEmail" type="email" placeholder="you@example.com"/>
+        </div>
+        <div>
+          <label class="auth-label">Password</label>
+          <input class="auth-input" id="signupPassword" type="password" placeholder="Min 8 characters"/>
+        </div>
+        <div class="auth-msg" id="signupMsg"></div>
+        <button class="auth-btn" id="signupBtn" onclick="handleSignup()">Create free account</button>
+      </div>
+      <p class="auth-switch">Already have an account? <a onclick="showSignin()">Sign in</a></p>
+    </div>
+
+    <!-- Verify Email View -->
+    <div id="authVerify" style="display:none">
+      <h2 class="auth-h">Check your email</h2>
+      <p class="auth-sub">We sent a 6-digit code to <strong id="verifyEmailDisplay"></strong></p>
+      <div class="auth-form">
+        <div>
+          <label class="auth-label">Verification code</label>
+          <input class="auth-input" id="verifyCode" type="text" placeholder="123456" maxlength="6" style="letter-spacing:4px;font-size:18px;text-align:center"/>
+        </div>
+        <div class="auth-msg" id="verifyMsg"></div>
+        <button class="auth-btn" id="verifyBtn" onclick="handleVerify()">Verify and unlock guide</button>
+      </div>
+    </div>
+
+    <!-- Sign In View -->
+    <div id="authSignin" style="display:none">
+      <h2 class="auth-h">Welcome back</h2>
+      <p class="auth-sub">Sign in to access your pathway and step-by-step guide.</p>
+      <button class="auth-google" onclick="signInWithGoogle()">
+        <svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/><path d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+        Continue with Google
+      </button>
+      <div class="auth-divider">or</div>
+      <div class="auth-form">
+        <div>
+          <label class="auth-label">Email address</label>
+          <input class="auth-input" id="signinEmail" type="email" placeholder="you@example.com"/>
+        </div>
+        <div>
+          <label class="auth-label">Password</label>
+          <input class="auth-input" id="signinPassword" type="password" placeholder="Your password"/>
+        </div>
+        <div class="auth-msg" id="signinMsg"></div>
+        <button class="auth-btn" id="signinBtn" onclick="handleSignin()">Sign in</button>
+      </div>
+      <p class="auth-switch">No account yet? <a onclick="showSignup()">Sign up free</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="nav-logo" style="display:flex;align-items:center;gap:10px;text-decoration:none"><svg width="28" height="28" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="44" height="44" rx="10" fill="#1A1A1A"/><text x="4" y="34" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="30" font-weight="900" fill="#FAFAF8" letter-spacing="-1.5">R</text><circle cx="27" cy="11" r="7" fill="#C85A0A"/><circle cx="27" cy="11" r="3" fill="#FAFAF8"/></svg><span style="font-size:16px;font-weight:700;color:#1A1A1A;letter-spacing:-0.3px">reloc<b style="color:#C85A0A">iq</b></span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="#how" class="nav-a">How it works</a>
+    <a href="#pricing" class="nav-a">Pricing</a>
+    <a href="#" class="nav-a" onclick="openAuth('signin');return false;" id="navSignin">Sign in</a>
+    <a href="#" class="nav-cta" onclick="openAuth('signup');return false;" id="navSignup">Get started free</a>
+  </div>
+  <div class="nav-user-wrap" id="navUser" style="display:none">
+    <span class="nav-user-email" id="navUserEmail"></span>
+    <button class="nav-signout" onclick="handleSignout()">Sign out</button>
+  </div>
+</nav>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Relocation intelligence</div>
+  <h1 class="hero-h1">Move countries.</h1>
+  <div class="hero-h1-2">With <em>certainty.</em></div>
+  <p class="hero-sub">Your exact visa pathway — in minutes, not months.</p>
+
+  <div class="sel-row" id="selRow">
+    <div class="sel-wrap">
+      <div class="sel-btn" id="fromBtn" onclick="toggle('from')">
+        <div class="sel-flag" id="fromFlag">🇮🇳</div>
+        <div class="sel-inner">
+          <div class="sel-lbl">Moving from</div>
+          <div class="sel-val" id="fromVal">India</div>
+        </div>
+        <div class="sel-chev">▾</div>
+      </div>
+      <div class="sel-dd" id="fromDD">
+        <div class="sel-dds"><input type="text" placeholder="Search country..." oninput="filter('from',this.value)"/></div>
+        <div id="fromList"></div>
+      </div>
+    </div>
+
+    <div class="sel-arr">
+      <div class="sel-arr-line"></div>
+      <div class="sel-arr-head">→</div>
+    </div>
+
+    <div class="sel-wrap">
+      <div class="sel-btn" id="toBtn" onclick="toggle('to')">
+        <div class="sel-flag" id="toFlag">🇩🇪</div>
+        <div class="sel-inner">
+          <div class="sel-lbl">Moving to</div>
+          <div class="sel-val" id="toVal">Germany</div>
+        </div>
+        <div class="sel-chev">▾</div>
+      </div>
+      <div class="sel-dd" id="toDD">
+        <div class="sel-dds"><input type="text" placeholder="Search country..." oninput="filter('to',this.value)"/></div>
+        <div id="toList"></div>
+      </div>
+    </div>
+
+    <button class="sel-cta" onclick="handleCTA()">Show my pathway →</button>
+  </div>
+
+  <div class="hero-trust">
+    <span><b>✓</b> Free to start</span>
+    <span><b>✓</b> No lawyer needed</span>
+    <span><b>✓</b> Real-time updates</span>
+    <span><b>✓</b> 30 countries</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<hr class="divider"/>
+<div class="stats">
+  <div class="stat"><div class="stat-n"><b>30</b> countries</div><div class="stat-l">Covered at launch</div></div>
+  <div class="stat"><div class="stat-n"><b>20</b> visa types</div><div class="stat-l">And growing</div></div>
+  <div class="stat"><div class="stat-n"><b>Free</b> to start</div><div class="stat-l">No credit card needed</div></div>
+  <div class="stat"><div class="stat-n"><b>Real-time</b> updates</div><div class="stat-l">Rules change. We watch.</div></div>
+</div>
+<hr class="divider"/>
+
+<!-- PRODUCT PREVIEW -->
+<div class="product">
+  <div>
+    <div class="prod-lbl">Your dashboard</div>
+    <h2 class="prod-h">Your move,<br/><em>step by step.</em></h2>
+    <p class="prod-sub">Your exact pathway based on your nationality, destination, and situation. Every step, every document, every deadline — tracked.</p>
+    <a href="#" class="prod-link">See your pathway →</a>
+  </div>
+  <div class="card">
+    <div class="card-h">
+      <span class="card-title">India → Germany (Work Permit)</span>
+      <span class="card-badge">120 DAYS</span>
+    </div>
+    <div class="step"><div class="chk chk-done">✓</div><div><div class="step-t">Secure job offer from German employer</div><div class="step-s">LinkedIn · StepStone.de · Make-it-in-Germany</div><div class="step-tag step-ok">Completed</div></div></div>
+    <div class="step"><div class="chk chk-done">✓</div><div><div class="step-t">Employer submits work permit application</div><div class="step-s">Federal Employment Agency · 21 days</div><div class="step-tag step-ok">Completed</div></div></div>
+    <div class="step"><div class="chk chk-now"></div><div><div class="step-t">Gather and apostille all documents</div><div class="step-s">Passport · degree certs · CV · police clearance</div><div class="step-tag">⚠ Due in 6 days</div></div></div>
+    <div class="step"><div class="chk chk-empty"></div><div><div class="step-t">Book visa appointment at German embassy</div><div class="step-s">Book early — long wait times expected</div></div></div>
+    <div class="step"><div class="chk chk-empty"></div><div><div class="step-t">Attend visa interview with full document pack</div><div class="step-s">Bring originals and copies of everything</div></div></div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="features">
+  <div class="feat-inner">
+    <div class="feat-lbl">Why Relociq</div>
+    <h2 class="feat-h">Everything Google<br/>can't <em>tell you.</em></h2>
+    <div class="feat-grid">
+      <div class="feat-card"><div class="feat-num">01</div><div class="feat-title">Your exact pathway</div><div class="feat-text">Based on your nationality, destination, visa type, and timeline. Not a generic guide — your specific route.</div></div>
+      <div class="feat-card"><div class="feat-num">02</div><div class="feat-title">Document tracker</div><div class="feat-text">Every document you need, where to get it, how long it takes, and when it expires. Checked off as you go.</div></div>
+      <div class="feat-card"><div class="feat-num">03</div><div class="feat-title">Deadline intelligence</div><div class="feat-text">Relociq watches your deadlines while you focus on your move. Alerts you before anything expires.</div></div>
+      <div class="feat-card"><div class="feat-num">04</div><div class="feat-title">AI-powered answers</div><div class="feat-text">Ask anything about your move. Get answers specific to your situation, not generic government guidance.</div></div>
+      <div class="feat-card"><div class="feat-num">05</div><div class="feat-title">Verified lawyers</div><div class="feat-text">When your case is complex, connect to a verified immigration specialist in your destination country.</div></div>
+      <div class="feat-card"><div class="feat-num">06</div><div class="feat-title">Always current</div><div class="feat-text">Rules change constantly. Relociq monitors official sources and updates your pathway automatically.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="how" id="how">
+  <div class="how-lbl">How it works</div>
+  <h2 class="how-h">From confused<br/>to <em>settled.</em></h2>
+  <div class="how-steps">
+    <div class="how-step"><div class="how-n">01</div><div><div class="how-title">Tell us your situation</div><div class="how-text">Nationality, destination, timeline, family setup. Under two minutes.</div><div class="how-pill">No account needed</div></div></div>
+    <div class="how-step"><div class="how-n">02</div><div><div class="how-title">Get your personalised pathway</div><div class="how-text">Exact visa route, timeline, cost estimate, and difficulty level for your situation.</div><div class="how-pill">Powered by Claude AI</div></div></div>
+    <div class="how-step"><div class="how-n">03</div><div><div class="how-title">Follow your step-by-step plan</div><div class="how-text">Every document, deadline, and appointment tracked in the right order.</div><div class="how-pill">Real-time tracking</div></div></div>
+    <div class="how-step"><div class="how-n">04</div><div><div class="how-title">Arrive. Settled.</div><div class="how-text">Relociq stays active tracking renewals, expiries, and local registration steps.</div><div class="how-pill">Ongoing protection</div></div></div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="tests">
+  <div class="tests-inner">
+    <div class="tests-lbl">What people say</div>
+    <h2 class="tests-h">Real moves. <em>Real people.</em></h2>
+    <div class="tests-grid">
+      <div class="test-card"><div class="test-route">🇮🇳 India → 🇩🇪 Germany</div><p class="test-q">"I spent 3 weeks googling visa requirements. Relociq gave me the exact steps in 5 minutes. I'm now registered in Berlin."</p><div class="test-author"><div class="test-av">PK</div><div><div class="test-name">Priya K.</div><div class="test-role">Software Engineer</div></div></div></div>
+      <div class="test-card"><div class="test-route">🇬🇧 UK → 🇵🇹 Portugal</div><p class="test-q">"The document checklist alone saved me from a rejected application. Every item, exactly when I needed it."</p><div class="test-author"><div class="test-av">JM</div><div><div class="test-name">James M.</div><div class="test-role">Freelancer</div></div></div></div>
+      <div class="test-card"><div class="test-route">🇺🇦 Ukraine → 🇨🇿 Czech Republic</div><p class="test-q">"The whole process felt impossible. Relociq laid it out step by step. I had my protection status in 3 weeks."</p><div class="test-author"><div class="test-av">OV</div><div><div class="test-name">Olena V.</div><div class="test-role">Teacher</div></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="pricing" id="pricing">
+  <div class="pricing-inner">
+    <div class="pricing-lbl">Pricing</div>
+    <h2 class="pricing-h">Start free. <em>Upgrade when ready.</em></h2>
+    <div class="price-grid">
+      <div class="p-card">
+        <div class="p-name">Free</div>
+        <div class="p-price">€0<sub>/mo</sub></div>
+        <p class="p-desc">One pathway. See if Relociq works before committing.</p>
+        <div class="p-feats">
+          <div class="p-feat-on">✓ &nbsp;1 visa pathway</div>
+          <div class="p-feat-on">✓ &nbsp;Step-by-step checklist</div>
+          <div class="p-feat-on">✓ &nbsp;Document list</div>
+          <div class="p-feat">— &nbsp;Deadline alerts</div>
+          <div class="p-feat">— &nbsp;Document vault</div>
+          <div class="p-feat">— &nbsp;Lawyer referrals</div>
+        </div>
+        <a href="#" class="p-btn">Get started free</a>
+      </div>
+      <div class="p-card-pro">
+        <div class="p-name-pro">Pro</div>
+        <div class="p-price-pro">€19<sub>/mo</sub></div>
+        <p class="p-desc-pro">Everything for a real, stress-free move from start to settled.</p>
+        <div class="p-feats">
+          <div class="p-feat-pro">✓ &nbsp;Unlimited pathways</div>
+          <div class="p-feat-pro">✓ &nbsp;Real-time deadline alerts</div>
+          <div class="p-feat-pro">✓ &nbsp;Document vault</div>
+          <div class="p-feat-pro">✓ &nbsp;AI pathway updates</div>
+          <div class="p-feat-pro">✓ &nbsp;Verified lawyer referrals</div>
+          <div class="p-feat-pro">✓ &nbsp;Priority support</div>
+        </div>
+        <a href="#" class="p-btn-pro">Start 14-day free trial</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <div class="cta-lbl">Get started today</div>
+  <h2 class="cta-h">Your move<br/>starts <em>here.</em></h2>
+  <p class="cta-sub">Your personalised visa pathway in under 2 minutes.</p>
+  <a href="#" class="cta-btn">Get my free pathway →</a>
+  <p class="cta-note">No account needed · Free to start · 2 minutes</p>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <a href="#" class="f-logo" style="display:flex;align-items:center;gap:8px;text-decoration:none"><svg width="24" height="24" viewBox="0 0 44 44" fill="none"><rect width="44" height="44" rx="10" fill="#2A2A2A"/><text x="4" y="34" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="30" font-weight="900" fill="#FAFAF8" letter-spacing="-1.5">R</text><circle cx="27" cy="11" r="7" fill="#C85A0A"/><circle cx="27" cy="11" r="3" fill="#FAFAF8"/></svg><span style="font-size:14px;font-weight:700;color:#FAFAF8;letter-spacing:-0.3px">reloc<b style="color:#C85A0A">iq</b></span></a>
+  <div class="f-links">
+    <a href="#" class="f-a">Privacy</a>
+    <a href="#" class="f-a">Terms</a>
+    <a href="#" class="f-a">Contact</a>
+  </div>
+  <div class="f-copy">© 2026 Relociq</div>
+</footer>
+
+<script>
+var origins=[
+  {flag:'🇮🇳',name:'India',code:'IN'},
+  {flag:'🇬🇧',name:'United Kingdom',code:'GB'},
+  {flag:'🇺🇦',name:'Ukraine',code:'UA'},
+  {flag:'🇧🇷',name:'Brazil',code:'BR'},
+  {flag:'🇳🇬',name:'Nigeria',code:'NG'},
+  {flag:'🇺🇸',name:'United States',code:'US'},
+  {flag:'🇵🇭',name:'Philippines',code:'PH'},
+  {flag:'🇷🇴',name:'Romania',code:'RO'},
+  {flag:'🇸🇰',name:'Slovakia',code:'SK'},
+  {flag:'🇿🇦',name:'South Africa',code:'ZA'},
+  {flag:'🇲🇽',name:'Mexico',code:'MX'},
+  {flag:'🇵🇰',name:'Pakistan',code:'PK'},
+  {flag:'🇧🇩',name:'Bangladesh',code:'BD'},
+  {flag:'🇨🇳',name:'China',code:'CN'},
+  {flag:'🇷🇸',name:'Serbia',code:'RS'},
+  {flag:'🇹🇷',name:'Turkey',code:'TR'},
+  {flag:'🇲🇦',name:'Morocco',code:'MA'},
+  {flag:'🇨🇴',name:'Colombia',code:'CO'},
+  {flag:'🇦🇷',name:'Argentina',code:'AR'},
+  {flag:'🇪🇬',name:'Egypt',code:'EG'}
+];
+var dests=[
+  {flag:'🇩🇪',name:'Germany',code:'DE'},
+  {flag:'🇵🇹',name:'Portugal',code:'PT'},
+  {flag:'🇨🇿',name:'Czech Republic',code:'CZ'},
+  {flag:'🇳🇱',name:'Netherlands',code:'NL'},
+  {flag:'🇪🇸',name:'Spain',code:'ES'},
+  {flag:'🇨🇦',name:'Canada',code:'CA'},
+  {flag:'🇦🇺',name:'Australia',code:'AU'},
+  {flag:'🇨🇭',name:'Switzerland',code:'CH'},
+  {flag:'🇦🇹',name:'Austria',code:'AT'},
+  {flag:'🇸🇪',name:'Sweden',code:'SE'},
+  {flag:'🇳🇴',name:'Norway',code:'NO'},
+  {flag:'🇦🇪',name:'UAE',code:'AE'},
+  {flag:'🇸🇬',name:'Singapore',code:'SG'},
+  {flag:'🇫🇷',name:'France',code:'FR'},
+  {flag:'🇮🇹',name:'Italy',code:'IT'},
+  {flag:'🇬🇧',name:'United Kingdom',code:'GB'},
+  {flag:'🇺🇸',name:'United States',code:'US'},
+  {flag:'🇮🇪',name:'Ireland',code:'IE'},
+  {flag:'🇧🇪',name:'Belgium',code:'BE'},
+  {flag:'🇩🇰',name:'Denmark',code:'DK'}
+];
+var fromSel=origins[0],toSel=dests[0];
+
+function render(type,items){
+  var el=document.getElementById(type==='from'?'fromList':'toList');
+  var sel=type==='from'?fromSel:toSel;
+  el.innerHTML=items.map(function(c){
+    return '<div class="sel-ddi'+(c.code===sel.code?' sel':'')+'" onclick="select(\''+type+'\',\''+c.code+'\')"><span class="sel-ddi-flag">'+c.flag+'</span><span class="sel-ddi-name">'+c.name+'</span><span class="sel-ddi-code">'+c.code+'</span></div>';
+  }).join('');
+}
+
+function filter(type,q){
+  var list=type==='from'?origins:dests;
+  render(type,list.filter(function(c){return c.name.toLowerCase().indexOf(q.toLowerCase())>-1;}));
+}
+
+function select(type,code){
+  var list=type==='from'?origins:dests;
+  var c=list.find(function(x){return x.code===code;});
+  if(type==='from'){fromSel=c;document.getElementById('fromFlag').textContent=c.flag;document.getElementById('fromVal').textContent=c.name;}
+  else{toSel=c;document.getElementById('toFlag').textContent=c.flag;document.getElementById('toVal').textContent=c.name;}
+  closeAll();
+}
+
+function toggle(type){
+  var dd=document.getElementById(type==='from'?'fromDD':'toDD');
+  var btn=document.getElementById(type==='from'?'fromBtn':'toBtn');
+  var isOpen=dd.classList.contains('open');
+  closeAll();
+  if(!isOpen){
+    dd.classList.add('open');btn.classList.add('open');
+    render(type,type==='from'?origins:dests);
+    var inp=dd.querySelector('input');
+    if(inp)setTimeout(function(){inp.focus();},50);
+  }
+}
+
+function closeAll(){
+  document.querySelectorAll('.sel-dd').forEach(function(d){d.classList.remove('open');});
+  document.querySelectorAll('.sel-btn').forEach(function(b){b.classList.remove('open');});
+}
+
+// Country name to code mapping
+var nameToCode={
+  'India':'IN','United Kingdom':'GB','Ukraine':'UA','Brazil':'BR',
+  'Nigeria':'NG','United States':'US','Philippines':'PH','Romania':'RO',
+  'Slovakia':'SK','South Africa':'ZA','Mexico':'MX','Germany':'DE',
+  'Portugal':'PT','Czech Republic':'CZ','Netherlands':'NL','Spain':'ES',
+  'Canada':'CA','Australia':'AU','Switzerland':'CH','Austria':'AT',
+  'Sweden':'SE','Norway':'NO','UAE':'AE','Singapore':'SG',
+  'France':'FR','Italy':'IT','Pakistan':'PK','Bangladesh':'BD',
+  'China':'CN','Serbia':'RS','Turkey':'TR','Morocco':'MA',
+  'Colombia':'CO','Argentina':'AR','Egypt':'EG','Ireland':'IE',
+  'Belgium':'BE','Denmark':'DK'
+};
+
+// 50 pathways covering highest volume corridors globally
+var pathwayData=[
+  // India outbound
+  {from:'IN',to:'DE',name:'India to Germany',visa:'Work Permit Visa',difficulty:'Medium',days:120,cost:3500,summary:'Indian professionals can relocate to Germany for employment under the Skilled Immigration Act. The process involves securing a job offer from a German employer, having qualifications recognised, and applying at the German embassy. Germany actively recruits skilled workers from India especially in engineering, IT, and healthcare.'},
+  {from:'IN',to:'NL',name:'India to Netherlands',visa:'Highly Skilled Migrant Visa',difficulty:'Medium',days:110,cost:3400,summary:'Indian professionals can move to the Netherlands via the Highly Skilled Migrant (HSM) permit. Your employer must be an IND-recognised sponsor. The process is employer-led, relatively fast, and the Netherlands has a large established Indian professional community.'},
+  {from:'IN',to:'CA',name:'India to Canada',visa:'Express Entry Work Permit',difficulty:'Hard',days:180,cost:4500,summary:'Canada\'s Express Entry system is the primary pathway for Indian professionals. It uses a points-based Comprehensive Ranking System (CRS) scoring education, language, work experience, and age. Indian applicants typically need strong English scores and skilled work experience to be competitive.'},
+  {from:'IN',to:'AU',name:'India to Australia',visa:'Skilled Nominated Visa (subclass 190)',difficulty:'Medium',days:150,cost:4000,summary:'Indian professionals can migrate to Australia through the skilled migration program. The subclass 190 requires state nomination and scoring sufficient points on the points test. In-demand occupations include IT, engineering, nursing, and accounting.'},
+  {from:'IN',to:'GB',name:'India to United Kingdom',visa:'Skilled Worker Visa',difficulty:'Medium',days:90,cost:3800,summary:'The UK Skilled Worker visa allows Indian nationals to work in the UK with a job offer from a licensed sponsor. The role must meet minimum salary thresholds and be on the eligible occupations list. The UK is one of the most popular destinations for Indian professionals.'},
+  {from:'IN',to:'AE',name:'India to UAE',visa:'Employment Visa',difficulty:'Easy',days:30,cost:1500,summary:'The UAE is one of the most straightforward destinations for Indian nationals. Your employer sponsors the employment visa directly. No language tests or points systems are required. The UAE has the largest Indian diaspora community in the world with over 3.5 million Indian residents.'},
+  {from:'IN',to:'SG',name:'India to Singapore',visa:'Employment Pass',difficulty:'Medium',days:60,cost:2000,summary:'Singapore\'s Employment Pass is for foreign professionals earning above SGD 5,000 per month. Candidates must have acceptable qualifications and work experience. Singapore has a strong demand for Indian IT and finance professionals.'},
+  {from:'IN',to:'SE',name:'India to Sweden',visa:'Work Permit',difficulty:'Medium',days:120,cost:3200,summary:'Sweden offers work permits for Indian professionals with a job offer from a Swedish employer. The employer must advertise the position in the EU first. Sweden has strong demand for IT and engineering professionals and offers excellent work-life balance.'},
+  {from:'IN',to:'PT',name:'India to Portugal',visa:'Work Permit Visa',difficulty:'Medium',days:100,cost:2800,summary:'Indian nationals can relocate to Portugal with a job offer or as digital nomads. Portugal\'s D8 Digital Nomad Visa is available for remote workers earning at least EUR 3,280 per month. Portugal is increasingly popular among Indian professionals due to lower cost of living and EU access.'},
+  {from:'IN',to:'IE',name:'India to Ireland',visa:'Critical Skills Employment Permit',difficulty:'Medium',days:90,cost:3000,summary:'Ireland\'s Critical Skills Employment Permit targets occupations in high demand including IT, engineering, and healthcare. Indian nationals are among the largest groups availing this permit. The permit leads to long-term residency and eventually Irish citizenship.'},
+  // UK outbound
+  {from:'GB',to:'PT',name:'UK to Portugal',visa:'Digital Nomad Visa (D8)',difficulty:'Medium',days:90,cost:2000,summary:'UK citizens can move to Portugal as remote workers using the D8 Digital Nomad Visa. Post-Brexit, UK nationals are treated as third-country nationals. You must prove remote income of at least EUR 3,280 per month and hold valid health insurance. Portugal also offers the Non-Habitual Resident tax regime with significant tax benefits.'},
+  {from:'GB',to:'ES',name:'UK to Spain',visa:'Non-Lucrative Visa',difficulty:'Medium',days:100,cost:3100,summary:'Post-Brexit, UK nationals moving to Spain most commonly use the Non-Lucrative Visa for those with sufficient passive income or savings, or the Digital Nomad Visa for remote workers. Spain requires proof of financial means of approximately EUR 28,000 per year for the NLV.'},
+  {from:'GB',to:'DE',name:'UK to Germany',visa:'Job Seeker Visa',difficulty:'Medium',days:150,cost:3500,summary:'UK nationals can enter Germany on a 6-month Job Seeker Visa to find employment. Once employed, you convert to a residence permit for employment. UK qualifications are generally recognised in Germany. German language skills significantly improve employment prospects.'},
+  {from:'GB',to:'IE',name:'UK to Ireland',visa:'No visa required',difficulty:'Easy',days:7,cost:500,summary:'UK citizens can move to Ireland freely under the Common Travel Area agreement. No visa is required and there are no immigration restrictions. You can work, study, and access public services. Simply register with local authorities and obtain a PPS number for employment and taxes.'},
+  {from:'GB',to:'CA',name:'UK to Canada',visa:'Express Entry Work Permit',difficulty:'Medium',days:150,cost:4000,summary:'UK nationals are competitive in Canada\'s Express Entry pool due to strong English language skills and internationally recognised qualifications. The IEC Working Holiday program also allows UK citizens under 35 to work in Canada for up to 2 years without a job offer.'},
+  {from:'GB',to:'AU',name:'UK to Australia',visa:'Skilled Independent Visa (subclass 189)',difficulty:'Medium',days:150,cost:4200,summary:'UK nationals are among the most successful applicants in Australia\'s skilled migration program. Strong English skills and internationally recognised qualifications give UK applicants a significant points test advantage. The Working Holiday visa is also available for those under 31.'},
+  {from:'GB',to:'NL',name:'UK to Netherlands',visa:'DAFT Visa or Highly Skilled Migrant',difficulty:'Medium',days:90,cost:2800,summary:'Post-Brexit UK nationals can use the DAFT treaty to establish a business in the Netherlands, or apply for the Highly Skilled Migrant permit with a Dutch employer sponsor. The Netherlands has a strong English-speaking professional environment making it popular for UK expats.'},
+  {from:'GB',to:'FR',name:'UK to France',visa:'Long Stay Visa (VLS-TS)',difficulty:'Medium',days:90,cost:2500,summary:'Post-Brexit UK nationals require a long-stay visa to live in France. Options include the Talent Passport for skilled professionals, the digital nomad visa, or the employee visa with employer sponsorship. French language skills are strongly recommended.'},
+  // Ukraine outbound
+  {from:'UA',to:'CZ',name:'Ukraine to Czech Republic',visa:'Temporary Protection',difficulty:'Easy',days:30,cost:500,summary:'Ukrainians fleeing the conflict can obtain temporary protection in the Czech Republic under the EU Temporary Protection Directive. The process is expedited at Ministry of Interior offices and provides immediate residency, work authorisation, healthcare access, and educational rights. No job offer is required.'},
+  {from:'UA',to:'DE',name:'Ukraine to Germany',visa:'Temporary Protection',difficulty:'Easy',days:30,cost:500,summary:'Germany provides temporary protection status to Ukrainians under EU directive. This grants a residence permit, work authorisation, social benefits access, and healthcare. Registration is done at local Ausländerbehörde offices. Over 1 million Ukrainians are currently registered in Germany.'},
+  {from:'UA',to:'PL',name:'Ukraine to Poland',visa:'Temporary Protection',difficulty:'Easy',days:14,cost:200,summary:'Poland has one of the largest Ukrainian communities in Europe with over 1 million Ukrainians registered. Temporary protection is granted automatically and provides work rights, healthcare, and education access. The proximity and cultural similarity make Poland the most popular destination for Ukrainian refugees.'},
+  {from:'UA',to:'AT',name:'Ukraine to Austria',visa:'Temporary Protection',difficulty:'Easy',days:21,cost:300,summary:'Austria provides temporary protection to Ukrainian citizens including residence rights, work authorisation, and access to social services. Registration is handled through the Austrian Federal Agency for Care and Support Services. Vienna and Graz have established Ukrainian communities.'},
+  {from:'UA',to:'IT',name:'Ukraine to Italy',visa:'Temporary Protection',difficulty:'Easy',days:21,cost:300,summary:'Italy provides temporary protection to Ukrainian nationals granting a 1-year renewable residence permit with work rights, healthcare access, and children\'s education. Registration is done at the local Questura (police headquarters).'},
+  {from:'UA',to:'ES',name:'Ukraine to Spain',visa:'Temporary Protection',difficulty:'Easy',days:21,cost:300,summary:'Spain grants temporary protection to Ukrainian nationals providing a residence and work authorisation card valid for 1 year renewable. Applications are processed at immigration offices. Spain has seen significant Ukrainian arrivals particularly in Barcelona, Madrid, and Valencia.'},
+  // Brazil outbound
+  {from:'BR',to:'PT',name:'Brazil to Portugal',visa:'Work Permit Visa',difficulty:'Easy',days:90,cost:2500,summary:'Brazilians have significant advantages moving to Portugal due to the bilateral Treaty of Equality between Brazil and Portugal. Brazilian qualifications are more easily recognised and the shared language eliminates a major barrier. Portugal is the most popular European destination for Brazilian expats.'},
+  {from:'BR',to:'ES',name:'Brazil to Spain',visa:'Work Permit Visa',difficulty:'Medium',days:110,cost:3300,summary:'Brazil and Spain share strong cultural and linguistic ties making Spain a popular destination. The work permit requires employer sponsorship. Spain\'s digital nomad visa launched in 2023 is also available for Brazilian remote workers earning above EUR 2,334 per month.'},
+  {from:'BR',to:'DE',name:'Brazil to Germany',visa:'Job Seeker Visa',difficulty:'Medium',days:150,cost:3800,summary:'Brazilian professionals can enter Germany on a 6-month Job Seeker Visa to find employment. German language skills are important for most roles outside of international companies. Germany has a growing Brazilian community particularly in Berlin, Munich, and Hamburg.'},
+  {from:'BR',to:'US',name:'Brazil to United States',visa:'H-1B Work Visa',difficulty:'Hard',days:365,cost:5000,summary:'The H-1B is the primary work visa for Brazilian professionals in the US. Due to high demand it is allocated by annual lottery. Employer sponsorship is required. Alternatively the O-1 visa for individuals of extraordinary ability has no cap. US immigration is complex and lawyer assistance is strongly recommended.'},
+  {from:'BR',to:'CA',name:'Brazil to Canada',visa:'Express Entry Work Permit',difficulty:'Medium',days:180,cost:4500,summary:'Canada\'s Express Entry is open to Brazilian professionals with eligible work experience. French language skills significantly boost CRS scores due to Canada\'s bilingual policy. The Atlantic Immigration Program offers additional pathways for settling in Atlantic provinces.'},
+  // Nigeria outbound
+  {from:'NG',to:'GB',name:'Nigeria to United Kingdom',visa:'Skilled Worker Visa',difficulty:'Hard',days:150,cost:4200,summary:'Nigerian professionals can move to the UK via the Skilled Worker Visa with employer sponsorship. The role must meet salary thresholds (minimum GBP 26,200) and be on the eligible occupations list. Nigerian nurses, doctors, and IT professionals are in high demand in the UK.'},
+  {from:'NG',to:'CA',name:'Nigeria to Canada',visa:'Express Entry Work Permit',difficulty:'Hard',days:180,cost:4500,summary:'Canada actively recruits skilled Nigerian professionals. Express Entry is competitive for Nigerians with strong English or French language scores and internationally recognised qualifications. The Federal Skilled Worker Program is the most common pathway.'},
+  {from:'NG',to:'DE',name:'Nigeria to Germany',visa:'Skilled Immigration Visa',difficulty:'Hard',days:180,cost:4000,summary:'Nigeria to Germany is a challenging but achievable pathway. German language skills are typically required for most roles. Qualification recognition through the anabin database is mandatory. Healthcare and IT professionals have the best prospects under Germany\'s Skilled Immigration Act.'},
+  {from:'NG',to:'AE',name:'Nigeria to UAE',visa:'Employment Visa',difficulty:'Medium',days:45,cost:2000,summary:'The UAE is an increasingly popular destination for Nigerian professionals particularly in finance, technology, and business services. Your employer sponsors the employment visa directly. Dubai and Abu Dhabi have growing Nigerian professional communities.'},
+  // US outbound
+  {from:'US',to:'PT',name:'USA to Portugal',visa:'Digital Nomad Visa (D8)',difficulty:'Medium',days:90,cost:2100,summary:'US citizens can live and work remotely in Portugal with the D8 Digital Nomad Visa. You must prove remote income of at least EUR 3,280 per month from non-Portuguese sources. Portugal also offers the NHR tax regime providing significant tax advantages. The process is done through the Portuguese consulate.'},
+  {from:'US',to:'DE',name:'USA to Germany',visa:'Job Seeker Visa',difficulty:'Medium',days:180,cost:4000,summary:'US citizens can search for employment in Germany with the 6-month Job Seeker Visa. You must prove sufficient financial means and relevant qualifications. Once employed, you convert to a work residence permit. Germany recognises many US qualifications and English is widely spoken in major cities.'},
+  {from:'US',to:'ES',name:'USA to Spain',visa:'Digital Nomad Visa',difficulty:'Medium',days:90,cost:2500,summary:'Spain\'s Digital Nomad Visa launched in 2023 is popular with US remote workers. You must earn at least EUR 2,334 per month from non-Spanish clients. Spain also offers the Non-Lucrative Visa for those with passive income or savings. Both visas are processed at Spanish consulates in the US.'},
+  {from:'US',to:'IT',name:'USA to Italy',visa:'Digital Nomad Visa',difficulty:'Medium',days:90,cost:2200,summary:'Italy launched its Digital Nomad Visa in 2024 for non-EU remote workers. You must prove annual income of at least EUR 28,000. Italy also offers residency by investment and the Flat Tax regime for high earners. The process is handled through Italian consulates in the US.'},
+  {from:'US',to:'NL',name:'USA to Netherlands',visa:'Highly Skilled Migrant Visa',difficulty:'Medium',days:90,cost:3000,summary:'US nationals can move to the Netherlands via the Highly Skilled Migrant permit with a Dutch employer sponsoring the application. The Netherlands has many US multinationals and English is widely spoken. Amsterdam and the Hague are popular with American expats.'},
+  // Philippines outbound
+  {from:'PH',to:'DE',name:'Philippines to Germany',visa:'Work Permit Visa',difficulty:'Medium',days:120,cost:3500,summary:'Filipino workers can relocate to Germany through the Work Permit Visa. Healthcare workers especially nurses are in very high demand in Germany. The Triple Win Program specifically recruits Filipino healthcare professionals. German language skills (B1 level) are typically required for healthcare roles.'},
+  {from:'PH',to:'CA',name:'Philippines to Canada',visa:'Express Entry Work Permit',difficulty:'Medium',days:180,cost:4500,summary:'Canada has strong demand for Filipino professionals especially in healthcare, caregiving, and skilled trades. The Home Support Worker Pilot and Caregiver Program offer direct pathways. Express Entry is also available for degree-qualified Filipino workers with English proficiency.'},
+  {from:'PH',to:'AU',name:'Philippines to Australia',visa:'Skilled Nominated Visa',difficulty:'Medium',days:150,cost:4000,summary:'Australia actively recruits Filipino professionals especially nurses, aged care workers, and engineers. The subclass 190 state nomination or subclass 491 regional pathway are common options. Strong English skills and AHPRA registration are required for healthcare workers.'},
+  {from:'PH',to:'AE',name:'Philippines to UAE',visa:'Employment Visa',difficulty:'Easy',days:30,cost:1200,summary:'The UAE hosts one of the largest Filipino communities globally with over 700,000 OFWs. Employer sponsorship is required for the employment visa. OFW deployment to the UAE is regulated by POEA (Philippine Overseas Employment Administration).'},
+  // Romania outbound
+  {from:'RO',to:'DE',name:'Romania to Germany',visa:'Work Permit (EU Freedom of Movement)',difficulty:'Easy',days:30,cost:500,summary:'As EU citizens, Romanians can move to Germany freely under EU freedom of movement. No visa or work permit is required. You simply register at the local Einwohnermeldeamt (registration office) within 3 months. Germany has the largest Romanian diaspora with over 800,000 Romanians living and working there.'},
+  {from:'RO',to:'AT',name:'Romania to Austria',visa:'EU Freedom of Movement',difficulty:'Easy',days:21,cost:300,summary:'Romanian citizens can live and work in Austria freely as EU nationals. Register at the local Magistrat within 3 months. Austria has a large Romanian community and Romanian qualifications are recognised across the EU. Vienna is particularly popular.'},
+  {from:'RO',to:'IT',name:'Romania to Italy',visa:'EU Freedom of Movement',difficulty:'Easy',days:14,cost:200,summary:'Romania and Italy have deep migration ties. Over 1 million Romanians live in Italy making it one of the largest Romanian diaspora destinations. As EU citizens, Romanians need only register with local authorities within 3 months of arrival. No visa or permit required.'},
+  // Slovakia outbound
+  {from:'SK',to:'AT',name:'Slovakia to Austria',visa:'EU Freedom of Movement',difficulty:'Easy',days:14,cost:200,summary:'Slovak citizens can move to Austria freely as EU nationals. Many Slovaks commute daily from Bratislava to Vienna given the proximity. No visa is required — simply register at the local Magistrat. Austria and Slovakia share a border making this one of the most seamless relocations in Europe.'},
+  {from:'SK',to:'DE',name:'Slovakia to Germany',visa:'EU Freedom of Movement',difficulty:'Easy',days:21,cost:300,summary:'Slovak nationals can live and work in Germany freely under EU freedom of movement. Register at the local Einwohnermeldeamt within 3 months. Slovak engineering and IT qualifications are well recognised in Germany. Munich and Frankfurt are popular destinations.'},
+  // South Africa outbound
+  {from:'ZA',to:'GB',name:'South Africa to United Kingdom',visa:'Skilled Worker Visa',difficulty:'Medium',days:90,cost:3500,summary:'South Africans are among the most successful UK Skilled Worker Visa applicants due to English proficiency and internationally recognised qualifications. Healthcare professionals especially doctors and nurses are in high demand. The UK has the largest South African diaspora with over 200,000 South Africans living there.'},
+  {from:'ZA',to:'AU',name:'South Africa to Australia',visa:'Skilled Independent Visa (subclass 189)',difficulty:'Medium',days:150,cost:4000,summary:'Australia actively recruits South African professionals especially in mining, engineering, healthcare, and skilled trades. Strong English skills and work experience in demand occupations give South African applicants a strong points test score. Over 200,000 South Africans live in Australia.'},
+  {from:'ZA',to:'DE',name:'South Africa to Germany',visa:'Job Seeker Visa',difficulty:'Medium',days:150,cost:3500,summary:'South African professionals can enter Germany on the 6-month Job Seeker Visa. English-speaking environments in German multinationals are common. South African medical professionals particularly need to have qualifications recognised through the relevant German authorities.'},
+  // Turkey outbound
+  {from:'TR',to:'DE',name:'Turkey to Germany',visa:'Work Permit Visa',difficulty:'Medium',days:120,cost:3200,summary:'Germany has the largest Turkish diaspora in Europe with over 3 million people of Turkish origin. Turkish professionals can apply for the German Work Permit Visa with employer sponsorship. Germany and Turkey have longstanding migration ties and Turkish qualifications have established recognition pathways.'},
+  // Morocco outbound
+  {from:'MA',to:'FR',name:'Morocco to France',visa:'Work Permit Visa',difficulty:'Medium',days:100,cost:2800,summary:'France and Morocco have historical migration ties and a bilateral labour agreement. Moroccan professionals can obtain French work permits through employer sponsorship. French language proficiency is essential. France has the largest Moroccan diaspora in Europe.'},
+  {from:'MA',to:'BE',name:'Morocco to Belgium',visa:'Work Permit Visa',difficulty:'Medium',days:100,cost:2800,summary:'Belgium has a large Moroccan community especially in Brussels and Liege. Work permits require employer sponsorship and labour market tests. French or Dutch language skills are beneficial depending on the region.'},
+  // Colombia outbound
+  {from:'CO',to:'ES',name:'Colombia to Spain',visa:'Work Permit Visa',difficulty:'Medium',days:100,cost:3000,summary:'Spain is the most popular European destination for Colombian nationals due to shared language and cultural ties. Spain\'s Digital Nomad Visa is also available for Colombian remote workers. Colombia has a bilateral agreement with Spain that facilitates some permit processes.'},
+  // China outbound
+  {from:'CN',to:'DE',name:'China to Germany',visa:'Work Permit Visa',difficulty:'Medium',days:150,cost:4000,summary:'Chinese professionals can relocate to Germany via the Skilled Immigration Act pathway. German language skills are increasingly important. China and Germany have strong economic ties particularly in engineering, research, and technology sectors. Qualification recognition through the anabin database is required.'},
+  {from:'CN',to:'AU',name:'China to Australia',visa:'Skilled Independent Visa',difficulty:'Medium',days:150,cost:4500,summary:'Australian skilled migration is open to Chinese professionals who score sufficient points on the points test. English language proficiency (IELTS) is required. Chinese professionals in IT, engineering, and accounting have strong migration prospects to Australia.'},
+  {from:'CN',to:'CA',name:'China to Canada',visa:'Express Entry Work Permit',difficulty:'Medium',days:180,cost:4500,summary:'Canada is a top destination for Chinese professionals and students. Express Entry is the primary pathway for skilled workers. Language scores in English or French are critical for competitive CRS points. Provincial Nominee Programs offer additional pathways especially in British Columbia and Ontario.'},
+  // Pakistan outbound
+  {from:'PK',to:'GB',name:'Pakistan to United Kingdom',visa:'Skilled Worker Visa',difficulty:'Hard',days:150,cost:4000,summary:'Pakistan is one of the largest sources of UK Skilled Worker Visa holders. Healthcare workers especially nurses and doctors from Pakistan are in high demand in the NHS. Strong English proficiency and employer sponsorship are required. The UK has the largest Pakistani diaspora outside Pakistan.'},
+  {from:'PK',to:'AE',name:'Pakistan to UAE',visa:'Employment Visa',difficulty:'Easy',days:30,cost:1500,summary:'The UAE hosts over 1.5 million Pakistani workers making it one of the largest Pakistani communities abroad. Employer-sponsored employment visas are the primary pathway. Dubai, Abu Dhabi, and Sharjah all have significant Pakistani communities. The process is straightforward with employer sponsorship.'},
+  // Serbia outbound
+  {from:'RS',to:'DE',name:'Serbia to Germany',visa:'Work Permit Visa',difficulty:'Medium',days:120,cost:3000,summary:'Germany has an agreement with Serbia facilitating skilled worker migration. Serbian professionals particularly in IT, engineering, and healthcare are in demand. The process involves qualification recognition and a job offer from a German employer. German language skills improve prospects significantly.'},
+  // Argentina outbound
+  {from:'AR',to:'ES',name:'Argentina to Spain',visa:'Work Permit or EU Ancestry',difficulty:'Medium',days:90,cost:2500,summary:'Argentina has one of the highest rates of Spanish ancestry in Latin America. Many Argentine nationals qualify for Spanish citizenship through the Democratic Memory Law (grandchildren of Spanish-born citizens). For others the work permit requires employer sponsorship or the digital nomad visa for remote workers.'},
+  // Egypt outbound
+  {from:'EG',to:'DE',name:'Egypt to Germany',visa:'Work Permit Visa',difficulty:'Medium',days:150,cost:3500,summary:'Egyptian professionals particularly in IT and engineering can relocate to Germany via the Skilled Immigration Act. German language skills are typically required. Egypt and Germany have a development partnership and Germany runs skilled worker recruitment programs targeting Egyptian professionals.'},
+  {from:'EG',to:'AE',name:'Egypt to UAE',visa:'Employment Visa',difficulty:'Easy',days:30,cost:1500,summary:'The UAE hosts over 600,000 Egyptian nationals making it one of the most popular destinations for Egyptian workers. Employer sponsorship is required. Egypt and the UAE have strong bilateral ties and Egyptian professionals are well regarded across all sectors in the UAE.'}
+];
+
+function getDifficultyColor(d){
+  if(d==='Easy')return '#2D7A2D';
+  if(d==='Medium')return '#C85A0A';
+  return '#B22222';
+}
+
+var currentPathway=null;
+function showPathwayResult(pathway){
+  currentPathway=pathway;
+  var existing=document.getElementById('pathwayResult');
+  if(existing)existing.remove();
+  var div=document.createElement('div');
+  div.id='pathwayResult';
+  div.style.cssText='max-width:1100px;margin:0 auto;padding:0 40px 60px;';
+  div.innerHTML=
+    '<div style="background:#fff;border:1px solid #EBEBEA;border-radius:12px;padding:32px;margin-top:32px">'+
+    '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #F0F0EE">'+
+    '<div>'+
+    '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:#AAA;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">Your pathway</div>'+
+    '<div style="font-size:20px;font-weight:700;color:#1A1A1A;letter-spacing:-0.5px">'+pathway.name+'</div>'+
+    '</div>'+
+    '<div style="text-align:right">'+
+    '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:11px;color:'+getDifficultyColor(pathway.difficulty)+';border:1px solid '+getDifficultyColor(pathway.difficulty)+';padding:4px 12px;border-radius:4px">'+pathway.difficulty.toUpperCase()+'</div>'+
+    '</div>'+
+    '</div>'+
+    '<div class="pathway-meta-grid">'+
+    '<div style="background:#FAFAF8;border-radius:8px;padding:14px">'+
+    '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:#AAA;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Visa type</div>'+
+    '<div style="font-size:14px;font-weight:600;color:#1A1A1A">'+pathway.visa+'</div>'+
+    '</div>'+
+    '<div style="background:#FAFAF8;border-radius:8px;padding:14px">'+
+    '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:#AAA;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Timeline</div>'+
+    '<div style="font-size:14px;font-weight:600;color:#1A1A1A">~'+pathway.days+' days</div>'+
+    '</div>'+
+    '<div style="background:#FAFAF8;border-radius:8px;padding:14px">'+
+    '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:#AAA;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Cost estimate</div>'+
+    '<div style="font-size:14px;font-weight:600;color:#1A1A1A">EUR '+pathway.cost.toLocaleString()+'</div>'+
+    '</div>'+
+    '</div>'+
+    '<div style="font-size:15px;color:#444;line-height:1.7;margin-bottom:24px">'+pathway.summary+'</div>'+
+    '<div style="display:flex;gap:12px;flex-wrap:wrap">'+
+    '<a href="#" onclick="handleGuideClick(currentPathway);return false;" style="font-size:14px;background:#C85A0A;color:#fff;padding:12px 24px;border-radius:8px;font-weight:600;text-decoration:none">Get full step-by-step guide</a>'+
+    '<a href="#pricing" style="font-size:14px;background:#FAFAF8;color:#1A1A1A;padding:12px 24px;border-radius:8px;font-weight:600;text-decoration:none;border:1px solid #EBEBEA">View pricing</a>'+
+    '</div>'+
+    '</div>';
+  var hero=document.querySelector('.hero');
+  hero.parentNode.insertBefore(div,hero.nextSibling);
+  div.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function handleCTA(){
+  var match=pathwayData.find(function(p){
+    return p.from===fromSel.code && p.to===toSel.code;
+  });
+  if(match){
+    showPathwayResult(match);
+  } else {
+    var existing=document.getElementById('pathwayResult');
+    if(existing)existing.remove();
+    var div=document.createElement('div');
+    div.id='pathwayResult';
+    div.style.cssText='max-width:1100px;margin:0 auto;padding:0 40px 60px;';
+    div.innerHTML=
+      '<div style="background:#fff;border:1px solid #EBEBEA;border-radius:12px;padding:32px;margin-top:32px;text-align:center">'+
+      '<div style="font-size:18px;font-weight:700;color:#1A1A1A;margin-bottom:10px">'+fromSel.flag+' '+fromSel.name+' to '+toSel.flag+' '+toSel.name+'</div>'+
+      '<div style="font-size:14px;color:#888;margin-bottom:20px;line-height:1.6">This corridor is being added. We are expanding our pathway database every week.<br/>Sign up free and we will notify you when it launches.</div>'+
+      '<a href="#pricing" style="font-size:14px;background:#C85A0A;color:#fff;padding:12px 24px;border-radius:8px;font-weight:600;text-decoration:none">Get notified when it launches</a>'+
+      '</div>';
+    var hero=document.querySelector('.hero');
+    hero.parentNode.insertBefore(div,hero.nextSibling);
+    div.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+}
+
+document.addEventListener('click',function(e){if(!e.target.closest('.sel-wrap'))closeAll();});
+render('from',origins);
+render('to',dests);
+
+function handleGuideClick(pathway) {
+  if (!pathway) return;
+  if (window.Clerk && window.Clerk.user) {
+    showFullGuide(pathway);
+  } else {
+    openAuth('signup', pathway);
+  }
+}
+
+// ── CLERK AUTH ──
+var pendingPathway = null;
+var clerkReady = false;
+
+// Robustly wait for the Clerk SDK to finish loading, regardless of timing.
+function ensureClerk() {
+  return new Promise(function(resolve, reject) {
+    if (clerkReady && window.Clerk && window.Clerk.loaded) { resolve(window.Clerk); return; }
+    var waited = 0;
+    var iv = setInterval(function() {
+      if (window.Clerk) {
+        clearInterval(iv);
+        if (window.Clerk.loaded) {
+          clerkReady = true; resolve(window.Clerk);
+        } else if (typeof window.Clerk.load === 'function') {
+          window.Clerk.load().then(function() { clerkReady = true; resolve(window.Clerk); }).catch(reject);
+        } else {
+          var iv2 = setInterval(function() {
+            if (window.Clerk && window.Clerk.loaded) { clearInterval(iv2); clerkReady = true; resolve(window.Clerk); }
+          }, 100);
+          setTimeout(function(){ clearInterval(iv2); if(window.Clerk){clerkReady=true;resolve(window.Clerk);} else reject(new Error('Clerk load timeout')); }, 8000);
+        }
+      } else {
+        waited += 100;
+        if (waited >= 10000) { clearInterval(iv); reject(new Error('Clerk failed to load. Check your connection and refresh.')); }
+      }
+    }, 100);
+  });
+}
+
+ensureClerk().then(function(clerk) {
+  if (clerk.user) updateNavForUser(clerk.user);
+}).catch(function(e) { console.error('Clerk init error:', e); });
+
+function updateNavForUser(user) {
+  var si = document.getElementById('navSignin');
+  var su = document.getElementById('navSignup');
+  var nu = document.getElementById('navUser');
+  var ne = document.getElementById('navUserEmail');
+  if (si) si.style.display = 'none';
+  if (su) su.style.display = 'none';
+  if (nu) nu.style.display = 'flex';
+  if (ne && user.primaryEmailAddress) ne.textContent = user.primaryEmailAddress.emailAddress;
+}
+
+function openAuth(mode, pathway) {
+  if (pathway) pendingPathway = pathway;
+  document.getElementById('authOverlay').classList.add('open');
+  if (mode === 'signin') { showSignin(); } else { showSignup(); }
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAuth() {
+  document.getElementById('authOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function showSignup() {
+  document.getElementById('authSignup').style.display = 'block';
+  document.getElementById('authSignin').style.display = 'none';
+  document.getElementById('authVerify').style.display = 'none';
+}
+
+function showSignin() {
+  document.getElementById('authSignup').style.display = 'none';
+  document.getElementById('authSignin').style.display = 'block';
+  document.getElementById('authVerify').style.display = 'none';
+}
+
+function showMsg(id, text, type) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = text;
+  el.className = 'auth-msg ' + type;
+  el.style.display = 'block';
+}
+
+function hideMsg(id) {
+  var el = document.getElementById(id);
+  if (el) el.style.display = 'none';
+}
+
+async function signInWithGoogle() {
+  try {
+    var clerk = await ensureClerk();
+    await clerk.client.signIn.authenticateWithRedirect({
+      strategy: 'oauth_google',
+      redirectUrl: window.location.origin + window.location.pathname,
+      redirectUrlComplete: window.location.origin + window.location.pathname
+    });
+  } catch(e) {
+    console.error('Google auth error:', e);
+    var msg = (e && e.errors && e.errors[0] && e.errors[0].message) ? e.errors[0].message : 'Google sign in failed';
+    showMsg('signupMsg', msg, 'error');
+  }
+}
+
+async function handleSignup() {
+  var name = document.getElementById('signupName').value.trim();
+  var email = document.getElementById('signupEmail').value.trim();
+  var password = document.getElementById('signupPassword').value;
+  if (!name || !email || !password) { showMsg('signupMsg','Please fill in all fields','error'); return; }
+  if (password.length < 8) { showMsg('signupMsg','Password must be at least 8 characters','error'); return; }
+  var btn = document.getElementById('signupBtn');
+  btn.disabled = true; btn.textContent = 'Creating account...';
+  hideMsg('signupMsg');
+  try {
+    var clerk = await ensureClerk();
+    var parts = name.split(' ');
+    await clerk.client.signUp.create({
+      emailAddress: email,
+      password: password,
+      firstName: parts[0] || '',
+      lastName: parts.slice(1).join(' ') || ''
+    });
+    await clerk.client.signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
+    document.getElementById('verifyEmailDisplay').textContent = email;
+    document.getElementById('authSignup').style.display = 'none';
+    document.getElementById('authVerify').style.display = 'block';
+  } catch(e) {
+    console.error('Signup error:', e);
+    var msg = (e && e.errors && e.errors[0] && e.errors[0].message) ? e.errors[0].message : (e && e.message ? e.message : 'Signup failed. Please try again.');
+    showMsg('signupMsg', msg, 'error');
+    btn.disabled = false; btn.textContent = 'Create free account';
+  }
+}
+
+async function handleVerify() {
+  var code = document.getElementById('verifyCode').value.trim();
+  if (!code) { showMsg('verifyMsg','Please enter the 6-digit code','error'); return; }
+  var btn = document.getElementById('verifyBtn');
+  btn.disabled = true; btn.textContent = 'Verifying...';
+  hideMsg('verifyMsg');
+  try {
+    var clerk = await ensureClerk();
+    var result = await clerk.client.signUp.attemptEmailAddressVerification({ code: code });
+    if (result.status === 'complete') {
+      await clerk.setActive({ session: result.createdSessionId });
+      closeAuth();
+      updateNavForUser(clerk.user);
+      if (pendingPathway) { showFullGuide(pendingPathway); pendingPathway = null; }
+    }
+  } catch(e) {
+    var msg = e.errors ? e.errors[0].message : 'Invalid code. Please try again.';
+    showMsg('verifyMsg', msg, 'error');
+    btn.disabled = false; btn.textContent = 'Verify and unlock guide';
+  }
+}
+
+async function handleSignin() {
+  var email = document.getElementById('signinEmail').value.trim();
+  var password = document.getElementById('signinPassword').value;
+  if (!email || !password) { showMsg('signinMsg','Please enter your email and password','error'); return; }
+  var btn = document.getElementById('signinBtn');
+  btn.disabled = true; btn.textContent = 'Signing in...';
+  hideMsg('signinMsg');
+  try {
+    var clerk = await ensureClerk();
+    var result = await clerk.client.signIn.create({ identifier: email, password: password });
+    if (result.status === 'complete') {
+      await clerk.setActive({ session: result.createdSessionId });
+      closeAuth();
+      updateNavForUser(clerk.user);
+      if (pendingPathway) { showFullGuide(pendingPathway); pendingPathway = null; }
+    }
+  } catch(e) {
+    console.error('Signin error:', e);
+    var msg = (e && e.errors && e.errors[0] && e.errors[0].message) ? e.errors[0].message : (e && e.message ? e.message : 'Sign in failed. Please check your credentials.');
+    showMsg('signinMsg', msg, 'error');
+    btn.disabled = false; btn.textContent = 'Sign in';
+  }
+}
+
+async function handleSignout() {
+  var clerk = await ensureClerk(); await clerk.signOut();
+  var si = document.getElementById('navSignin');
+  var su = document.getElementById('navSignup');
+  var nu = document.getElementById('navUser');
+  if (si) si.style.display = '';
+  if (su) su.style.display = '';
+  if (nu) nu.style.display = 'none';
+}
+
+document.getElementById('authOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeAuth();
+});
+
+// ── GUIDE CONTENT — GENERATED FROM AIRTABLE. DO NOT EDIT BY HAND. ──
+// Source: Airtable base appM0O6xRifFXtMa6, table Guide Steps (tblIQsKbzGPBH59dT)
+// Regenerate via sync_and_regenerate.js after editing Airtable.
+var stepsData = {
+  "BR-PT": [
+    {
+      "num": 1,
+      "name": "Confirm your route — work visa, D7, or D8",
+      "days": 7,
+      "critical": true,
+      "why": "Brazilians have unusually strong options in Portugal thanks to the historic ties and the CPLP (Community of Portuguese Language Countries) agreement, which simplifies several steps. Picking the right visa first — work (job offer), D7 (passive income/retirees), or D8 (remote workers) — shapes everything that follows.",
+      "need": "Clarity on your income source: a Portuguese job offer, passive income (D7), or remote income above ~3,280 EUR/month (D8).",
+      "action": "If you have a Portuguese employer, pursue the work visa. If you have remote income, the D8 is fastest. The CPLP agreement can simplify and speed up residence steps for Brazilian citizens — confirm which benefits apply to your chosen route.",
+      "risks": "Choosing the wrong visa category for your income type causes rejection. The shared language is a huge advantage but does not exempt you from the formal process. CPLP benefits vary by consulate interpretation.",
+      "doneWhen": "You have chosen the visa category that matches your income source."
+    },
+    {
+      "num": 2,
+      "name": "Get your Portuguese NIF",
+      "days": 14,
+      "critical": true,
+      "why": "The NIF tax number is required for the visa, leases, and bank accounts. Brazilians often obtain it relatively easily, but as a non-resident you typically still need a fiscal representative.",
+      "need": "Passport, proof of Brazilian address, and a fiscal representative (~100-150 EUR via online services).",
+      "action": "Obtain your NIF remotely through an online service or a representative in Portugal. Brazilians can sometimes use consular services too. Keep the NIF document — you will use it constantly.",
+      "risks": "Without a fiscal representative, remote NIF issuance can be refused. Some services are slower around Brazilian and Portuguese holidays.",
+      "doneWhen": "You hold your 9-digit Portuguese NIF."
+    },
+    {
+      "num": 3,
+      "name": "Gather documents — including the Brazilian PCC",
+      "days": 14,
+      "critical": true,
+      "why": "Portugal requires a clean criminal record and specific civil documents. For Brazilians, the federal police criminal certificate (Atestado de Antecedentes Criminais) must be apostilled, since Brazil is a Hague Convention member.",
+      "need": "Passport, NIF, proof of income/funds, accommodation proof, health insurance, and an apostilled Brazilian federal PCC. Birth certificate may be needed and should also be apostilled.",
+      "action": "Request the federal criminal certificate online via the Polícia Federal, then apostille it at a registered cartório (notary). Get any Portuguese translations done by a certified translator if required. Arrange health insurance valid in Portugal.",
+      "risks": "Using a state-level rather than federal criminal certificate is a common error. Apostille must be done at an authorised cartório. Documents older than 3 months may be rejected.",
+      "doneWhen": "You hold a complete, apostilled document set including the federal PCC."
+    },
+    {
+      "num": 4,
+      "name": "Submit your visa application at VFS/Portuguese consulate in Brazil",
+      "days": 1,
+      "critical": true,
+      "why": "Brazilians apply through the Portuguese consulate network in Brazil (via VFS Global). This is the formal submission of documents and biometrics.",
+      "need": "Complete document set, application form, visa fee (~90 EUR plus service fee), and appointment.",
+      "action": "Book the appointment for your chosen visa type via VFS Global Brazil. Submit documents and biometrics. Keep copies and your tracking reference. Confirm the visa type selected matches your route (work/D7/D8).",
+      "risks": "Appointment availability varies by consulate (São Paulo, Rio, Brasília). Selecting the wrong visa category means rejection. Incomplete documents force rebooking.",
+      "doneWhen": "Your application is submitted with a tracking reference."
+    },
+    {
+      "num": 5,
+      "name": "Receive your entry visa",
+      "days": 60,
+      "critical": false,
+      "why": "The consulate issues a temporary entry visa allowing you to travel to Portugal and complete residency. Processing is typically 4-8 weeks.",
+      "need": "Your tracking reference. Avoid non-refundable travel until issued.",
+      "action": "Track via VFS. Respond promptly to any document requests. On approval, collect your passport with the entry visa and note any pre-scheduled AIMA appointment.",
+      "risks": "Processing slows in peak periods. The entry visa has a validity window you must travel within. A pre-set AIMA date can be hard to change.",
+      "doneWhen": "You hold your entry visa and any AIMA appointment date."
+    },
+    {
+      "num": 6,
+      "name": "Complete residency at AIMA in Portugal",
+      "days": 1,
+      "critical": true,
+      "why": "Your residence permit is finalised in Portugal at AIMA, granting a renewable residence card. CPLP nationals may have access to a specific, simplified residence permit type.",
+      "need": "Passport with entry visa, NIF, accommodation proof, income proof, health insurance, and AIMA appointment.",
+      "action": "Attend your AIMA appointment with all documents and give biometrics. Ask whether the CPLP residence permit applies to you, as it can simplify renewal. Your card is mailed to your Portuguese address.",
+      "risks": "AIMA appointment backlogs are significant. Keep your entry visa valid and documents current. Missing the appointment can mean restarting.",
+      "doneWhen": "You have given biometrics at AIMA and your residence card is issued."
+    }
+  ],
+  "GB-PT": [
+    {
+      "num": 1,
+      "name": "Confirm you qualify for the D8 Digital Nomad Visa",
+      "days": 7,
+      "critical": true,
+      "why": "Post-Brexit, UK nationals are third-country nationals and need a visa to stay in Portugal beyond 90 days. The D8 (digital nomad / remote work visa) is the main route for remote workers and freelancers. Confirming eligibility first prevents wasting months on the wrong visa.",
+      "need": "Proof of remote income averaging at least 4x the Portuguese minimum wage (roughly 3,280 EUR/month in 2024-25), an employment contract or freelance client contracts, and a clean criminal record.",
+      "action": "Calculate your average monthly income over the last 3 months. If you are employed remotely, get a letter from your employer confirming you can work from Portugal. If freelance, gather client contracts showing recurring income above the threshold.",
+      "risks": "Income just at the threshold is risky — consulates prefer a comfortable margin. Irregular freelance income across months can be questioned. The D8 is for remote income earned outside Portugal; locally-sourced Portuguese income does not count.",
+      "doneWhen": "You can document 3+ months of remote income averaging above 3,280 EUR/month."
+    },
+    {
+      "num": 2,
+      "name": "Get your Portuguese NIF (tax number)",
+      "days": 14,
+      "critical": true,
+      "why": "The NIF (Número de Identificação Fiscal) is required for almost everything in Portugal — opening a bank account, signing a lease, and the visa application itself. As a non-resident you typically need a fiscal representative to obtain it.",
+      "need": "Your passport, proof of address in your home country, and a fiscal representative (around 100-150 EUR through online services like Bordr or AnchorLess).",
+      "action": "Use an online NIF service or a Portuguese lawyer to obtain your NIF remotely without travelling. Provide passport and proof of address. The fiscal representative receives official correspondence on your behalf until you become resident.",
+      "risks": "Doing this in person requires a Portugal trip you may not want yet. Some banks reject NIFs obtained without proper fiscal representation. Keep the NIF document safe — you will reuse it constantly.",
+      "doneWhen": "You hold your 9-digit Portuguese NIF."
+    },
+    {
+      "num": 3,
+      "name": "Open a Portuguese bank account",
+      "days": 7,
+      "critical": false,
+      "why": "You need a Portuguese (or at least EU/SEPA) bank account to show financial means and to receive the deposit/rent payments. The consulate likes to see local financial integration.",
+      "need": "NIF, passport, proof of address, and an initial deposit. Wise or a traditional bank like Millennium BCP or ActivoBank.",
+      "action": "Open an account online with Wise as an interim solution, or with a Portuguese bank that allows remote opening using your NIF. Deposit enough to show 12 months of subsistence (roughly 9,840 EUR minimum as a buffer above the income proof).",
+      "risks": "Some traditional Portuguese banks require in-person presence. Wise is widely accepted but confirm the consulate accepts it for your application. Insufficient savings buffer alongside income can weaken the application.",
+      "doneWhen": "You have an active account showing sufficient funds for the application."
+    },
+    {
+      "num": 4,
+      "name": "Gather and legalise your document set",
+      "days": 14,
+      "critical": true,
+      "why": "The D8 application requires specific documents, several apostilled. Since the UK and Portugal are both Hague Convention members, UK documents are apostilled (not consular-legalised). Incomplete document sets are the main rejection cause.",
+      "need": "Passport (valid 6+ months), proof of income, employment/client contracts, NIF, bank statements, accommodation proof in Portugal, criminal record certificate (ACRO Police Certificate from the UK), and proof of health insurance covering Portugal.",
+      "action": "Order your ACRO Police Certificate online (around 55 GBP, 5-10 working days) and get it apostilled by the FCDO (Foreign, Commonwealth & Development Office, around 30 GBP). Arrange private health insurance valid in Portugal until you access the public SNS system. Get accommodation proof — a 12-month lease or property deed.",
+      "risks": "The ACRO certificate must be recent (issued within the last 3 months usually) and apostilled — an un-apostilled certificate is rejected. FCDO apostille backlogs can add a week. Health insurance must explicitly cover Portugal and meet minimum coverage.",
+      "doneWhen": "You hold a complete, apostilled document set matching the consulate D8 checklist."
+    },
+    {
+      "num": 5,
+      "name": "Submit your D8 application at VFS/Portuguese consulate",
+      "days": 1,
+      "critical": true,
+      "why": "UK applicants apply through the Portuguese consulate network (handled via VFS Global in the UK). This is the formal submission of your application and biometrics.",
+      "need": "Complete document set, application form, visa fee (around 90 EUR plus VFS service fee), and your appointment booking.",
+      "action": "Book the D8 appointment via VFS Global UK. Submit your full document package and biometrics. Keep copies of everything submitted and your tracking reference.",
+      "risks": "VFS appointment availability varies by season. Any missing document means rebooking. Ensure the visa type selected is explicitly the D8 / remote work residence visa, not a short-stay Schengen visa.",
+      "doneWhen": "Your application is submitted and you hold a VFS tracking reference."
+    },
+    {
+      "num": 6,
+      "name": "Receive your entry visa",
+      "days": 60,
+      "critical": false,
+      "why": "The consulate issues a temporary entry visa (valid ~4 months, two entries) that lets you travel to Portugal to complete residency. Processing typically takes 4-8 weeks.",
+      "need": "Your tracking reference. Do not book non-refundable travel until the visa is issued.",
+      "action": "Track via VFS. Respond promptly to any document requests. On approval, collect your passport with the D8 entry visa and note the AIMA appointment that is usually pre-scheduled with it.",
+      "risks": "Processing can exceed 8 weeks in busy periods. The entry visa has a validity window — you must travel to Portugal within it. A pre-booked AIMA appointment date is often fixed and hard to change.",
+      "doneWhen": "You hold your passport with the D8 entry visa and your AIMA appointment date."
+    },
+    {
+      "num": 7,
+      "name": "Complete residency at AIMA in Portugal",
+      "days": 1,
+      "critical": true,
+      "why": "The entry visa only gets you into Portugal. Your actual residence permit is issued by AIMA (the immigration authority that replaced SEF) at an in-country appointment, granting a 2-year renewable residence card.",
+      "need": "Passport with D8 visa, NIF, proof of accommodation, proof of income, bank statements, health insurance, and your AIMA appointment confirmation.",
+      "action": "Attend your AIMA appointment in Portugal with all documents. Give biometrics for your residence card. The card is mailed to your Portuguese address. Register with the local tax office and consider applying for the NHR/IFICI tax regime if eligible.",
+      "risks": "AIMA has a significant appointment backlog following its 2023 reorganisation — appointments can be delayed or rescheduled by the authority. Keep your entry visa valid and all documents current. Missing the appointment can mean starting over.",
+      "doneWhen": "You have given biometrics at AIMA and your 2-year residence card is issued."
+    }
+  ],
+  "IN-CA": [
+    {
+      "num": 1,
+      "name": "Check your Express Entry eligibility and CRS score",
+      "days": 7,
+      "critical": true,
+      "why": "Canada selects skilled immigrants through Express Entry, a points-based system (Comprehensive Ranking System). Your CRS score determines whether you ever receive an invitation. Indian applicants are the largest group in the pool, so the cutoff is competitive — knowing your score before anything else tells you if this route is realistic.",
+      "need": "Your education details, work history, age, and a rough idea of your English ability. Use the official IRCC CRS calculator (free).",
+      "action": "Run your profile through the IRCC Express Entry eligibility tool and CRS calculator. Identify which program you fit: Federal Skilled Worker, Canadian Experience Class, or a Provincial Nominee Program (PNP). A provincial nomination adds 600 points and almost guarantees an invitation.",
+      "risks": "CRS cutoffs fluctuate (often 480-540 for general draws). Age matters heavily — points drop sharply after 30. Without a strong language score or a provincial nomination, many Indian applicants sit in the pool for a long time without an invitation.",
+      "doneWhen": "You know your CRS score and which program/PNP gives you the best realistic path."
+    },
+    {
+      "num": 2,
+      "name": "Take the IELTS or CELPIP language test",
+      "days": 30,
+      "critical": true,
+      "why": "Language ability is the single biggest lever on your CRS score. High English scores can add 100+ points. For most Indian applicants, IELTS General Training is the test that makes or breaks the application.",
+      "need": "IELTS General Training booking (around 17,000 INR) or CELPIP. Several weeks of preparation. Aim for CLB 9+ (roughly IELTS 8/7/7/7).",
+      "action": "Book IELTS General Training (not Academic). Prepare seriously — the difference between CLB 7 and CLB 9 can be 50+ CRS points. If you also speak French, take the TEF — French scores now add substantial bonus points under Canada's francophone targets.",
+      "risks": "Booking Academic instead of General Training is a common, costly mistake — only General counts for Express Entry economic immigration. Underestimating the writing module is the usual reason scores fall short. Scores expire after 2 years.",
+      "doneWhen": "You hold a valid IELTS/CELPIP result at the CLB level your CRS calculation assumed."
+    },
+    {
+      "num": 3,
+      "name": "Get your Educational Credential Assessment (ECA)",
+      "days": 45,
+      "critical": true,
+      "why": "Your foreign degree must be assessed as equivalent to a Canadian credential by a designated body (usually WES — World Education Services). Without an ECA your education earns no CRS points.",
+      "need": "Your degree certificates and transcripts sent directly from your university, plus the WES fee (around CAD 220 plus courier).",
+      "action": "Create a WES account and request your Indian university to send transcripts directly to WES (many Indian universities know this process). WES issues your equivalency report in a few weeks once documents arrive.",
+      "risks": "Delays almost always come from the Indian university being slow to send transcripts directly — start this early. An ECA is valid for 5 years. Choosing a non-designated assessment body wastes money as IRCC will not accept it.",
+      "doneWhen": "You hold your WES ECA report confirming Canadian-equivalent education."
+    },
+    {
+      "num": 4,
+      "name": "Create your Express Entry profile and enter the pool",
+      "days": 1,
+      "critical": true,
+      "why": "This is the formal entry into the candidate pool. Your profile, with your CRS score, competes in regular draws. A complete, accurate profile is essential — errors can lead to a refusal or misrepresentation findings later.",
+      "need": "Your passport, ECA report, language results, work experience proof, and an IRCC online account.",
+      "action": "Submit your Express Entry profile via the IRCC portal. Enter education, language, and work history accurately. Once in the pool you are ranked by CRS and can also apply to PNPs that align with your profile to boost your chances.",
+      "risks": "Overstating work experience or qualifications is misrepresentation — a 5-year ban if discovered. Profiles sit in the pool up to 12 months; if you get no invitation you must refresh. Keep documents ready to submit fast once invited.",
+      "doneWhen": "Your Express Entry profile is live in the pool with an accurate CRS score."
+    },
+    {
+      "num": 5,
+      "name": "Receive your Invitation to Apply (ITA) and submit",
+      "days": 60,
+      "critical": true,
+      "why": "When a draw selects your CRS score, you receive an Invitation to Apply. You then have 60 days to submit a complete permanent residence application with full documentation. This is the high-pressure phase.",
+      "need": "Police clearance certificate (PCC) from India, upfront medical exam by a panel physician, proof of funds, reference letters from employers, and the application fee (around CAD 1,365 per adult).",
+      "action": "Once you receive the ITA, immediately order your Indian PCC, book your medical with an IRCC panel physician, and gather employer reference letters matching your claimed experience. Show proof of settlement funds (around CAD 14,000+ for a single applicant). Submit before the 60-day deadline.",
+      "risks": "Missing the 60-day window means losing the invitation and re-entering the pool. Reference letters that do not state duties, hours, and salary are a top rejection cause. Proof of funds must be genuine, traceable, and not borrowed.",
+      "doneWhen": "Your complete permanent residence application is submitted within 60 days of the ITA."
+    },
+    {
+      "num": 6,
+      "name": "Wait for approval and receive your COPR",
+      "days": 180,
+      "critical": false,
+      "why": "IRCC processes the full application — typically around 6 months for Express Entry. On approval you receive Confirmation of Permanent Residence (COPR) and a permanent resident visa.",
+      "need": "Your application tracking via the IRCC account. Patience and responsiveness to any document requests.",
+      "action": "Monitor your IRCC account. Respond to any additional document or biometrics requests immediately. On approval, you receive your COPR and PR visa, and instructions to \"land\" in Canada to activate your status.",
+      "risks": "Requests for additional documents pause processing. Medical results expire after 12 months — long delays can force a re-exam. Major life changes (marriage, new child) must be reported.",
+      "doneWhen": "You hold your COPR and permanent resident visa."
+    },
+    {
+      "num": 7,
+      "name": "Land in Canada and activate permanent residency",
+      "days": 1,
+      "critical": true,
+      "why": "Your PR status is only activated when you physically \"land\" in Canada and complete the immigration formalities at the port of entry. This is the final, irreversible step that makes you a permanent resident.",
+      "need": "Your COPR, PR visa, passport, proof of funds, and a Canadian address (even temporary).",
+      "action": "Travel to Canada before your COPR/visa expires. At the port of entry, present your COPR — the officer confirms your landing and your PR status is activated. Apply for your SIN (Social Insurance Number) and PR card soon after.",
+      "risks": "Landing after your COPR or medical expires is not allowed — you must enter within validity. Not having a Canadian mailing address delays your physical PR card. Plan your first entry carefully.",
+      "doneWhen": "You have landed, your PR status is activated, and your PR card is on its way."
+    }
+  ],
+  "IN-DE": [
+    {
+      "num": 1,
+      "name": "Get your qualifications recognised (anabin check)",
+      "days": 14,
+      "critical": true,
+      "why": "Germany only grants skilled worker visas if your degree is recognised as equivalent to a German qualification. This is the single most common reason Indian applications stall — people apply for the visa first and discover months later their degree was never eligible.",
+      "need": "Your degree certificates, the anabin database (anabin.kmk.org), and roughly free-to-200 EUR if formal recognition (Zeugnisbewertung) is required.",
+      "action": "Search your university and degree on the anabin database. If your university is rated \"H+\" your degree is recognised automatically. If \"H+/-\" or not listed, request a Statement of Comparability from ZAB (Central Office for Foreign Education) — costs 200 EUR and takes 2-3 months, so start here first.",
+      "risks": "Many Indian universities are listed as \"H+/-\" meaning case-by-case. Engineering and IT degrees from recognised IITs/NITs usually clear easily; lesser-known private universities often need full ZAB evaluation. Regulated professions (doctors, nurses, teachers, lawyers) have an entirely separate, longer recognition process.",
+      "doneWhen": "Your university shows \"H+\" on anabin, OR you hold a ZAB Statement of Comparability confirming equivalence."
+    },
+    {
+      "num": 2,
+      "name": "Secure a job offer meeting salary thresholds",
+      "days": 60,
+      "critical": true,
+      "why": "The work visa is employer-tied. Without a concrete job offer (or the new Opportunity Card to job-hunt in Germany), there is no visa. The salary level also determines which visa you get — EU Blue Card vs standard work visa — and how fast you reach permanent residency.",
+      "need": "A signed employment contract or binding job offer stating gross annual salary, job title, and start date. For an EU Blue Card in 2024 you need roughly 45,300 EUR/year, or about 41,041 EUR for shortage occupations (IT, engineering, medicine).",
+      "action": "Apply through Make-it-in-Germany.com (the official portal), LinkedIn, StepStone.de, and Xing. Target English-speaking roles in IT, engineering, and research where German is often not required. Be explicit with employers that you will need visa sponsorship — most large German tech firms do this routinely.",
+      "risks": "Smaller German employers are often unfamiliar with sponsoring non-EU hires and may withdraw. Salary below the Blue Card threshold pushes you to the standard work visa which has a slower path to permanent residency. A vague offer letter without salary and start date will be rejected by the embassy.",
+      "doneWhen": "You hold a signed contract or binding written offer with gross salary, role, and start date clearly stated."
+    },
+    {
+      "num": 3,
+      "name": "Employer secures Federal Employment Agency approval",
+      "days": 21,
+      "critical": true,
+      "why": "For most work visas the German employer (with the embassy) must obtain approval from the Bundesagentur für Arbeit, confirming the role cannot easily be filled by an EU national and the pay matches local standards. EU Blue Card shortage-occupation roles often skip the priority check, which is why the Blue Card is faster.",
+      "need": "Your employer completes the \"Erklärung zum Beschäftigungsverhältnis\" (declaration of employment) form. You provide your passport details and contract.",
+      "action": "This is mostly handled by your employer and the embassy in the background once you submit your visa application. Confirm with your HR contact that they have the declaration form ready, as embassy delays often trace back to a missing employer declaration.",
+      "risks": "If your employer is slow or unresponsive with the declaration, the whole visa stalls. Salaries below regional norms can trigger a rejection from the Agency. This step runs in parallel with your embassy appointment — it is not always sequential.",
+      "doneWhen": "The Federal Employment Agency has issued approval (the embassy confirms this internally during processing)."
+    },
+    {
+      "num": 4,
+      "name": "Gather and apostille your full document set",
+      "days": 14,
+      "critical": true,
+      "why": "Germany requires specific documents, many apostilled under the Hague Convention. India joined the Apostille Convention, so documents are apostilled by the MEA (Ministry of External Affairs) rather than legalised at the embassy. Missing or un-apostilled documents are the top cause of appointment rejections.",
+      "need": "Valid passport (min 12 months), completed national visa application form, biometric photos (35x45mm), employment contract, degree certificates + anabin/ZAB proof, CV, proof of health insurance, and proof of accommodation. Budget ~5,000-15,000 INR for apostille and translation.",
+      "action": "Get degree and any personal certificates apostilled via the MEA (through authorised agencies or the e-Sanad portal). Have non-English documents translated by a certified translator. Prepare two complete physical sets — originals plus photocopies.",
+      "risks": "Apostille backlogs around graduation season can take weeks. Photos not meeting the German biometric spec are routinely rejected at the counter. Health insurance must be valid for the initial entry period — travel insurance covering the first weeks until your German employer enrolls you in statutory insurance.",
+      "doneWhen": "You have two complete, apostilled, translated document sets matching the embassy checklist exactly."
+    },
+    {
+      "num": 5,
+      "name": "Book your visa appointment at the German Mission",
+      "days": 7,
+      "critical": true,
+      "why": "Appointment slots at German missions in India (New Delhi, Mumbai, Bengaluru, Chennai, Kolkata) are limited and can be booked out for weeks. Your jurisdiction depends on your state of residence — you cannot freely choose the city.",
+      "need": "The embassy appointment booking portal, your passport, and the visa fee of 75 EUR (roughly 7,000 INR, payable in rupees).",
+      "action": "Book the National Visa (D-visa) appointment for employment as early as possible via the official German Mission India website or the VFS/embassy booking system for your jurisdiction. Check slots daily — cancellations open up frequently.",
+      "risks": "Booking in the wrong consular jurisdiction means rejection on the day. Long wait times (4-12 weeks in peak season) mean this should be booked the moment you have a job offer, even before all documents are ready. Third-party \"fast appointment\" agents are often scams.",
+      "doneWhen": "You hold a confirmed appointment booking reference for the correct consular jurisdiction."
+    },
+    {
+      "num": 6,
+      "name": "Attend your visa interview",
+      "days": 1,
+      "critical": true,
+      "why": "This is the in-person submission of biometrics and documents. The officer verifies your documents are complete and consistent, and may ask about your role, employer, and intentions.",
+      "need": "Your complete apostilled document set (originals + copies), appointment confirmation, visa fee, and passport. Dress professionally and arrive early.",
+      "action": "Submit your documents, give biometrics (fingerprints and photo), and answer questions clearly and consistently with your application. Keep answers factual — confirm your job title, employer, and salary match your paperwork exactly.",
+      "risks": "Inconsistencies between what you say and your documents are a red flag. Missing even one checklist item can mean rebooking weeks later. Do not over-explain — answer what is asked.",
+      "doneWhen": "Your application and biometrics are accepted and you receive a tracking reference."
+    },
+    {
+      "num": 7,
+      "name": "Wait for processing and collect your visa",
+      "days": 42,
+      "critical": false,
+      "why": "The German Mission processes the D-visa, coordinating with the Federal Employment Agency and the local Ausländerbehörde in your destination German city. Typical processing is 4-12 weeks depending on the mission and time of year.",
+      "need": "Your tracking reference and patience. Do not make irreversible plans (quitting your job, booking flights) until the visa is in hand.",
+      "action": "Track status via the embassy portal. Respond immediately to any request for additional documents — these pause the clock. Once approved, collect your passport with the entry visa, valid usually for 90 days to enter Germany.",
+      "risks": "Processing slows dramatically June-September. Any document query resets your timeline. The entry visa has an expiry — you must enter Germany within its validity window.",
+      "doneWhen": "You hold your passport with the German national visa (D-visa) sticker inside."
+    },
+    {
+      "num": 8,
+      "name": "Register your address (Anmeldung) within 14 days",
+      "days": 1,
+      "critical": true,
+      "why": "Anmeldung (address registration) is the foundation of life in Germany — you cannot get a tax ID, finalise a bank account, or convert your visa to a residence permit without it. Legally required within 14 days of moving into your accommodation.",
+      "need": "Your passport with visa, rental contract, and a \"Wohnungsgeberbestätigung\" (landlord confirmation form signed by your landlord). Appointment at the local Bürgeramt.",
+      "action": "Book an Anmeldung appointment at your city Bürgeramt the moment you have an address — slots in Berlin and Munich book out 3-4 weeks ahead. Bring all documents. You receive a \"Meldebescheinigung\" and your tax ID arrives by post days later.",
+      "risks": "No address registration means no residence permit, no statutory health insurance enrolment, and a frozen bank account. Temporary accommodation (Airbnb) usually cannot be registered — you need a proper rental contract or a friend willing to sign the landlord form.",
+      "doneWhen": "You hold your Meldebescheinigung (registration certificate) and your tax ID (Steuer-ID) arrives by post."
+    },
+    {
+      "num": 9,
+      "name": "Convert to a residence permit at the Ausländerbehörde",
+      "days": 30,
+      "critical": true,
+      "why": "Your entry D-visa is temporary. To live and work in Germany long-term you convert it into an electronic residence permit (eAT card) or EU Blue Card at the local foreigners authority. This card is your legal right to stay.",
+      "need": "Passport with visa, Anmeldung certificate, employment contract, proof of health insurance, biometric photo, and the fee (around 100 EUR). Appointment at the Ausländerbehörde.",
+      "action": "Book the Ausländerbehörde appointment as soon as you have your Anmeldung — these are the most backed-up offices in Germany. Submit documents and biometrics for your eAT card. You may receive a \"Fiktionsbescheinigung\" (interim certificate) that keeps you legal while the card is produced.",
+      "risks": "Ausländerbehörde waiting times of 2-3 months are normal in major cities. Letting your entry visa expire before securing the appointment creates legal complications — book early. Your statutory health insurance must be active by this point.",
+      "doneWhen": "You hold your residence permit / EU Blue Card (eAT card), or a Fiktionsbescheinigung confirming your continued legal stay."
+    }
+  ],
+  "IN-GB": [
+    {
+      "num": 1,
+      "name": "Find a job with a licensed UK sponsor",
+      "days": 60,
+      "critical": true,
+      "why": "The UK Skilled Worker visa is entirely dependent on a job offer from an employer holding a valid sponsor licence. No licensed sponsor, no visa. This is the gateway — most of the process flows from here.",
+      "need": "A job offer in an eligible occupation, from an employer on the official UK Register of Licensed Sponsors, meeting the salary threshold (generally £38,700/year from 2024, with some lower thresholds for shortage and new-entrant roles).",
+      "action": "Search roles on LinkedIn, the official \"Find a job\" service, and sector job boards, filtering for visa-sponsoring employers. Confirm the employer is on the gov.uk Register of Licensed Sponsors before investing time. NHS, IT, engineering, and finance are heavy sponsors of Indian talent.",
+      "risks": "Many employers advertise roles but are not licensed sponsors — confirm before applying. Salary below the threshold for your occupation kills the application. Roles must genuinely meet the required skill level (RQF 3+).",
+      "doneWhen": "You hold a job offer from a confirmed licensed sponsor meeting the salary and skill threshold."
+    },
+    {
+      "num": 2,
+      "name": "Receive your Certificate of Sponsorship (CoS)",
+      "days": 14,
+      "critical": true,
+      "why": "Your employer assigns you a Certificate of Sponsorship — a unique reference number that is mandatory for your visa application. It confirms the job, salary, and role details to the Home Office.",
+      "need": "Your passport details and the job details. Your employer generates the CoS through their sponsor management system.",
+      "action": "Once you accept the offer, your employer assigns your CoS and sends you the reference number. Check every detail on it — job title, salary, start date, your name and passport number — matches your documents exactly.",
+      "risks": "Errors on the CoS (misspelled name, wrong passport number, salary mismatch) cause visa refusals. A CoS must be used within 3 months of assignment. Some employers are slow to assign it — chase your HR contact.",
+      "doneWhen": "You hold a valid CoS reference number with all details correct."
+    },
+    {
+      "num": 3,
+      "name": "Prove your English language ability",
+      "days": 14,
+      "critical": true,
+      "why": "Skilled Worker applicants must prove English at level B1 or above. For most Indian applicants this means an approved Secure English Language Test (SELT), unless exempt through an English-taught degree.",
+      "need": "Either a SELT booking (IELTS for UKVI, around £150-200) OR proof your degree was taught in English with an Ecctis (formerly UK NARIC) confirmation.",
+      "action": "If you hold a degree taught in English, request an Ecctis statement confirming it meets the requirement — often cheaper and faster than a test. Otherwise book an IELTS for UKVI (the specific UKVI-approved version) and achieve at least B1 across all components.",
+      "risks": "Booking standard IELTS instead of IELTS \"for UKVI\" is a common error — only the UKVI version is accepted for visas. Many Indian degrees qualify for the exemption, so check before paying for a test.",
+      "doneWhen": "You hold an approved English test result or an Ecctis exemption confirmation."
+    },
+    {
+      "num": 4,
+      "name": "Prepare finances and documents",
+      "days": 14,
+      "critical": true,
+      "why": "You must show you can support yourself (maintenance funds) unless your sponsor certifies otherwise, and prepare for the visa fees and the Immigration Health Surcharge, which together are substantial.",
+      "need": "Maintenance funds of £1,270 held for 28 consecutive days (unless sponsor-certified), passport, CoS, English proof, and budget for the visa fee (~£719-1,500) plus the Immigration Health Surcharge (~£1,035/year, paid upfront for the full visa length).",
+      "action": "Hold the required maintenance funds in your account for at least 28 straight days before applying and keep statements. Budget carefully for the IHS — a 3-year visa means ~£3,105 surcharge upfront. Gather passport, CoS, and English evidence.",
+      "risks": "Dipping below £1,270 during the 28-day window resets the clock. The upfront IHS shocks many applicants — budget for it. Tuberculosis test certificate is required for Indian applicants from an approved clinic.",
+      "doneWhen": "You have held maintenance funds for 28 days, your TB test is done, and you have budgeted for all fees."
+    },
+    {
+      "num": 5,
+      "name": "Submit your online application and biometrics",
+      "days": 21,
+      "critical": true,
+      "why": "The Skilled Worker visa is applied for online, followed by a biometrics appointment at a visa application centre (VFS Global) in India. This is the formal submission.",
+      "need": "Completed online application, paid fees and IHS, CoS reference, supporting documents, and a VFS appointment.",
+      "action": "Complete the application on gov.uk, pay the fee and IHS, then book and attend a VFS Global biometrics appointment in India. Upload or carry your supporting documents. Priority and super-priority services can speed up the decision for extra fees.",
+      "risks": "Document inconsistencies cause refusals. Standard processing is around 3 weeks from biometrics but can be longer. Priority service is worth it if you have a fixed start date.",
+      "doneWhen": "Your application and biometrics are submitted and you have a tracking reference."
+    },
+    {
+      "num": 6,
+      "name": "Receive your visa and travel to the UK",
+      "days": 21,
+      "critical": false,
+      "why": "On approval you receive a 90-day vignette in your passport (or digital status) to enter the UK, after which you collect your Biometric Residence Permit (BRP) or use your eVisa.",
+      "need": "Your approved visa vignette/eVisa, passport, and travel plans within the validity window.",
+      "action": "Once approved, travel to the UK within the 90-day vignette window. After arrival, collect your BRP from the designated post office or access your eVisa online. Register with a GP and apply for a National Insurance number to start work.",
+      "risks": "Not entering within the 90-day window means applying for a replacement vignette. The UK is transitioning to digital eVisas — confirm which applies to you. Your BRP/eVisa is your proof of right to work.",
+      "doneWhen": "You have entered the UK and hold your BRP or active eVisa."
+    }
+  ],
+  "NG-GB": [
+    {
+      "num": 1,
+      "name": "Secure a job with a licensed UK sponsor",
+      "days": 60,
+      "critical": true,
+      "why": "Like all Skilled Worker applicants, Nigerians need a job offer from a UK employer holding a sponsor licence. Nigerian healthcare workers, especially nurses and doctors, are in particularly high demand and the NHS is a major sponsor.",
+      "need": "A job offer in an eligible occupation from an employer on the UK Register of Licensed Sponsors, meeting the salary threshold (generally £38,700, with health/care and shortage exceptions).",
+      "action": "Target sectors actively sponsoring Nigerian talent — healthcare (NHS trusts), IT, engineering, and education. Confirm the employer is a licensed sponsor on gov.uk before applying. Health and Care Worker visa has lower thresholds and no IHS for eligible roles.",
+      "risks": "Care sector sponsorship has tightened with new rules — verify the employer's licence is current and the role qualifies. Salary below threshold disqualifies. Confirm whether your role falls under the cheaper Health and Care Worker visa.",
+      "doneWhen": "You hold an offer from a confirmed licensed sponsor meeting salary and skill requirements."
+    },
+    {
+      "num": 2,
+      "name": "Receive your Certificate of Sponsorship",
+      "days": 14,
+      "critical": true,
+      "why": "Your CoS reference number is mandatory for the visa application and confirms your role details to the Home Office.",
+      "need": "Passport details provided to your employer, who generates the CoS.",
+      "action": "On accepting the offer, your employer assigns the CoS. Verify every detail — name, passport number, salary, role, start date — matches your documents exactly.",
+      "risks": "Detail errors cause refusals. The CoS must be used within 3 months. Chase HR if assignment is slow.",
+      "doneWhen": "You hold a valid CoS with all details correct."
+    },
+    {
+      "num": 3,
+      "name": "Meet the English language requirement",
+      "days": 14,
+      "critical": true,
+      "why": "You must prove English at B1 or above. Many Nigerian applicants qualify through English-medium education, avoiding a test.",
+      "need": "Either an Ecctis confirmation that your degree was taught in English, or an IELTS for UKVI booking.",
+      "action": "Since English is an official language of Nigeria and most education is English-medium, request an Ecctis statement confirming your degree meets the requirement — usually faster and cheaper than a test. Otherwise book IELTS for UKVI.",
+      "risks": "Standard IELTS is not accepted — only IELTS for UKVI. Confirm your university qualifies for the Ecctis exemption before paying for a test.",
+      "doneWhen": "You hold an approved English result or Ecctis exemption."
+    },
+    {
+      "num": 4,
+      "name": "Prepare finances, TB test, and documents",
+      "days": 14,
+      "critical": true,
+      "why": "You must show maintenance funds, complete a mandatory tuberculosis test (required for Nigerian applicants), and budget for substantial fees and the health surcharge.",
+      "need": "£1,270 maintenance held 28 days (unless sponsor-certified), TB test certificate from an approved clinic (IOM in Nigeria), passport, CoS, English proof, and budget for visa fee plus IHS (~£1,035/year).",
+      "action": "Book your TB test at an approved IOM clinic in Lagos or Abuja early — the certificate is mandatory and valid 6 months. Hold maintenance funds for 28 consecutive days. Budget for the upfront IHS covering the full visa length.",
+      "risks": "Using a non-approved clinic for the TB test invalidates it. Maintenance funds dipping below £1,270 resets the 28-day clock. The upfront IHS is a major cost — plan for it.",
+      "doneWhen": "Your TB certificate is valid, funds held 28 days, and fees budgeted."
+    },
+    {
+      "num": 5,
+      "name": "Submit application and biometrics",
+      "days": 21,
+      "critical": true,
+      "why": "Apply online then attend a VFS Global biometrics appointment in Nigeria. This is the formal submission.",
+      "need": "Completed online application, paid fees and IHS, CoS, TB certificate, supporting documents, and VFS appointment.",
+      "action": "Complete the gov.uk application, pay fees and IHS, then attend VFS Global in Lagos or Abuja for biometrics. Consider priority service if you have a fixed start date.",
+      "risks": "Document inconsistencies cause refusals. Processing is around 3 weeks but can be longer from Nigeria. Priority service speeds decisions.",
+      "doneWhen": "Application and biometrics submitted with a tracking reference."
+    },
+    {
+      "num": 6,
+      "name": "Receive your visa and travel",
+      "days": 21,
+      "critical": false,
+      "why": "On approval you receive a 90-day entry vignette or eVisa, then collect your BRP or use your eVisa after arrival.",
+      "need": "Approved visa, passport, travel plans within the validity window.",
+      "action": "Travel to the UK within the 90-day window. Collect your BRP or access your eVisa, register with a GP, and apply for a National Insurance number.",
+      "risks": "Not entering within 90 days requires a replacement vignette. Confirm whether you receive a BRP or eVisa. Your status document is your proof of right to work.",
+      "doneWhen": "You have entered the UK and hold your BRP or active eVisa."
+    }
+  ],
+  "UA-CZ": [
+    {
+      "num": 1,
+      "name": "Understand your temporary protection rights",
+      "days": 1,
+      "critical": false,
+      "why": "Ukrainians fleeing the war have a fast, fee-free route to legal status in the Czech Republic under the EU Temporary Protection Directive — completely different from standard immigration. Knowing your rights prevents falling for paid \"agents\" who charge for what is a free government process.",
+      "need": "A Ukrainian passport or any identity document. If documents were lost, the process still works with alternative identity evidence.",
+      "action": "Understand that temporary protection grants you legal residence, the right to work without a separate permit, access to public healthcare, and schooling for children — all without the usual visa process. The status is renewed periodically by Czech government decree (currently extended through March 2026).",
+      "risks": "Beware paid intermediaries charging for registration — it is free at official centres. Status must be actively renewed when the government extends the scheme; missing renewal windows can lapse your status.",
+      "doneWhen": "You understand that you qualify for free temporary protection and need no employer or standard visa."
+    },
+    {
+      "num": 2,
+      "name": "Travel to the Czech Republic",
+      "days": 1,
+      "critical": false,
+      "why": "Ukrainians can enter the Czech Republic without a visa to claim temporary protection. Keeping your travel evidence helps establish your arrival date, which starts the registration clock.",
+      "need": "Identity document and any travel tickets or border crossing evidence.",
+      "action": "Enter the Czech Republic. Keep all travel documents, tickets, and any border registration papers. Note your date of entry — registration should follow promptly.",
+      "risks": "Long gaps between arrival and registration can complicate your case. Keep proof of when you arrived.",
+      "doneWhen": "You are in the Czech Republic with your arrival documented."
+    },
+    {
+      "num": 3,
+      "name": "Register at a Regional Assistance Centre (KACPU)",
+      "days": 1,
+      "critical": true,
+      "why": "KACPU centres (Krajské asistenční centrum pomoci Ukrajině) are one-stop centres that grant temporary protection, register your stay, and connect you to healthcare and benefits in a single visit. This is the core legal step.",
+      "need": "Your identity document, a passport photo, and an accommodation address in the Czech Republic.",
+      "action": "Visit the KACPU centre in the region where you will live (every Czech region has one; Prague has several). Submit your identity document, provide your address, and receive your temporary protection visa sticker or document. Staff often speak Ukrainian/Russian.",
+      "risks": "Centres can be busy — arrive early. You need a Czech address to register; if staying with friends, bring their address details. Registering in a different region from where you actually live can complicate healthcare and school access.",
+      "doneWhen": "You hold your temporary protection visa/document confirming legal status."
+    },
+    {
+      "num": 4,
+      "name": "Register with a health insurance company",
+      "days": 1,
+      "critical": true,
+      "why": "Temporary protection includes access to Czech public healthcare, but you must register with a specific health insurance provider (usually VZP) to actually use it. Without this, medical visits are not covered.",
+      "need": "Your temporary protection document and identity document.",
+      "action": "Register with VZP (Všeobecná zdravotní pojišťovna) or another public insurer — this is often done at the KACPU centre in the same visit. You receive an insurance card or number giving you access to GPs, hospitals, and prescriptions.",
+      "risks": "Assuming protection automatically activates healthcare without insurer registration leads to unexpected bills. Children need separate registration. Keep the insurance card safe.",
+      "doneWhen": "You are registered with a public health insurer and hold your insurance number/card."
+    },
+    {
+      "num": 5,
+      "name": "Register your address with the Ministry of Interior",
+      "days": 1,
+      "critical": true,
+      "why": "Your registered address must be kept current with the Foreign Police / Ministry of Interior. It affects your benefits, your children's school placement, and official correspondence.",
+      "need": "Your temporary protection document and proof of accommodation (lease, or a confirmation from the person hosting you).",
+      "action": "Confirm your address registration — usually captured at KACPU, but if you move you must report the change to the Ministry of Interior / Foreign Police within the required window. Bring accommodation proof.",
+      "risks": "Failing to update your address after moving can cause you to miss official notices, including status renewal deadlines. Hosts may need to sign a confirmation of accommodation.",
+      "doneWhen": "Your current address is registered and matches where you actually live."
+    },
+    {
+      "num": 6,
+      "name": "Apply for humanitarian benefits if needed",
+      "days": 3,
+      "critical": false,
+      "why": "Newly arrived people under temporary protection may qualify for a humanitarian allowance to cover initial living costs while finding work. This is means-tested and time-limited.",
+      "need": "Your temporary protection document, Czech bank account details, and information about your income and savings.",
+      "action": "Apply at the Labour Office (Úřad práce) for the humanitarian allowance. Open a Czech bank account (banks like ČSOB and Fio offer accounts for protection holders) to receive payments. Provide honest income/savings information as the benefit is means-tested.",
+      "risks": "The allowance reduces as you earn — it is a bridge, not a permanent income. Incorrect income declarations can create repayment obligations. The benefit structure changes by government decree.",
+      "doneWhen": "Your benefit application is submitted, or you have determined you do not need it."
+    },
+    {
+      "num": 7,
+      "name": "Find work and/or enrol children in school",
+      "days": 7,
+      "critical": false,
+      "why": "Temporary protection gives you the right to work immediately without a separate permit, and children have the right to attend Czech schools. This is how you build stability beyond the initial emergency phase.",
+      "need": "Your temporary protection document, your CV (for work), and children's previous school records if available (for enrolment).",
+      "action": "For work, you can take any job — many Czech employers actively hire under the scheme. Use the Labour Office job listings and Ukrainian community networks. For children, contact your local school directly; municipalities must provide places and often offer Czech language support classes.",
+      "risks": "Some employers are unfamiliar with the protection status and its open work rights — point them to the Ministry of Interior guidance. School places in popular areas fill up; apply early.",
+      "doneWhen": "You are employed or actively job-searching, and any children are enrolled in school."
+    }
+  ]
+};
+
+function showFullGuide(pathway) {
+  var existing = document.getElementById('fullGuide');
+  if (existing) existing.remove();
+
+  var key = pathway.from + '-' + pathway.to;
+  var steps = stepsData[key];
+
+  var stepsHTML = '';
+  var totalDays = 0;
+  if (steps) {
+    steps.forEach(function(s){ totalDays += s.days; });
+
+    stepsHTML = steps.map(function(s, i) {
+      var isLast = (i === steps.length - 1);
+      var dot = s.critical ? '#C85A0A' : '#1A1A1A';
+      var block = '';
+      block += '<div style="position:relative;padding-left:48px;padding-bottom:' + (isLast?'0':'28px') + '">';
+      // connector line
+      if (!isLast) {
+        block += '<div style="position:absolute;left:15px;top:34px;bottom:0;width:1.5px;background:#EBEBEA"></div>';
+      }
+      // number node
+      block += '<div style="position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:' + dot + ';color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">' + s.num + '</div>';
+      // title row
+      block += '<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px">';
+      block += '<div style="font-size:16px;font-weight:700;color:#1A1A1A;letter-spacing:-0.2px">' + s.name + '</div>';
+      block += '<div style="display:inline-flex;align-items:center;gap:8px;flex-shrink:0">';
+      block += '<span style="font-family:IBM Plex Mono,monospace;font-size:10px;color:#888">~' + s.days + ' day' + (s.days>1?'s':'') + '</span>';
+      if (s.critical) block += '<span style="font-family:IBM Plex Mono,monospace;font-size:9px;color:#C85A0A;border:1px solid rgba(200,90,10,0.3);padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:0.5px">Deadline critical</span>';
+      block += '</div>';
+      block += '</div>';
+
+      // WHY
+      block += '<div style="font-size:13.5px;color:#444;line-height:1.65;margin-bottom:14px">' + s.why + '</div>';
+
+      // detail grid — what to do, what you need
+      block += '<div style="background:#FAFAF8;border:1px solid #F0EDE6;border-radius:10px;padding:16px;margin-bottom:10px">';
+      block += '<div style="margin-bottom:12px"><div style="font-family:IBM Plex Mono,monospace;font-size:9px;color:#C85A0A;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">Exactly what to do</div><div style="font-size:13px;color:#1A1A1A;line-height:1.6">' + s.action + '</div></div>';
+      block += '<div><div style="font-family:IBM Plex Mono,monospace;font-size:9px;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">What you need</div><div style="font-size:13px;color:#555;line-height:1.6">' + s.need + '</div></div>';
+      block += '</div>';
+
+      // what can go wrong
+      block += '<div style="display:flex;gap:8px;padding:12px 14px;background:#FEF8F4;border:1px solid #F5DCC8;border-radius:8px;margin-bottom:10px">';
+      block += '<div style="color:#C85A0A;font-size:13px;flex-shrink:0;line-height:1.5">⚠</div>';
+      block += '<div><div style="font-family:IBM Plex Mono,monospace;font-size:9px;color:#C85A0A;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">What can go wrong</div><div style="font-size:12.5px;color:#7A4A28;line-height:1.6">' + s.risks + '</div></div>';
+      block += '</div>';
+
+      // done when
+      block += '<div style="display:flex;gap:8px;align-items:center;padding:10px 14px;background:#F0F8F0;border:1px solid #C8E6C8;border-radius:8px">';
+      block += '<div style="color:#2D7A2D;font-size:13px;flex-shrink:0">✓</div>';
+      block += '<div><span style="font-family:IBM Plex Mono,monospace;font-size:9px;color:#2D7A2D;letter-spacing:1px;text-transform:uppercase">Done when&nbsp;&nbsp;</span><span style="font-size:12.5px;color:#2A5A2A;line-height:1.5">' + s.doneWhen + '</span></div>';
+      block += '</div>';
+
+      block += '</div>';
+      return block;
+    }).join('');
+  } else {
+    stepsHTML = '<div style="text-align:center;padding:32px;color:#888;font-size:14px;line-height:1.6">The detailed step-by-step guide for this corridor is being researched and written to our lawyer-grade standard. The pathway summary above gives you the essentials to begin. <br/>Want this corridor prioritised? <a href="#pricing" style="color:#C85A0A;font-weight:600">Let us know</a>.</div>';
+  }
+
+  var months = Math.round(totalDays/30*10)/10;
+  var summaryBar = steps ? (
+    '<div style="display:flex;gap:24px;flex-wrap:wrap;padding:16px 20px;background:#1A1A1A;border-radius:10px;margin-bottom:28px">' +
+    '<div><div style="font-family:IBM Plex Mono,monospace;font-size:9px;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px">Total steps</div><div style="font-size:18px;font-weight:700;color:#FAFAF8">' + steps.length + '</div></div>' +
+    '<div><div style="font-family:IBM Plex Mono,monospace;font-size:9px;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px">Critical deadlines</div><div style="font-size:18px;font-weight:700;color:#C85A0A">' + steps.filter(function(s){return s.critical;}).length + '</div></div>' +
+    '<div><div style="font-family:IBM Plex Mono,monospace;font-size:9px;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px">Est. active time</div><div style="font-size:18px;font-weight:700;color:#FAFAF8">~' + months + ' mo</div></div>' +
+    '</div>'
+  ) : '';
+
+  var div = document.createElement('div');
+  div.id = 'fullGuide';
+  div.style.cssText = 'max-width:1100px;margin:0 auto;padding:0 40px 60px;';
+  div.innerHTML =
+    '<div style="background:#fff;border:1px solid #EBEBEA;border-radius:12px;padding:32px;margin-top:16px">' +
+    '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #F0F0EE;flex-wrap:wrap;gap:12px">' +
+    '<div>' +
+    '<div style="font-family:IBM Plex Mono,monospace;font-size:10px;color:#AAA;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px">Step-by-step guide</div>' +
+    '<div style="font-size:20px;font-weight:800;color:#1A1A1A;letter-spacing:-0.3px">' + pathway.name + '</div>' +
+    '</div>' +
+    '<div style="font-family:IBM Plex Mono,monospace;font-size:11px;color:#2D7A2D;border:1px solid #A0D0A0;padding:4px 12px;border-radius:4px;background:#F0F8F0">Unlocked</div>' +
+    '</div>' +
+    summaryBar +
+    stepsHTML +
+    '<div style="margin-top:24px;padding:14px 16px;background:#FBFAF7;border:1px solid #EFEDE6;border-radius:8px;font-size:11.5px;color:#999;line-height:1.6"><strong style="color:#777">Guidance, not legal advice.</strong> Relociq provides general information to help you navigate your move. Immigration rules change frequently and every case is different. Always verify current requirements with the relevant official authority or a qualified immigration lawyer before acting. Relociq is not a law firm and does not provide legal representation.</div>' +
+    '<div style="margin-top:28px;padding:20px;background:#FAFAF8;border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">' +
+    '<div><div style="font-size:15px;color:#1A1A1A;font-weight:700;margin-bottom:2px">Track every deadline automatically</div><div style="font-size:13px;color:#888">Pro watches your dates, stores your documents, and updates this guide when rules change.</div></div>' +
+    '<a href="#pricing" style="font-size:14px;background:#C85A0A;color:#fff;padding:12px 24px;border-radius:8px;font-weight:600;text-decoration:none;white-space:nowrap">Upgrade to Pro</a>' +
+    '</div>' +
+    '</div>';
+
+  var resultCard = document.getElementById('pathwayResult');
+  if (resultCard) {
+    resultCard.parentNode.insertBefore(div, resultCard.nextSibling);
+  } else {
+    var hero = document.querySelector('.hero');
+    hero.parentNode.insertBefore(div, hero.nextSibling);
+  }
+  div.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+</script>
+</body>
+</html>
