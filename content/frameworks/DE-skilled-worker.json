@@ -1,0 +1,99 @@
+{
+  "framework_key": "DE-skilled-worker",
+  "destination": "Germany",
+  "visa_type": "Skilled Worker / EU Blue Card",
+  "salary_threshold": "EU Blue Card ~45,300 EUR/year; ~41,041 EUR shortage occupations (2024)",
+  "last_reviewed": "2026-05-23",
+  "source_url": "https://www.make-it-in-germany.com",
+  "status": "Needs Review",
+  "steps": [
+    {
+      "id": "recognition",
+      "name": "Register your address (Anmeldung) within 14 days",
+      "days": 7,
+      "critical": true,
+      "why": "Anmeldung is the foundation of life in Germany — required for your tax ID, bank account, and residence permit. Legally required within 14 days of moving in.",
+      "need": "Passport with visa, rental contract, and a Wohnungsgeberbestätigung (landlord confirmation). Appointment at the local Bürgeramt.",
+      "action": "Book an Anmeldung appointment the moment you have an address — Berlin and Munich slots book out 3-4 weeks ahead. You receive a Meldebescheinigung and your tax ID by post.",
+      "risks": "No registration means no residence permit, no statutory health insurance, and a frozen bank account. Airbnb usually cannot be registered — you need a real rental contract.",
+      "doneWhen": "You hold your Meldebescheinigung and your tax ID (Steuer-ID) arrives by post."
+    },
+    {
+      "id": "job-offer",
+      "name": "Gather and legalise your full document set",
+      "days": 4,
+      "critical": true,
+      "why": "Germany requires specific documents, most needing apostille or legalisation depending on your country. Missing or improperly legalised documents are the top cause of appointment rejections.",
+      "need": "Valid passport (12+ months), visa application form, biometric photos (35x45mm), employment contract, recognised degree proof, CV, health insurance, and accommodation proof.",
+      "action": "UK documents apostilled by the FCDO (Foreign, Commonwealth & Development Office). UK ACRO Police Certificate, apostilled by the FCDO. Have non-German documents translated by a certified translator. Prepare two complete sets — originals and copies.",
+      "risks": "Legalisation backlogs can take weeks. Photos not meeting the German biometric spec are rejected at the counter. Health insurance must cover the initial entry period.",
+      "doneWhen": "You have two complete, properly legalised and translated document sets matching the embassy checklist."
+    },
+    {
+      "id": "agency-approval",
+      "name": "Get your qualifications recognised (anabin / ZAB)",
+      "days": 1,
+      "critical": true,
+      "why": "Germany only grants skilled worker visas if your qualification is recognised as equivalent to a German one. This is the most common reason applications stall — verifying recognition first prevents wasted months.",
+      "need": "Your degree certificates and the anabin database (anabin.kmk.org). A ZAB Statement of Comparability costs around 200 EUR if formal evaluation is needed.",
+      "action": "UK degrees are generally well recognised; check anabin (anabin.kmk.org). Post-Brexit, UK nationals are non-EU and need the work visa or EU Blue Card. Search anabin first; if your institution is rated H+ recognition is automatic, otherwise request a ZAB Statement of Comparability.",
+      "risks": "Regulated professions (doctors, nurses, teachers, lawyers) follow a separate, longer recognition process. Lesser-known universities often need full ZAB evaluation. Start this step first — it gates everything else.",
+      "doneWhen": "Your institution shows H+ on anabin, or you hold a ZAB Statement of Comparability."
+    },
+    {
+      "id": "documents",
+      "name": "Employer secures Federal Employment Agency approval",
+      "days": 3,
+      "critical": true,
+      "why": "For most work visas the Bundesagentur für Arbeit must approve the role, confirming the pay matches local standards. EU Blue Card shortage roles often skip the priority check, which is why the Blue Card is faster.",
+      "need": "Your employer completes the \"Erklärung zum Beschäftigungsverhältnis\" declaration. You provide passport details and contract.",
+      "action": "Handled by your employer and the embassy in the background once you apply. Confirm your HR has the declaration form ready — embassy delays often trace to a missing employer declaration.",
+      "risks": "A slow or unresponsive employer stalls the whole visa. Below-norm salaries can trigger rejection. This runs in parallel with your embassy appointment.",
+      "doneWhen": "The Federal Employment Agency has issued approval (confirmed internally during processing)."
+    },
+    {
+      "id": "embassy",
+      "name": "Book and attend your visa appointment",
+      "days": 5,
+      "critical": true,
+      "why": "Appointment slots at German missions are limited and can be booked out for weeks. Your consular jurisdiction depends on where you live — you cannot freely choose.",
+      "need": "The embassy booking portal, your passport, the visa fee (75 EUR), and your complete document set.",
+      "action": "Book the National Visa (D-visa) for employment as early as possible. German missions in the UK: London, Edinburgh, Manchester. Attend in person, submit documents, and give biometrics.",
+      "risks": "Booking in the wrong jurisdiction means rejection on the day. Peak-season waits (4-12 weeks) mean book the moment you have an offer. Third-party \"fast appointment\" agents are often scams.",
+      "doneWhen": "You have attended your appointment, submitted documents and biometrics, and hold a tracking reference."
+    },
+    {
+      "id": "entry",
+      "name": "Convert to a residence permit at the Ausländerbehörde",
+      "days": 8,
+      "critical": true,
+      "why": "Your entry D-visa is temporary. You convert it into an electronic residence permit (eAT) or EU Blue Card at the local foreigners authority — your long-term right to stay.",
+      "need": "Passport with visa, Anmeldung certificate, employment contract, health insurance proof, biometric photo, and the fee (~100 EUR).",
+      "action": "Book the Ausländerbehörde appointment as soon as you have your Anmeldung — these are the most backed-up offices in Germany. You may receive a Fiktionsbescheinigung (interim certificate) while the card is produced.",
+      "risks": "Waiting times of 2-3 months are normal in major cities. Letting your entry visa expire before the appointment creates legal complications. Statutory health insurance must be active by now.",
+      "doneWhen": "You hold your residence permit / EU Blue Card (eAT), or a Fiktionsbescheinigung confirming continued legal stay."
+    },
+    {
+      "id": "anmeldung",
+      "name": "Receive your visa and enter Germany",
+      "days": 6,
+      "critical": false,
+      "why": "The mission processes the D-visa, coordinating with the Employment Agency and your destination city authority. Typical processing is 4-12 weeks.",
+      "need": "Your tracking reference. Do not make irreversible plans until the visa is in hand.",
+      "action": "Track via the embassy portal. Respond immediately to document requests — they pause the clock. On approval, collect your passport with the entry visa (valid ~90 days to enter Germany).",
+      "risks": "Processing slows June-September. Any document query resets the timeline. You must enter Germany within the entry visa validity window.",
+      "doneWhen": "You hold your passport with the German D-visa and have entered Germany."
+    },
+    {
+      "id": "auslaenderbehoerde",
+      "name": "Secure a job offer meeting salary thresholds",
+      "days": 2,
+      "critical": true,
+      "why": "The work visa is employer-tied. The salary level determines whether you get an EU Blue Card (faster path to permanent residency) or a standard work visa.",
+      "need": "A signed contract stating gross annual salary, job title, and start date. EU Blue Card 2024 threshold ~45,300 EUR/year, or ~41,041 EUR for shortage occupations (IT, engineering, medicine).",
+      "action": "Apply via Make-it-in-Germany.com, LinkedIn, StepStone.de, and Xing. Be explicit that you need visa sponsorship. English widely accepted in international roles; German B1 helps for most positions.",
+      "risks": "Smaller employers may be unfamiliar with sponsoring non-EU hires. Salary below the Blue Card threshold means the slower standard work visa. A vague offer without salary and start date is rejected.",
+      "doneWhen": "You hold a signed contract or binding offer with gross salary, role, and start date."
+    }
+  ]
+}

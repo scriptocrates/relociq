@@ -1,0 +1,58 @@
+{
+  "delta_key": "UA-DE",
+  "corridor": "UA-DE",
+  "framework_key": "DE-skilled-worker",
+  "origin": "UA",
+  "last_reviewed": "2026-05-23",
+  "source_url": "https://kiew.diplo.de",
+  "status": "Needs Review",
+  "operations": [
+    {
+      "op": "override",
+      "id": "job-offer",
+      "fields": {
+        "action": "Ukrainian documents apostilled by the relevant Ukrainian ministry (education/justice). Ukrainian police clearance, apostilled. Have non-German documents translated by a certified translator. Prepare two complete sets — originals and copies."
+      }
+    },
+    {
+      "op": "override",
+      "id": "agency-approval",
+      "fields": {
+        "action": "Ukrainian qualifications checked via anabin; many require a ZAB Statement of Comparability. Note: Ukrainians may alternatively use Temporary Protection, which is faster — compare both routes. Search anabin first; if your institution is rated H+ recognition is automatic, otherwise request a ZAB Statement of Comparability."
+      }
+    },
+    {
+      "op": "override",
+      "id": "embassy",
+      "fields": {
+        "name": "Convert to a residence permit at the Ausländerbehörde",
+        "days": 8,
+        "why": "Your entry D-visa is temporary. You convert it into an electronic residence permit (eAT) or EU Blue Card at the local foreigners authority — your long-term right to stay.",
+        "need": "Passport with visa, Anmeldung certificate, employment contract, health insurance proof, biometric photo, and the fee (~100 EUR).",
+        "action": "Book the Ausländerbehörde appointment as soon as you have your Anmeldung — these are the most backed-up offices in Germany. You may receive a Fiktionsbescheinigung (interim certificate) while the card is produced.",
+        "risks": "Waiting times of 2-3 months are normal in major cities. Letting your entry visa expire before the appointment creates legal complications. Statutory health insurance must be active by now.",
+        "doneWhen": "You hold your residence permit / EU Blue Card (eAT), or a Fiktionsbescheinigung confirming continued legal stay."
+      }
+    },
+    {
+      "op": "override",
+      "id": "entry",
+      "fields": {
+        "name": "Book and attend your visa appointment",
+        "days": 5,
+        "why": "Appointment slots at German missions are limited and can be booked out for weeks. Your consular jurisdiction depends on where you live — you cannot freely choose.",
+        "need": "The embassy booking portal, your passport, the visa fee (75 EUR), and your complete document set.",
+        "action": "Book the National Visa (D-visa) for employment as early as possible. German missions in Ukraine (subject to wartime operating status) or in neighbouring countries. Attend in person, submit documents, and give biometrics.",
+        "risks": "Booking in the wrong jurisdiction means rejection on the day. Peak-season waits (4-12 weeks) mean book the moment you have an offer. Third-party \"fast appointment\" agents are often scams.",
+        "doneWhen": "You have attended your appointment, submitted documents and biometrics, and hold a tracking reference."
+      }
+    },
+    {
+      "op": "override",
+      "id": "auslaenderbehoerde",
+      "fields": {
+        "action": "Apply via Make-it-in-Germany.com, LinkedIn, StepStone.de, and Xing. Be explicit that you need visa sponsorship. German language courses widely available; B1 strengthens applications."
+      }
+    }
+  ]
+}

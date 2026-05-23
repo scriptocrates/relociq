@@ -1,0 +1,106 @@
+{
+  "corridor": "IN-DE",
+  "framework_key": "DE-skilled-worker",
+  "note": "Gold-standard hand-written guide, kept verbatim (predates generic spine).",
+  "steps": [
+    {
+      "num": 1,
+      "name": "Attend your visa interview",
+      "days": 6,
+      "critical": true,
+      "why": "This is the in-person submission of biometrics and documents. The officer verifies your documents are complete and consistent, and may ask about your role, employer, and intentions.",
+      "need": "Your complete apostilled document set (originals + copies), appointment confirmation, visa fee, and passport. Dress professionally and arrive early.",
+      "action": "Submit your documents, give biometrics (fingerprints and photo), and answer questions clearly and consistently with your application. Keep answers factual — confirm your job title, employer, and salary match your paperwork exactly.",
+      "risks": "Inconsistencies between what you say and your documents are a red flag. Missing even one checklist item can mean rebooking weeks later. Do not over-explain — answer what is asked.",
+      "doneWhen": "Your application and biometrics are accepted and you receive a tracking reference."
+    },
+    {
+      "num": 2,
+      "name": "Register your address (Anmeldung) within 14 days",
+      "days": 8,
+      "critical": true,
+      "why": "Anmeldung (address registration) is the foundation of life in Germany — you cannot get a tax ID, finalise a bank account, or convert your visa to a residence permit without it. Legally required within 14 days of moving into your accommodation.",
+      "need": "Your passport with visa, rental contract, and a \"Wohnungsgeberbestätigung\" (landlord confirmation form signed by your landlord). Appointment at the local Bürgeramt.",
+      "action": "Book an Anmeldung appointment at your city Bürgeramt the moment you have an address — slots in Berlin and Munich book out 3-4 weeks ahead. Bring all documents. You receive a \"Meldebescheinigung\" and your tax ID arrives by post days later.",
+      "risks": "No address registration means no residence permit, no statutory health insurance enrolment, and a frozen bank account. Temporary accommodation (Airbnb) usually cannot be registered — you need a proper rental contract or a friend willing to sign the landlord form.",
+      "doneWhen": "You hold your Meldebescheinigung (registration certificate) and your tax ID (Steuer-ID) arrives by post."
+    },
+    {
+      "num": 3,
+      "name": "Book your visa appointment at the German Mission",
+      "days": 5,
+      "critical": true,
+      "why": "Appointment slots at German missions in India (New Delhi, Mumbai, Bengaluru, Chennai, Kolkata) are limited and can be booked out for weeks. Your jurisdiction depends on your state of residence — you cannot freely choose the city.",
+      "need": "The embassy appointment booking portal, your passport, and the visa fee of 75 EUR (roughly 7,000 INR, payable in rupees).",
+      "action": "Book the National Visa (D-visa) appointment for employment as early as possible via the official German Mission India website or the VFS/embassy booking system for your jurisdiction. Check slots daily — cancellations open up frequently.",
+      "risks": "Booking in the wrong consular jurisdiction means rejection on the day. Long wait times (4-12 weeks in peak season) mean this should be booked the moment you have a job offer, even before all documents are ready. Third-party \"fast appointment\" agents are often scams.",
+      "doneWhen": "You hold a confirmed appointment booking reference for the correct consular jurisdiction."
+    },
+    {
+      "num": 4,
+      "name": "Gather and apostille your full document set",
+      "days": 4,
+      "critical": true,
+      "why": "Germany requires specific documents, many apostilled under the Hague Convention. India joined the Apostille Convention, so documents are apostilled by the MEA (Ministry of External Affairs) rather than legalised at the embassy. Missing or un-apostilled documents are the top cause of appointment rejections.",
+      "need": "Valid passport (min 12 months), completed national visa application form, biometric photos (35x45mm), employment contract, degree certificates + anabin/ZAB proof, CV, proof of health insurance, and proof of accommodation. Budget ~5,000-15,000 INR for apostille and translation.",
+      "action": "Get degree and any personal certificates apostilled via the MEA (through authorised agencies or the e-Sanad portal). Have non-English documents translated by a certified translator. Prepare two complete physical sets — originals plus photocopies.",
+      "risks": "Apostille backlogs around graduation season can take weeks. Photos not meeting the German biometric spec are routinely rejected at the counter. Health insurance must be valid for the initial entry period — travel insurance covering the first weeks until your German employer enrolls you in statutory insurance.",
+      "doneWhen": "You have two complete, apostilled, translated document sets matching the embassy checklist exactly."
+    },
+    {
+      "num": 5,
+      "name": "Get your qualifications recognised (anabin check)",
+      "days": 1,
+      "critical": true,
+      "why": "Germany only grants skilled worker visas if your degree is recognised as equivalent to a German qualification. This is the single most common reason Indian applications stall — people apply for the visa first and discover months later their degree was never eligible.",
+      "need": "Your degree certificates, the anabin database (anabin.kmk.org), and roughly free-to-200 EUR if formal recognition (Zeugnisbewertung) is required.",
+      "action": "Search your university and degree on the anabin database. If your university is rated \"H+\" your degree is recognised automatically. If \"H+/-\" or not listed, request a Statement of Comparability from ZAB (Central Office for Foreign Education) — costs 200 EUR and takes 2-3 months, so start here first.",
+      "risks": "Many Indian universities are listed as \"H+/-\" meaning case-by-case. Engineering and IT degrees from recognised IITs/NITs usually clear easily; lesser-known private universities often need full ZAB evaluation. Regulated professions (doctors, nurses, teachers, lawyers) have an entirely separate, longer recognition process.",
+      "doneWhen": "Your university shows \"H+\" on anabin, OR you hold a ZAB Statement of Comparability confirming equivalence."
+    },
+    {
+      "num": 6,
+      "name": "Employer secures Federal Employment Agency approval",
+      "days": 3,
+      "critical": true,
+      "why": "For most work visas the German employer (with the embassy) must obtain approval from the Bundesagentur für Arbeit, confirming the role cannot easily be filled by an EU national and the pay matches local standards. EU Blue Card shortage-occupation roles often skip the priority check, which is why the Blue Card is faster.",
+      "need": "Your employer completes the \"Erklärung zum Beschäftigungsverhältnis\" (declaration of employment) form. You provide your passport details and contract.",
+      "action": "This is mostly handled by your employer and the embassy in the background once you submit your visa application. Confirm with your HR contact that they have the declaration form ready, as embassy delays often trace back to a missing employer declaration.",
+      "risks": "If your employer is slow or unresponsive with the declaration, the whole visa stalls. Salaries below regional norms can trigger a rejection from the Agency. This step runs in parallel with your embassy appointment — it is not always sequential.",
+      "doneWhen": "The Federal Employment Agency has issued approval (the embassy confirms this internally during processing)."
+    },
+    {
+      "num": 7,
+      "name": "Convert to a residence permit at the Ausländerbehörde",
+      "days": 9,
+      "critical": true,
+      "why": "Your entry D-visa is temporary. To live and work in Germany long-term you convert it into an electronic residence permit (eAT card) or EU Blue Card at the local foreigners authority. This card is your legal right to stay.",
+      "need": "Passport with visa, Anmeldung certificate, employment contract, proof of health insurance, biometric photo, and the fee (around 100 EUR). Appointment at the Ausländerbehörde.",
+      "action": "Book the Ausländerbehörde appointment as soon as you have your Anmeldung — these are the most backed-up offices in Germany. Submit documents and biometrics for your eAT card. You may receive a \"Fiktionsbescheinigung\" (interim certificate) that keeps you legal while the card is produced.",
+      "risks": "Ausländerbehörde waiting times of 2-3 months are normal in major cities. Letting your entry visa expire before securing the appointment creates legal complications — book early. Your statutory health insurance must be active by this point.",
+      "doneWhen": "You hold your residence permit / EU Blue Card (eAT card), or a Fiktionsbescheinigung confirming your continued legal stay."
+    },
+    {
+      "num": 8,
+      "name": "Wait for processing and collect your visa",
+      "days": 7,
+      "critical": false,
+      "why": "The German Mission processes the D-visa, coordinating with the Federal Employment Agency and the local Ausländerbehörde in your destination German city. Typical processing is 4-12 weeks depending on the mission and time of year.",
+      "need": "Your tracking reference and patience. Do not make irreversible plans (quitting your job, booking flights) until the visa is in hand.",
+      "action": "Track status via the embassy portal. Respond immediately to any request for additional documents — these pause the clock. Once approved, collect your passport with the entry visa, valid usually for 90 days to enter Germany.",
+      "risks": "Processing slows dramatically June-September. Any document query resets your timeline. The entry visa has an expiry — you must enter Germany within its validity window.",
+      "doneWhen": "You hold your passport with the German national visa (D-visa) sticker inside."
+    },
+    {
+      "num": 9,
+      "name": "Secure a job offer meeting salary thresholds",
+      "days": 2,
+      "critical": true,
+      "why": "The work visa is employer-tied. Without a concrete job offer (or the new Opportunity Card to job-hunt in Germany), there is no visa. The salary level also determines which visa you get — EU Blue Card vs standard work visa — and how fast you reach permanent residency.",
+      "need": "A signed employment contract or binding job offer stating gross annual salary, job title, and start date. For an EU Blue Card in 2024 you need roughly 45,300 EUR/year, or about 41,041 EUR for shortage occupations (IT, engineering, medicine).",
+      "action": "Apply through Make-it-in-Germany.com (the official portal), LinkedIn, StepStone.de, and Xing. Target English-speaking roles in IT, engineering, and research where German is often not required. Be explicit with employers that you will need visa sponsorship — most large German tech firms do this routinely.",
+      "risks": "Smaller German employers are often unfamiliar with sponsoring non-EU hires and may withdraw. Salary below the Blue Card threshold pushes you to the standard work visa which has a slower path to permanent residency. A vague offer letter without salary and start date will be rejected by the embassy.",
+      "doneWhen": "You hold a signed contract or binding written offer with gross salary, role, and start date clearly stated."
+    }
+  ]
+}

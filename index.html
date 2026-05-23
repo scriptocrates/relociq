@@ -594,8 +594,7 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
 </footer>
 
 <script>
-var origins=[
-  {flag:'🇮🇳',name:'India',code:'IN'},
+var origins=[{flag:'🇮🇳',name:'India',code:'IN'},
   {flag:'🇬🇧',name:'United Kingdom',code:'GB'},
   {flag:'🇺🇦',name:'Ukraine',code:'UA'},
   {flag:'🇧🇷',name:'Brazil',code:'BR'},
@@ -605,29 +604,27 @@ var origins=[
   {flag:'🇷🇴',name:'Romania',code:'RO'},
   {flag:'🇸🇰',name:'Slovakia',code:'SK'},
   {flag:'🇿🇦',name:'South Africa',code:'ZA'},
-  {flag:'🇲🇽',name:'Mexico',code:'MX'},
+  
   {flag:'🇵🇰',name:'Pakistan',code:'PK'},
-  {flag:'🇧🇩',name:'Bangladesh',code:'BD'},
+  
   {flag:'🇨🇳',name:'China',code:'CN'},
   {flag:'🇷🇸',name:'Serbia',code:'RS'},
   {flag:'🇹🇷',name:'Turkey',code:'TR'},
   {flag:'🇲🇦',name:'Morocco',code:'MA'},
   {flag:'🇨🇴',name:'Colombia',code:'CO'},
   {flag:'🇦🇷',name:'Argentina',code:'AR'},
-  {flag:'🇪🇬',name:'Egypt',code:'EG'}
-];
-var dests=[
-  {flag:'🇩🇪',name:'Germany',code:'DE'},
+  {flag:'🇪🇬',name:'Egypt',code:'EG'}];
+var dests=[{flag:'🇩🇪',name:'Germany',code:'DE'},
   {flag:'🇵🇹',name:'Portugal',code:'PT'},
   {flag:'🇨🇿',name:'Czech Republic',code:'CZ'},
   {flag:'🇳🇱',name:'Netherlands',code:'NL'},
   {flag:'🇪🇸',name:'Spain',code:'ES'},
   {flag:'🇨🇦',name:'Canada',code:'CA'},
   {flag:'🇦🇺',name:'Australia',code:'AU'},
-  {flag:'🇨🇭',name:'Switzerland',code:'CH'},
+  
   {flag:'🇦🇹',name:'Austria',code:'AT'},
   {flag:'🇸🇪',name:'Sweden',code:'SE'},
-  {flag:'🇳🇴',name:'Norway',code:'NO'},
+  
   {flag:'🇦🇪',name:'UAE',code:'AE'},
   {flag:'🇸🇬',name:'Singapore',code:'SG'},
   {flag:'🇫🇷',name:'France',code:'FR'},
@@ -635,9 +632,7 @@ var dests=[
   {flag:'🇬🇧',name:'United Kingdom',code:'GB'},
   {flag:'🇺🇸',name:'United States',code:'US'},
   {flag:'🇮🇪',name:'Ireland',code:'IE'},
-  {flag:'🇧🇪',name:'Belgium',code:'BE'},
-  {flag:'🇩🇰',name:'Denmark',code:'DK'}
-];
+  {flag:'🇧🇪',name:'Belgium',code:'BE'}];
 var fromSel=origins[0],toSel=dests[0];
 
 function render(type,items){
@@ -1075,7 +1070,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -1086,7 +1081,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route matching your situation and confirmed you meet its requirements."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and apostille your documents",
       "days": 3,
       "critical": true,
@@ -1097,7 +1092,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, apostilled, translated document set with valid health insurance."
     },
     {
-      "num": 14,
+      "num": 4,
       "name": "Get your NIE / foreigner identity number",
       "days": 2,
       "critical": true,
@@ -1108,7 +1103,7 @@ var stepsData = {
       "doneWhen": "You hold your NIE number."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Register and collect your TIE residence card",
       "days": 6,
       "critical": true,
@@ -1119,7 +1114,7 @@ var stepsData = {
       "doneWhen": "You have given biometrics and your TIE residence card is issued."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Receive your visa and travel to Spain",
       "days": 5,
       "critical": false,
@@ -1143,7 +1138,7 @@ var stepsData = {
       "doneWhen": "You have landed, PR is activated, and your PR card is on its way."
     },
     {
-      "num": 1,
+      "num": 2,
       "name": "Create your Express Entry profile and enter the pool",
       "days": 4,
       "critical": true,
@@ -1154,7 +1149,7 @@ var stepsData = {
       "doneWhen": "Your Express Entry profile is live in the pool with an accurate CRS score."
     },
     {
-      "num": 7,
+      "num": 3,
       "name": "Check eligibility and calculate your CRS score",
       "days": 1,
       "critical": true,
@@ -1165,7 +1160,7 @@ var stepsData = {
       "doneWhen": "You know your CRS score and the best program/PNP for your profile."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Take your language test (IELTS/CELPIP, optionally TEF)",
       "days": 2,
       "critical": true,
@@ -1176,7 +1171,7 @@ var stepsData = {
       "doneWhen": "You hold a valid language result at the CLB level your CRS calculation assumed."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Get your Educational Credential Assessment (ECA)",
       "days": 3,
       "critical": true,
@@ -1187,7 +1182,7 @@ var stepsData = {
       "doneWhen": "You hold your ECA report confirming Canadian-equivalent education."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Receive your Invitation to Apply and submit",
       "days": 5,
       "critical": true,
@@ -1198,7 +1193,7 @@ var stepsData = {
       "doneWhen": "Your complete PR application is submitted within 60 days of the ITA."
     },
     {
-      "num": 180,
+      "num": 7,
       "name": "Wait for approval and receive your COPR",
       "days": 6,
       "critical": false,
@@ -1222,7 +1217,7 @@ var stepsData = {
       "doneWhen": "You hold your Meldebescheinigung and your tax ID (Steuer-ID) arrives by post."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Gather and legalise your full document set",
       "days": 4,
       "critical": true,
@@ -1233,7 +1228,7 @@ var stepsData = {
       "doneWhen": "You have two complete, properly legalised and translated document sets matching the embassy checklist."
     },
     {
-      "num": 21,
+      "num": 3,
       "name": "Get your qualifications recognised (anabin / ZAB)",
       "days": 1,
       "critical": true,
@@ -1244,7 +1239,7 @@ var stepsData = {
       "doneWhen": "Your institution shows H+ on anabin, or you hold a ZAB Statement of Comparability."
     },
     {
-      "num": 21,
+      "num": 4,
       "name": "Employer secures Federal Employment Agency approval",
       "days": 3,
       "critical": true,
@@ -1255,7 +1250,7 @@ var stepsData = {
       "doneWhen": "The Federal Employment Agency has issued approval (confirmed internally during processing)."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Book and attend your visa appointment",
       "days": 5,
       "critical": true,
@@ -1266,7 +1261,7 @@ var stepsData = {
       "doneWhen": "You have attended your appointment, submitted documents and biometrics, and hold a tracking reference."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Convert to a residence permit at the Ausländerbehörde",
       "days": 8,
       "critical": true,
@@ -1277,7 +1272,7 @@ var stepsData = {
       "doneWhen": "You hold your residence permit / EU Blue Card (eAT), or a Fiktionsbescheinigung confirming continued legal stay."
     },
     {
-      "num": 42,
+      "num": 7,
       "name": "Receive your visa and enter Germany",
       "days": 6,
       "critical": false,
@@ -1288,7 +1283,7 @@ var stepsData = {
       "doneWhen": "You hold your passport with the German D-visa and have entered Germany."
     },
     {
-      "num": 60,
+      "num": 8,
       "name": "Secure a job offer meeting salary thresholds",
       "days": 2,
       "critical": true,
@@ -1312,7 +1307,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -1323,7 +1318,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route matching your situation and confirmed you meet its requirements."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and apostille your documents",
       "days": 3,
       "critical": true,
@@ -1334,7 +1329,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, apostilled, translated document set with valid health insurance."
     },
     {
-      "num": 14,
+      "num": 4,
       "name": "Get your NIE / foreigner identity number",
       "days": 2,
       "critical": true,
@@ -1345,7 +1340,7 @@ var stepsData = {
       "doneWhen": "You hold your NIE number."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Receive your visa and travel to Spain",
       "days": 5,
       "critical": false,
@@ -1356,7 +1351,7 @@ var stepsData = {
       "doneWhen": "You hold your entry visa and have travelled to Spain."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Register and collect your TIE residence card",
       "days": 6,
       "critical": true,
@@ -1380,7 +1375,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 1,
+      "num": 2,
       "name": "Complete residency at AIMA in Portugal",
       "days": 6,
       "critical": true,
@@ -1391,7 +1386,7 @@ var stepsData = {
       "doneWhen": "You have given biometrics at AIMA and your residence card is issued."
     },
     {
-      "num": 7,
+      "num": 3,
       "name": "Confirm your route — work visa, D7, or D8",
       "days": 1,
       "critical": true,
@@ -1402,7 +1397,7 @@ var stepsData = {
       "doneWhen": "You have chosen the visa category that matches your income source."
     },
     {
-      "num": 14,
+      "num": 4,
       "name": "Gather documents — including the Brazilian PCC",
       "days": 3,
       "critical": true,
@@ -1413,7 +1408,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, apostilled document set including the federal PCC."
     },
     {
-      "num": 14,
+      "num": 5,
       "name": "Get your Portuguese NIF",
       "days": 2,
       "critical": true,
@@ -1424,7 +1419,7 @@ var stepsData = {
       "doneWhen": "You hold your 9-digit Portuguese NIF."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Receive your entry visa",
       "days": 5,
       "critical": false,
@@ -1448,7 +1443,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -1459,7 +1454,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route and confirmed eligibility."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and legalise your documents",
       "days": 3,
       "critical": true,
@@ -1470,7 +1465,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, legalised, translated document set."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Complete residence registration",
       "days": 6,
       "critical": true,
@@ -1481,7 +1476,7 @@ var stepsData = {
       "doneWhen": "You have registered and your residence permit/card is issued."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Receive your visa and travel",
       "days": 5,
       "critical": false,
@@ -1492,7 +1487,7 @@ var stepsData = {
       "doneWhen": "You hold your entry visa and have travelled to the United States."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Secure your basis — job offer or income proof",
       "days": 2,
       "critical": true,
@@ -1516,7 +1511,7 @@ var stepsData = {
       "doneWhen": "Your EOI is submitted and you await an invitation."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Check your occupation is on the skilled list and assess points",
       "days": 1,
       "critical": true,
@@ -1527,7 +1522,7 @@ var stepsData = {
       "doneWhen": "Your occupation is listed and you know your points score."
     },
     {
-      "num": 30,
+      "num": 3,
       "name": "Take an English test (IELTS/PTE)",
       "days": 3,
       "critical": true,
@@ -1538,7 +1533,7 @@ var stepsData = {
       "doneWhen": "You hold an English result at the points level your calculation assumed."
     },
     {
-      "num": 60,
+      "num": 4,
       "name": "Receive your invitation and lodge the visa",
       "days": 5,
       "critical": true,
@@ -1549,7 +1544,7 @@ var stepsData = {
       "doneWhen": "Your complete visa application is lodged within 60 days of invitation."
     },
     {
-      "num": 60,
+      "num": 5,
       "name": "Get a positive skills assessment",
       "days": 2,
       "critical": true,
@@ -1560,7 +1555,7 @@ var stepsData = {
       "doneWhen": "You hold a positive skills assessment for your nominated occupation."
     },
     {
-      "num": 120,
+      "num": 6,
       "name": "Receive your visa and move to Australia",
       "days": 6,
       "critical": false,
@@ -1584,7 +1579,7 @@ var stepsData = {
       "doneWhen": "Your Express Entry profile is live in the pool with an accurate CRS score."
     },
     {
-      "num": 1,
+      "num": 2,
       "name": "Land in Canada and activate permanent residency",
       "days": 7,
       "critical": true,
@@ -1595,7 +1590,7 @@ var stepsData = {
       "doneWhen": "You have landed, PR is activated, and your PR card is on its way."
     },
     {
-      "num": 7,
+      "num": 3,
       "name": "Check eligibility and calculate your CRS score",
       "days": 1,
       "critical": true,
@@ -1606,7 +1601,7 @@ var stepsData = {
       "doneWhen": "You know your CRS score and the best program/PNP for your profile."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Take your language test (IELTS/CELPIP, optionally TEF)",
       "days": 2,
       "critical": true,
@@ -1617,7 +1612,7 @@ var stepsData = {
       "doneWhen": "You hold a valid language result at the CLB level your CRS calculation assumed."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Get your Educational Credential Assessment (ECA)",
       "days": 3,
       "critical": true,
@@ -1628,7 +1623,7 @@ var stepsData = {
       "doneWhen": "You hold your ECA report confirming Canadian-equivalent education."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Receive your Invitation to Apply and submit",
       "days": 5,
       "critical": true,
@@ -1639,7 +1634,7 @@ var stepsData = {
       "doneWhen": "Your complete PR application is submitted within 60 days of the ITA."
     },
     {
-      "num": 180,
+      "num": 7,
       "name": "Wait for approval and receive your COPR",
       "days": 6,
       "critical": false,
@@ -1663,7 +1658,7 @@ var stepsData = {
       "doneWhen": "You hold your Meldebescheinigung and your tax ID (Steuer-ID) arrives by post."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Gather and legalise your full document set",
       "days": 5,
       "critical": true,
@@ -1674,7 +1669,7 @@ var stepsData = {
       "doneWhen": "You have two complete, properly legalised and translated document sets matching the embassy checklist."
     },
     {
-      "num": 21,
+      "num": 3,
       "name": "Get your qualifications recognised (anabin / ZAB)",
       "days": 1,
       "critical": true,
@@ -1685,7 +1680,7 @@ var stepsData = {
       "doneWhen": "Your institution shows H+ on anabin, or you hold a ZAB Statement of Comparability."
     },
     {
-      "num": 21,
+      "num": 4,
       "name": "Employer secures Federal Employment Agency approval",
       "days": 4,
       "critical": true,
@@ -1696,7 +1691,7 @@ var stepsData = {
       "doneWhen": "The Federal Employment Agency has issued approval (confirmed internally during processing)."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Book and attend your visa appointment",
       "days": 6,
       "critical": true,
@@ -1707,7 +1702,7 @@ var stepsData = {
       "doneWhen": "You have attended your appointment, submitted documents and biometrics, and hold a tracking reference."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Obtain your APS certificate (China-specific)",
       "days": 2,
       "critical": true,
@@ -1718,7 +1713,7 @@ var stepsData = {
       "doneWhen": "You hold your APS certificate."
     },
     {
-      "num": 30,
+      "num": 7,
       "name": "Convert to a residence permit at the Ausländerbehörde",
       "days": 9,
       "critical": true,
@@ -1729,7 +1724,7 @@ var stepsData = {
       "doneWhen": "You hold your residence permit / EU Blue Card (eAT), or a Fiktionsbescheinigung confirming continued legal stay."
     },
     {
-      "num": 42,
+      "num": 8,
       "name": "Receive your visa and enter Germany",
       "days": 7,
       "critical": false,
@@ -1740,7 +1735,7 @@ var stepsData = {
       "doneWhen": "You hold your passport with the German D-visa and have entered Germany."
     },
     {
-      "num": 60,
+      "num": 9,
       "name": "Secure a job offer meeting salary thresholds",
       "days": 3,
       "critical": true,
@@ -1764,7 +1759,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -1775,7 +1770,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route matching your situation and confirmed you meet its requirements."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and apostille your documents",
       "days": 3,
       "critical": true,
@@ -1786,7 +1781,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, apostilled, translated document set with valid health insurance."
     },
     {
-      "num": 14,
+      "num": 4,
       "name": "Get your NIE / foreigner identity number",
       "days": 2,
       "critical": true,
@@ -1797,7 +1792,7 @@ var stepsData = {
       "doneWhen": "You hold your NIE number."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Receive your visa and travel to Spain",
       "days": 5,
       "critical": false,
@@ -1808,7 +1803,7 @@ var stepsData = {
       "doneWhen": "You hold your entry visa and have travelled to Spain."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Register and collect your TIE residence card",
       "days": 6,
       "critical": true,
@@ -1821,7 +1816,7 @@ var stepsData = {
   ],
   "EG-AE": [
     {
-      "num": 14,
+      "num": 1,
       "name": "Enter the UAE and complete medical + Emirates ID",
       "days": 4,
       "critical": true,
@@ -1832,7 +1827,7 @@ var stepsData = {
       "doneWhen": "You have passed the medical and applied for your Emirates ID."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Receive your residence visa and work permit",
       "days": 5,
       "critical": false,
@@ -1843,7 +1838,7 @@ var stepsData = {
       "doneWhen": "Your residence visa is stamped and your Emirates ID and work permit are issued."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Attest your documents",
       "days": 3,
       "critical": true,
@@ -1854,7 +1849,7 @@ var stepsData = {
       "doneWhen": "Your documents are fully attested and accepted in the UAE."
     },
     {
-      "num": 14,
+      "num": 4,
       "name": "Employer obtains your entry permit",
       "days": 2,
       "critical": true,
@@ -1865,7 +1860,7 @@ var stepsData = {
       "doneWhen": "Your employer has issued your electronic entry permit."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Secure a job offer from a UAE employer",
       "days": 1,
       "critical": true,
@@ -1889,7 +1884,7 @@ var stepsData = {
       "doneWhen": "You hold your Meldebescheinigung and your tax ID (Steuer-ID) arrives by post."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Gather and legalise your full document set",
       "days": 4,
       "critical": true,
@@ -1900,7 +1895,7 @@ var stepsData = {
       "doneWhen": "You have two complete, properly legalised and translated document sets matching the embassy checklist."
     },
     {
-      "num": 21,
+      "num": 3,
       "name": "Employer secures Federal Employment Agency approval",
       "days": 3,
       "critical": true,
@@ -1911,7 +1906,7 @@ var stepsData = {
       "doneWhen": "The Federal Employment Agency has issued approval (confirmed internally during processing)."
     },
     {
-      "num": 21,
+      "num": 4,
       "name": "Get your qualifications recognised (anabin / ZAB)",
       "days": 1,
       "critical": true,
@@ -1922,7 +1917,7 @@ var stepsData = {
       "doneWhen": "Your institution shows H+ on anabin, or you hold a ZAB Statement of Comparability."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Convert to a residence permit at the Ausländerbehörde",
       "days": 8,
       "critical": true,
@@ -1933,7 +1928,7 @@ var stepsData = {
       "doneWhen": "You hold your residence permit / EU Blue Card (eAT), or a Fiktionsbescheinigung confirming continued legal stay."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Book and attend your visa appointment",
       "days": 5,
       "critical": true,
@@ -1944,7 +1939,7 @@ var stepsData = {
       "doneWhen": "You have attended your appointment, submitted documents and biometrics, and hold a tracking reference."
     },
     {
-      "num": 42,
+      "num": 7,
       "name": "Receive your visa and enter Germany",
       "days": 6,
       "critical": false,
@@ -1955,7 +1950,7 @@ var stepsData = {
       "doneWhen": "You hold your passport with the German D-visa and have entered Germany."
     },
     {
-      "num": 60,
+      "num": 8,
       "name": "Secure a job offer meeting salary thresholds",
       "days": 2,
       "critical": true,
@@ -1979,7 +1974,7 @@ var stepsData = {
       "doneWhen": "Your EOI is submitted and you await an invitation."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Check your occupation is on the skilled list and assess points",
       "days": 1,
       "critical": true,
@@ -1990,7 +1985,7 @@ var stepsData = {
       "doneWhen": "Your occupation is listed and you know your points score."
     },
     {
-      "num": 30,
+      "num": 3,
       "name": "Take an English test (IELTS/PTE)",
       "days": 3,
       "critical": true,
@@ -2001,7 +1996,7 @@ var stepsData = {
       "doneWhen": "You hold an English result at the points level your calculation assumed."
     },
     {
-      "num": 60,
+      "num": 4,
       "name": "Get a positive skills assessment",
       "days": 2,
       "critical": true,
@@ -2012,7 +2007,7 @@ var stepsData = {
       "doneWhen": "You hold a positive skills assessment for your nominated occupation."
     },
     {
-      "num": 60,
+      "num": 5,
       "name": "Receive your invitation and lodge the visa",
       "days": 5,
       "critical": true,
@@ -2023,7 +2018,7 @@ var stepsData = {
       "doneWhen": "Your complete visa application is lodged within 60 days of invitation."
     },
     {
-      "num": 120,
+      "num": 6,
       "name": "Receive your visa and move to Australia",
       "days": 6,
       "critical": false,
@@ -2047,7 +2042,7 @@ var stepsData = {
       "doneWhen": "Your Express Entry profile is live in the pool with an accurate CRS score."
     },
     {
-      "num": 1,
+      "num": 2,
       "name": "Land in Canada and activate permanent residency",
       "days": 7,
       "critical": true,
@@ -2058,7 +2053,7 @@ var stepsData = {
       "doneWhen": "You have landed, PR is activated, and your PR card is on its way."
     },
     {
-      "num": 7,
+      "num": 3,
       "name": "Check eligibility and calculate your CRS score",
       "days": 1,
       "critical": true,
@@ -2069,7 +2064,7 @@ var stepsData = {
       "doneWhen": "You know your CRS score and the best program/PNP for your profile."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Take your language test (IELTS/CELPIP, optionally TEF)",
       "days": 2,
       "critical": true,
@@ -2080,7 +2075,7 @@ var stepsData = {
       "doneWhen": "You hold a valid language result at the CLB level your CRS calculation assumed."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Get your Educational Credential Assessment (ECA)",
       "days": 3,
       "critical": true,
@@ -2091,7 +2086,7 @@ var stepsData = {
       "doneWhen": "You hold your ECA report confirming Canadian-equivalent education."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Receive your Invitation to Apply and submit",
       "days": 5,
       "critical": true,
@@ -2102,7 +2097,7 @@ var stepsData = {
       "doneWhen": "Your complete PR application is submitted within 60 days of the ITA."
     },
     {
-      "num": 180,
+      "num": 7,
       "name": "Wait for approval and receive your COPR",
       "days": 6,
       "critical": false,
@@ -2126,7 +2121,7 @@ var stepsData = {
       "doneWhen": "You hold your Meldebescheinigung and your tax ID (Steuer-ID) arrives by post."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Gather and legalise your full document set",
       "days": 4,
       "critical": true,
@@ -2137,7 +2132,7 @@ var stepsData = {
       "doneWhen": "You have two complete, properly legalised and translated document sets matching the embassy checklist."
     },
     {
-      "num": 21,
+      "num": 3,
       "name": "Get your qualifications recognised (anabin / ZAB)",
       "days": 1,
       "critical": true,
@@ -2148,7 +2143,7 @@ var stepsData = {
       "doneWhen": "Your institution shows H+ on anabin, or you hold a ZAB Statement of Comparability."
     },
     {
-      "num": 21,
+      "num": 4,
       "name": "Employer secures Federal Employment Agency approval",
       "days": 3,
       "critical": true,
@@ -2159,7 +2154,7 @@ var stepsData = {
       "doneWhen": "The Federal Employment Agency has issued approval (confirmed internally during processing)."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Book and attend your visa appointment",
       "days": 5,
       "critical": true,
@@ -2170,7 +2165,7 @@ var stepsData = {
       "doneWhen": "You have attended your appointment, submitted documents and biometrics, and hold a tracking reference."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Convert to a residence permit at the Ausländerbehörde",
       "days": 8,
       "critical": true,
@@ -2181,7 +2176,7 @@ var stepsData = {
       "doneWhen": "You hold your residence permit / EU Blue Card (eAT), or a Fiktionsbescheinigung confirming continued legal stay."
     },
     {
-      "num": 42,
+      "num": 7,
       "name": "Receive your visa and enter Germany",
       "days": 6,
       "critical": false,
@@ -2192,7 +2187,7 @@ var stepsData = {
       "doneWhen": "You hold your passport with the German D-visa and have entered Germany."
     },
     {
-      "num": 60,
+      "num": 8,
       "name": "Secure a job offer meeting salary thresholds",
       "days": 2,
       "critical": true,
@@ -2216,7 +2211,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -2227,7 +2222,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route matching your situation and confirmed you meet its requirements."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and apostille your documents",
       "days": 3,
       "critical": true,
@@ -2238,7 +2233,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, apostilled, translated document set with valid health insurance."
     },
     {
-      "num": 14,
+      "num": 4,
       "name": "Get your NIE / foreigner identity number",
       "days": 2,
       "critical": true,
@@ -2249,7 +2244,7 @@ var stepsData = {
       "doneWhen": "You hold your NIE number."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Register and collect your TIE residence card",
       "days": 6,
       "critical": true,
@@ -2260,7 +2255,7 @@ var stepsData = {
       "doneWhen": "You have given biometrics and your TIE residence card is issued."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Receive your visa and travel to Spain",
       "days": 5,
       "critical": false,
@@ -2284,7 +2279,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -2295,7 +2290,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route and confirmed eligibility."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and legalise your documents",
       "days": 3,
       "critical": true,
@@ -2306,7 +2301,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, legalised, translated document set."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Complete residence registration",
       "days": 6,
       "critical": true,
@@ -2317,7 +2312,7 @@ var stepsData = {
       "doneWhen": "You have registered and your residence permit/card is issued."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Receive your visa and travel",
       "days": 5,
       "critical": false,
@@ -2328,7 +2323,7 @@ var stepsData = {
       "doneWhen": "You hold your entry visa and have travelled to France."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Secure your basis — job offer or income proof",
       "days": 2,
       "critical": true,
@@ -2341,7 +2336,7 @@ var stepsData = {
   ],
   "GB-IE": [
     {
-      "num": 30,
+      "num": 1,
       "name": "Enter Ireland and register with immigration (IRP)",
       "days": 3,
       "critical": true,
@@ -2352,7 +2347,7 @@ var stepsData = {
       "doneWhen": "You hold your IRP card and PPS number."
     },
     {
-      "num": 30,
+      "num": 2,
       "name": "Apply for the Critical Skills Employment Permit",
       "days": 2,
       "critical": true,
@@ -2363,7 +2358,7 @@ var stepsData = {
       "doneWhen": "Your Critical Skills Employment Permit is granted."
     },
     {
-      "num": 60,
+      "num": 3,
       "name": "Secure a job on the Critical Skills list",
       "days": 1,
       "critical": true,
@@ -2387,7 +2382,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -2398,7 +2393,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route and confirmed eligibility."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and legalise your documents",
       "days": 3,
       "critical": true,
@@ -2409,7 +2404,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, legalised, translated document set."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Complete residence registration",
       "days": 6,
       "critical": true,
@@ -2420,7 +2415,7 @@ var stepsData = {
       "doneWhen": "You have registered and your residence permit/card is issued."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Receive your visa and travel",
       "days": 5,
       "critical": false,
@@ -2431,7 +2426,7 @@ var stepsData = {
       "doneWhen": "You hold your entry visa and have travelled to Netherlands."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Secure your basis — job offer or income proof",
       "days": 2,
       "critical": true,
@@ -2455,7 +2450,7 @@ var stepsData = {
       "doneWhen": "You have given biometrics at AIMA and your 2-year residence card is issued."
     },
     {
-      "num": 1,
+      "num": 2,
       "name": "Submit your D8 application at VFS/Portuguese consulate",
       "days": 5,
       "critical": true,
@@ -2466,7 +2461,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted and you hold a VFS tracking reference."
     },
     {
-      "num": 7,
+      "num": 3,
       "name": "Confirm you qualify for the D8 Digital Nomad Visa",
       "days": 1,
       "critical": true,
@@ -2477,7 +2472,7 @@ var stepsData = {
       "doneWhen": "You can document 3+ months of remote income averaging above 3,280 EUR/month."
     },
     {
-      "num": 7,
+      "num": 4,
       "name": "Open a Portuguese bank account",
       "days": 3,
       "critical": false,
@@ -2488,7 +2483,7 @@ var stepsData = {
       "doneWhen": "You have an active account showing sufficient funds for the application."
     },
     {
-      "num": 14,
+      "num": 5,
       "name": "Gather and legalise your document set",
       "days": 4,
       "critical": true,
@@ -2499,7 +2494,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, apostilled document set matching the consulate D8 checklist."
     },
     {
-      "num": 14,
+      "num": 6,
       "name": "Get your Portuguese NIF (tax number)",
       "days": 2,
       "critical": true,
@@ -2510,7 +2505,7 @@ var stepsData = {
       "doneWhen": "You hold your 9-digit Portuguese NIF."
     },
     {
-      "num": 60,
+      "num": 7,
       "name": "Receive your entry visa",
       "days": 6,
       "critical": false,
@@ -2523,7 +2518,7 @@ var stepsData = {
   ],
   "IN-AE": [
     {
-      "num": 14,
+      "num": 1,
       "name": "Enter the UAE and complete medical + Emirates ID",
       "days": 4,
       "critical": true,
@@ -2534,7 +2529,7 @@ var stepsData = {
       "doneWhen": "You have passed the medical and applied for your Emirates ID."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Employer obtains your entry permit",
       "days": 2,
       "critical": true,
@@ -2545,7 +2540,7 @@ var stepsData = {
       "doneWhen": "Your employer has issued your electronic entry permit."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Receive your residence visa and work permit",
       "days": 5,
       "critical": false,
@@ -2556,7 +2551,7 @@ var stepsData = {
       "doneWhen": "Your residence visa is stamped and your Emirates ID and work permit are issued."
     },
     {
-      "num": 14,
+      "num": 4,
       "name": "Attest your documents",
       "days": 3,
       "critical": true,
@@ -2567,7 +2562,7 @@ var stepsData = {
       "doneWhen": "Your documents are fully attested and accepted in the UAE."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Secure a job offer from a UAE employer",
       "days": 1,
       "critical": true,
@@ -2591,7 +2586,7 @@ var stepsData = {
       "doneWhen": "Your EOI is submitted and you await an invitation."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Check your occupation is on the skilled list and assess points",
       "days": 1,
       "critical": true,
@@ -2602,7 +2597,7 @@ var stepsData = {
       "doneWhen": "Your occupation is listed and you know your points score."
     },
     {
-      "num": 30,
+      "num": 3,
       "name": "Take an English test (IELTS/PTE)",
       "days": 3,
       "critical": true,
@@ -2613,7 +2608,7 @@ var stepsData = {
       "doneWhen": "You hold an English result at the points level your calculation assumed."
     },
     {
-      "num": 60,
+      "num": 4,
       "name": "Receive your invitation and lodge the visa",
       "days": 5,
       "critical": true,
@@ -2624,7 +2619,7 @@ var stepsData = {
       "doneWhen": "Your complete visa application is lodged within 60 days of invitation."
     },
     {
-      "num": 60,
+      "num": 5,
       "name": "Get a positive skills assessment",
       "days": 2,
       "critical": true,
@@ -2635,7 +2630,7 @@ var stepsData = {
       "doneWhen": "You hold a positive skills assessment for your nominated occupation."
     },
     {
-      "num": 120,
+      "num": 6,
       "name": "Receive your visa and move to Australia",
       "days": 6,
       "critical": false,
@@ -2659,7 +2654,7 @@ var stepsData = {
       "doneWhen": "Your Express Entry profile is live in the pool with an accurate CRS score."
     },
     {
-      "num": 1,
+      "num": 2,
       "name": "Land in Canada and activate permanent residency",
       "days": 7,
       "critical": true,
@@ -2670,7 +2665,7 @@ var stepsData = {
       "doneWhen": "You have landed, your PR status is activated, and your PR card is on its way."
     },
     {
-      "num": 7,
+      "num": 3,
       "name": "Check your Express Entry eligibility and CRS score",
       "days": 1,
       "critical": true,
@@ -2681,7 +2676,7 @@ var stepsData = {
       "doneWhen": "You know your CRS score and which program/PNP gives you the best realistic path."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Take the IELTS or CELPIP language test",
       "days": 2,
       "critical": true,
@@ -2692,7 +2687,7 @@ var stepsData = {
       "doneWhen": "You hold a valid IELTS/CELPIP result at the CLB level your CRS calculation assumed."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Get your Educational Credential Assessment (ECA)",
       "days": 3,
       "critical": true,
@@ -2703,7 +2698,7 @@ var stepsData = {
       "doneWhen": "You hold your WES ECA report confirming Canadian-equivalent education."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Receive your Invitation to Apply (ITA) and submit",
       "days": 5,
       "critical": true,
@@ -2714,7 +2709,7 @@ var stepsData = {
       "doneWhen": "Your complete permanent residence application is submitted within 60 days of the ITA."
     },
     {
-      "num": 180,
+      "num": 7,
       "name": "Wait for approval and receive your COPR",
       "days": 6,
       "critical": false,
@@ -2738,7 +2733,7 @@ var stepsData = {
       "doneWhen": "Your application and biometrics are accepted and you receive a tracking reference."
     },
     {
-      "num": 1,
+      "num": 2,
       "name": "Register your address (Anmeldung) within 14 days",
       "days": 8,
       "critical": true,
@@ -2749,7 +2744,7 @@ var stepsData = {
       "doneWhen": "You hold your Meldebescheinigung (registration certificate) and your tax ID (Steuer-ID) arrives by post."
     },
     {
-      "num": 7,
+      "num": 3,
       "name": "Book your visa appointment at the German Mission",
       "days": 5,
       "critical": true,
@@ -2760,7 +2755,7 @@ var stepsData = {
       "doneWhen": "You hold a confirmed appointment booking reference for the correct consular jurisdiction."
     },
     {
-      "num": 14,
+      "num": 4,
       "name": "Gather and apostille your full document set",
       "days": 4,
       "critical": true,
@@ -2771,7 +2766,7 @@ var stepsData = {
       "doneWhen": "You have two complete, apostilled, translated document sets matching the embassy checklist exactly."
     },
     {
-      "num": 14,
+      "num": 5,
       "name": "Get your qualifications recognised (anabin check)",
       "days": 1,
       "critical": true,
@@ -2782,7 +2777,7 @@ var stepsData = {
       "doneWhen": "Your university shows \"H+\" on anabin, OR you hold a ZAB Statement of Comparability confirming equivalence."
     },
     {
-      "num": 21,
+      "num": 6,
       "name": "Employer secures Federal Employment Agency approval",
       "days": 3,
       "critical": true,
@@ -2793,7 +2788,7 @@ var stepsData = {
       "doneWhen": "The Federal Employment Agency has issued approval (the embassy confirms this internally during processing)."
     },
     {
-      "num": 30,
+      "num": 7,
       "name": "Convert to a residence permit at the Ausländerbehörde",
       "days": 9,
       "critical": true,
@@ -2804,7 +2799,7 @@ var stepsData = {
       "doneWhen": "You hold your residence permit / EU Blue Card (eAT card), or a Fiktionsbescheinigung confirming your continued legal stay."
     },
     {
-      "num": 42,
+      "num": 8,
       "name": "Wait for processing and collect your visa",
       "days": 7,
       "critical": false,
@@ -2815,7 +2810,7 @@ var stepsData = {
       "doneWhen": "You hold your passport with the German national visa (D-visa) sticker inside."
     },
     {
-      "num": 60,
+      "num": 9,
       "name": "Secure a job offer meeting salary thresholds",
       "days": 2,
       "critical": true,
@@ -2828,7 +2823,7 @@ var stepsData = {
   ],
   "IN-GB": [
     {
-      "num": 14,
+      "num": 1,
       "name": "Prepare finances and documents",
       "days": 4,
       "critical": true,
@@ -2839,7 +2834,7 @@ var stepsData = {
       "doneWhen": "You have held maintenance funds for 28 days, your TB test is done, and you have budgeted for all fees."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Receive your Certificate of Sponsorship (CoS)",
       "days": 2,
       "critical": true,
@@ -2850,7 +2845,7 @@ var stepsData = {
       "doneWhen": "You hold a valid CoS reference number with all details correct."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Prove your English language ability",
       "days": 3,
       "critical": true,
@@ -2861,7 +2856,7 @@ var stepsData = {
       "doneWhen": "You hold an approved English test result or an Ecctis exemption confirmation."
     },
     {
-      "num": 21,
+      "num": 4,
       "name": "Receive your visa and travel to the UK",
       "days": 6,
       "critical": false,
@@ -2872,7 +2867,7 @@ var stepsData = {
       "doneWhen": "You have entered the UK and hold your BRP or active eVisa."
     },
     {
-      "num": 21,
+      "num": 5,
       "name": "Submit your online application and biometrics",
       "days": 5,
       "critical": true,
@@ -2883,7 +2878,7 @@ var stepsData = {
       "doneWhen": "Your application and biometrics are submitted and you have a tracking reference."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Find a job with a licensed UK sponsor",
       "days": 1,
       "critical": true,
@@ -2896,7 +2891,7 @@ var stepsData = {
   ],
   "IN-IE": [
     {
-      "num": 30,
+      "num": 1,
       "name": "Enter Ireland and register with immigration (IRP)",
       "days": 3,
       "critical": true,
@@ -2907,7 +2902,7 @@ var stepsData = {
       "doneWhen": "You hold your IRP card and PPS number."
     },
     {
-      "num": 30,
+      "num": 2,
       "name": "Apply for the Critical Skills Employment Permit",
       "days": 2,
       "critical": true,
@@ -2918,7 +2913,7 @@ var stepsData = {
       "doneWhen": "Your Critical Skills Employment Permit is granted."
     },
     {
-      "num": 60,
+      "num": 3,
       "name": "Secure a job on the Critical Skills list",
       "days": 1,
       "critical": true,
@@ -2942,7 +2937,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -2953,7 +2948,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route and confirmed eligibility."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and legalise your documents",
       "days": 3,
       "critical": true,
@@ -2964,7 +2959,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, legalised, translated document set."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Complete residence registration",
       "days": 6,
       "critical": true,
@@ -2975,7 +2970,7 @@ var stepsData = {
       "doneWhen": "You have registered and your residence permit/card is issued."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Receive your visa and travel",
       "days": 5,
       "critical": false,
@@ -2986,7 +2981,7 @@ var stepsData = {
       "doneWhen": "You hold your entry visa and have travelled to Netherlands."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Secure your basis — job offer or income proof",
       "days": 2,
       "critical": true,
@@ -3010,7 +3005,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -3021,7 +3016,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route and confirmed eligibility."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and legalise your documents",
       "days": 3,
       "critical": true,
@@ -3032,7 +3027,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, legalised, translated document set."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Complete residence registration",
       "days": 6,
       "critical": true,
@@ -3043,7 +3038,7 @@ var stepsData = {
       "doneWhen": "You have registered and your residence permit/card is issued."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Receive your visa and travel",
       "days": 5,
       "critical": false,
@@ -3054,7 +3049,7 @@ var stepsData = {
       "doneWhen": "You hold your entry visa and have travelled to Portugal."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Secure your basis — job offer or income proof",
       "days": 2,
       "critical": true,
@@ -3078,7 +3073,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -3089,7 +3084,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route and confirmed eligibility."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and legalise your documents",
       "days": 3,
       "critical": true,
@@ -3100,7 +3095,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, legalised, translated document set."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Complete residence registration",
       "days": 6,
       "critical": true,
@@ -3111,7 +3106,7 @@ var stepsData = {
       "doneWhen": "You have registered and your residence permit/card is issued."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Receive your visa and travel",
       "days": 5,
       "critical": false,
@@ -3122,7 +3117,7 @@ var stepsData = {
       "doneWhen": "You hold your entry visa and have travelled to Sweden."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Secure your basis — job offer or income proof",
       "days": 2,
       "critical": true,
@@ -3146,7 +3141,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -3157,7 +3152,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route and confirmed eligibility."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and legalise your documents",
       "days": 3,
       "critical": true,
@@ -3168,7 +3163,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, legalised, translated document set."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Complete residence registration",
       "days": 6,
       "critical": true,
@@ -3179,7 +3174,7 @@ var stepsData = {
       "doneWhen": "You have registered and your residence permit/card is issued."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Receive your visa and travel",
       "days": 5,
       "critical": false,
@@ -3190,7 +3185,7 @@ var stepsData = {
       "doneWhen": "You hold your entry visa and have travelled to Singapore."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Secure your basis — job offer or income proof",
       "days": 2,
       "critical": true,
@@ -3214,7 +3209,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -3225,7 +3220,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route and confirmed eligibility."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and legalise your documents",
       "days": 3,
       "critical": true,
@@ -3236,7 +3231,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, legalised, translated document set."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Complete residence registration",
       "days": 6,
       "critical": true,
@@ -3247,7 +3242,7 @@ var stepsData = {
       "doneWhen": "You have registered and your residence permit/card is issued."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Receive your visa and travel",
       "days": 5,
       "critical": false,
@@ -3258,7 +3253,7 @@ var stepsData = {
       "doneWhen": "You hold your entry visa and have travelled to Belgium."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Secure your basis — job offer or income proof",
       "days": 2,
       "critical": true,
@@ -3282,7 +3277,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -3293,7 +3288,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route and confirmed eligibility."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and legalise your documents",
       "days": 3,
       "critical": true,
@@ -3304,7 +3299,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, legalised, translated document set."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Complete residence registration",
       "days": 6,
       "critical": true,
@@ -3315,7 +3310,7 @@ var stepsData = {
       "doneWhen": "You have registered and your residence permit/card is issued."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Receive your visa and travel",
       "days": 5,
       "critical": false,
@@ -3326,7 +3321,7 @@ var stepsData = {
       "doneWhen": "You hold your entry visa and have travelled to France."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Secure your basis — job offer or income proof",
       "days": 2,
       "critical": true,
@@ -3339,7 +3334,7 @@ var stepsData = {
   ],
   "NG-AE": [
     {
-      "num": 14,
+      "num": 1,
       "name": "Enter the UAE and complete medical + Emirates ID",
       "days": 4,
       "critical": true,
@@ -3350,7 +3345,7 @@ var stepsData = {
       "doneWhen": "You have passed the medical and applied for your Emirates ID."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Receive your residence visa and work permit",
       "days": 5,
       "critical": false,
@@ -3361,7 +3356,7 @@ var stepsData = {
       "doneWhen": "Your residence visa is stamped and your Emirates ID and work permit are issued."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Attest your documents",
       "days": 3,
       "critical": true,
@@ -3372,7 +3367,7 @@ var stepsData = {
       "doneWhen": "Your documents are fully attested and accepted in the UAE."
     },
     {
-      "num": 14,
+      "num": 4,
       "name": "Employer obtains your entry permit",
       "days": 2,
       "critical": true,
@@ -3383,7 +3378,7 @@ var stepsData = {
       "doneWhen": "Your employer has issued your electronic entry permit."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Secure a job offer from a UAE employer",
       "days": 1,
       "critical": true,
@@ -3407,7 +3402,7 @@ var stepsData = {
       "doneWhen": "Your Express Entry profile is live in the pool with an accurate CRS score."
     },
     {
-      "num": 1,
+      "num": 2,
       "name": "Land in Canada and activate permanent residency",
       "days": 7,
       "critical": true,
@@ -3418,7 +3413,7 @@ var stepsData = {
       "doneWhen": "You have landed, PR is activated, and your PR card is on its way."
     },
     {
-      "num": 7,
+      "num": 3,
       "name": "Check eligibility and calculate your CRS score",
       "days": 1,
       "critical": true,
@@ -3429,7 +3424,7 @@ var stepsData = {
       "doneWhen": "You know your CRS score and the best program/PNP for your profile."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Take your language test (IELTS/CELPIP, optionally TEF)",
       "days": 2,
       "critical": true,
@@ -3440,7 +3435,7 @@ var stepsData = {
       "doneWhen": "You hold a valid language result at the CLB level your CRS calculation assumed."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Get your Educational Credential Assessment (ECA)",
       "days": 3,
       "critical": true,
@@ -3451,7 +3446,7 @@ var stepsData = {
       "doneWhen": "You hold your ECA report confirming Canadian-equivalent education."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Receive your Invitation to Apply and submit",
       "days": 5,
       "critical": true,
@@ -3462,7 +3457,7 @@ var stepsData = {
       "doneWhen": "Your complete PR application is submitted within 60 days of the ITA."
     },
     {
-      "num": 180,
+      "num": 7,
       "name": "Wait for approval and receive your COPR",
       "days": 6,
       "critical": false,
@@ -3486,7 +3481,7 @@ var stepsData = {
       "doneWhen": "You hold your Meldebescheinigung and your tax ID (Steuer-ID) arrives by post."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Gather and legalise your full document set",
       "days": 4,
       "critical": true,
@@ -3497,7 +3492,7 @@ var stepsData = {
       "doneWhen": "You have two complete, properly legalised and translated document sets matching the embassy checklist."
     },
     {
-      "num": 21,
+      "num": 3,
       "name": "Employer secures Federal Employment Agency approval",
       "days": 3,
       "critical": true,
@@ -3508,7 +3503,7 @@ var stepsData = {
       "doneWhen": "The Federal Employment Agency has issued approval (confirmed internally during processing)."
     },
     {
-      "num": 21,
+      "num": 4,
       "name": "Get your qualifications recognised (anabin / ZAB)",
       "days": 1,
       "critical": true,
@@ -3519,7 +3514,7 @@ var stepsData = {
       "doneWhen": "Your institution shows H+ on anabin, or you hold a ZAB Statement of Comparability."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Book and attend your visa appointment",
       "days": 5,
       "critical": true,
@@ -3530,7 +3525,7 @@ var stepsData = {
       "doneWhen": "You have attended your appointment, submitted documents and biometrics, and hold a tracking reference."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Convert to a residence permit at the Ausländerbehörde",
       "days": 8,
       "critical": true,
@@ -3541,7 +3536,7 @@ var stepsData = {
       "doneWhen": "You hold your residence permit / EU Blue Card (eAT), or a Fiktionsbescheinigung confirming continued legal stay."
     },
     {
-      "num": 42,
+      "num": 7,
       "name": "Receive your visa and enter Germany",
       "days": 6,
       "critical": false,
@@ -3552,7 +3547,7 @@ var stepsData = {
       "doneWhen": "You hold your passport with the German D-visa and have entered Germany."
     },
     {
-      "num": 60,
+      "num": 8,
       "name": "Secure a job offer meeting salary thresholds",
       "days": 2,
       "critical": true,
@@ -3565,7 +3560,7 @@ var stepsData = {
   ],
   "NG-GB": [
     {
-      "num": 14,
+      "num": 1,
       "name": "Meet the English language requirement",
       "days": 3,
       "critical": true,
@@ -3576,7 +3571,7 @@ var stepsData = {
       "doneWhen": "You hold an approved English result or Ecctis exemption."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Prepare finances, TB test, and documents",
       "days": 4,
       "critical": true,
@@ -3587,7 +3582,7 @@ var stepsData = {
       "doneWhen": "Your TB certificate is valid, funds held 28 days, and fees budgeted."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Receive your Certificate of Sponsorship",
       "days": 2,
       "critical": true,
@@ -3598,7 +3593,7 @@ var stepsData = {
       "doneWhen": "You hold a valid CoS with all details correct."
     },
     {
-      "num": 21,
+      "num": 4,
       "name": "Receive your visa and travel",
       "days": 6,
       "critical": false,
@@ -3609,7 +3604,7 @@ var stepsData = {
       "doneWhen": "You have entered the UK and hold your BRP or active eVisa."
     },
     {
-      "num": 21,
+      "num": 5,
       "name": "Submit application and biometrics",
       "days": 5,
       "critical": true,
@@ -3620,7 +3615,7 @@ var stepsData = {
       "doneWhen": "Application and biometrics submitted with a tracking reference."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Secure a job with a licensed UK sponsor",
       "days": 1,
       "critical": true,
@@ -3633,7 +3628,7 @@ var stepsData = {
   ],
   "PH-AE": [
     {
-      "num": 14,
+      "num": 1,
       "name": "Employer obtains your entry permit",
       "days": 2,
       "critical": true,
@@ -3644,7 +3639,7 @@ var stepsData = {
       "doneWhen": "Your employer has issued your electronic entry permit."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Receive your residence visa and work permit",
       "days": 5,
       "critical": false,
@@ -3655,7 +3650,7 @@ var stepsData = {
       "doneWhen": "Your residence visa is stamped and your Emirates ID and work permit are issued."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Attest your documents",
       "days": 3,
       "critical": true,
@@ -3666,7 +3661,7 @@ var stepsData = {
       "doneWhen": "Your documents are fully attested and accepted in the UAE."
     },
     {
-      "num": 14,
+      "num": 4,
       "name": "Enter the UAE and complete medical + Emirates ID",
       "days": 4,
       "critical": true,
@@ -3677,7 +3672,7 @@ var stepsData = {
       "doneWhen": "You have passed the medical and applied for your Emirates ID."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Secure a job offer from a UAE employer",
       "days": 1,
       "critical": true,
@@ -3701,7 +3696,7 @@ var stepsData = {
       "doneWhen": "Your EOI is submitted and you await an invitation."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Check your occupation is on the skilled list and assess points",
       "days": 1,
       "critical": true,
@@ -3712,7 +3707,7 @@ var stepsData = {
       "doneWhen": "Your occupation is listed and you know your points score."
     },
     {
-      "num": 30,
+      "num": 3,
       "name": "Take an English test (IELTS/PTE)",
       "days": 3,
       "critical": true,
@@ -3723,7 +3718,7 @@ var stepsData = {
       "doneWhen": "You hold an English result at the points level your calculation assumed."
     },
     {
-      "num": 60,
+      "num": 4,
       "name": "Get a positive skills assessment",
       "days": 2,
       "critical": true,
@@ -3734,7 +3729,7 @@ var stepsData = {
       "doneWhen": "You hold a positive skills assessment for your nominated occupation."
     },
     {
-      "num": 60,
+      "num": 5,
       "name": "Receive your invitation and lodge the visa",
       "days": 5,
       "critical": true,
@@ -3745,7 +3740,7 @@ var stepsData = {
       "doneWhen": "Your complete visa application is lodged within 60 days of invitation."
     },
     {
-      "num": 120,
+      "num": 6,
       "name": "Receive your visa and move to Australia",
       "days": 6,
       "critical": false,
@@ -3769,7 +3764,7 @@ var stepsData = {
       "doneWhen": "Your Express Entry profile is live in the pool with an accurate CRS score."
     },
     {
-      "num": 1,
+      "num": 2,
       "name": "Land in Canada and activate permanent residency",
       "days": 7,
       "critical": true,
@@ -3780,7 +3775,7 @@ var stepsData = {
       "doneWhen": "You have landed, PR is activated, and your PR card is on its way."
     },
     {
-      "num": 7,
+      "num": 3,
       "name": "Check eligibility and calculate your CRS score",
       "days": 1,
       "critical": true,
@@ -3791,7 +3786,7 @@ var stepsData = {
       "doneWhen": "You know your CRS score and the best program/PNP for your profile."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Take your language test (IELTS/CELPIP, optionally TEF)",
       "days": 2,
       "critical": true,
@@ -3802,7 +3797,7 @@ var stepsData = {
       "doneWhen": "You hold a valid language result at the CLB level your CRS calculation assumed."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Get your Educational Credential Assessment (ECA)",
       "days": 3,
       "critical": true,
@@ -3813,7 +3808,7 @@ var stepsData = {
       "doneWhen": "You hold your ECA report confirming Canadian-equivalent education."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Receive your Invitation to Apply and submit",
       "days": 5,
       "critical": true,
@@ -3824,7 +3819,7 @@ var stepsData = {
       "doneWhen": "Your complete PR application is submitted within 60 days of the ITA."
     },
     {
-      "num": 180,
+      "num": 7,
       "name": "Wait for approval and receive your COPR",
       "days": 6,
       "critical": false,
@@ -3848,7 +3843,7 @@ var stepsData = {
       "doneWhen": "You hold your Meldebescheinigung and your tax ID (Steuer-ID) arrives by post."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Gather and legalise your full document set",
       "days": 4,
       "critical": true,
@@ -3859,7 +3854,7 @@ var stepsData = {
       "doneWhen": "You have two complete, properly legalised and translated document sets matching the embassy checklist."
     },
     {
-      "num": 21,
+      "num": 3,
       "name": "Employer secures Federal Employment Agency approval",
       "days": 3,
       "critical": true,
@@ -3870,7 +3865,7 @@ var stepsData = {
       "doneWhen": "The Federal Employment Agency has issued approval (confirmed internally during processing)."
     },
     {
-      "num": 21,
+      "num": 4,
       "name": "Get your qualifications recognised (anabin / ZAB)",
       "days": 1,
       "critical": true,
@@ -3881,7 +3876,7 @@ var stepsData = {
       "doneWhen": "Your institution shows H+ on anabin, or you hold a ZAB Statement of Comparability."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Book and attend your visa appointment",
       "days": 5,
       "critical": true,
@@ -3892,7 +3887,7 @@ var stepsData = {
       "doneWhen": "You have attended your appointment, submitted documents and biometrics, and hold a tracking reference."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Convert to a residence permit at the Ausländerbehörde",
       "days": 8,
       "critical": true,
@@ -3903,7 +3898,7 @@ var stepsData = {
       "doneWhen": "You hold your residence permit / EU Blue Card (eAT), or a Fiktionsbescheinigung confirming continued legal stay."
     },
     {
-      "num": 42,
+      "num": 7,
       "name": "Receive your visa and enter Germany",
       "days": 6,
       "critical": false,
@@ -3914,7 +3909,7 @@ var stepsData = {
       "doneWhen": "You hold your passport with the German D-visa and have entered Germany."
     },
     {
-      "num": 60,
+      "num": 8,
       "name": "Secure a job offer meeting salary thresholds",
       "days": 2,
       "critical": true,
@@ -3927,7 +3922,7 @@ var stepsData = {
   ],
   "PK-AE": [
     {
-      "num": 14,
+      "num": 1,
       "name": "Enter the UAE and complete medical + Emirates ID",
       "days": 4,
       "critical": true,
@@ -3938,7 +3933,7 @@ var stepsData = {
       "doneWhen": "You have passed the medical and applied for your Emirates ID."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Attest your documents",
       "days": 3,
       "critical": true,
@@ -3949,7 +3944,7 @@ var stepsData = {
       "doneWhen": "Your documents are fully attested and accepted in the UAE."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Employer obtains your entry permit",
       "days": 2,
       "critical": true,
@@ -3960,7 +3955,7 @@ var stepsData = {
       "doneWhen": "Your employer has issued your electronic entry permit."
     },
     {
-      "num": 14,
+      "num": 4,
       "name": "Receive your residence visa and work permit",
       "days": 5,
       "critical": false,
@@ -3971,7 +3966,7 @@ var stepsData = {
       "doneWhen": "Your residence visa is stamped and your Emirates ID and work permit are issued."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Secure a job offer from a UAE employer",
       "days": 1,
       "critical": true,
@@ -3984,7 +3979,7 @@ var stepsData = {
   ],
   "PK-GB": [
     {
-      "num": 14,
+      "num": 1,
       "name": "Prepare finances, health checks, and documents",
       "days": 4,
       "critical": true,
@@ -3995,7 +3990,7 @@ var stepsData = {
       "doneWhen": "Funds held 28 days, any required TB test done, and all fees budgeted."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Meet the English language requirement",
       "days": 3,
       "critical": true,
@@ -4006,7 +4001,7 @@ var stepsData = {
       "doneWhen": "You hold an approved English result or an Ecctis exemption confirmation."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Receive your Certificate of Sponsorship (CoS)",
       "days": 2,
       "critical": true,
@@ -4017,7 +4012,7 @@ var stepsData = {
       "doneWhen": "You hold a valid CoS reference with all details correct."
     },
     {
-      "num": 21,
+      "num": 4,
       "name": "Receive your visa and travel to the UK",
       "days": 6,
       "critical": false,
@@ -4028,7 +4023,7 @@ var stepsData = {
       "doneWhen": "You have entered the UK and hold your BRP or active eVisa."
     },
     {
-      "num": 21,
+      "num": 5,
       "name": "Submit your application and biometrics",
       "days": 5,
       "critical": true,
@@ -4039,7 +4034,7 @@ var stepsData = {
       "doneWhen": "Your application and biometrics are submitted with a tracking reference."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Find a job with a licensed UK sponsor",
       "days": 1,
       "critical": true,
@@ -4063,7 +4058,7 @@ var stepsData = {
       "doneWhen": "You understand you may enter and work freely as an EU citizen."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Set up healthcare, banking, and tax",
       "days": 4,
       "critical": true,
@@ -4074,7 +4069,7 @@ var stepsData = {
       "doneWhen": "You have health cover, a bank account, and a tax number."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Register your residence (the local Meldeamt / district authority)",
       "days": 3,
       "critical": true,
@@ -4085,7 +4080,7 @@ var stepsData = {
       "doneWhen": "Your residence is registered and you hold the registration certificate."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Move and find work",
       "days": 2,
       "critical": false,
@@ -4109,7 +4104,7 @@ var stepsData = {
       "doneWhen": "You understand you may enter and work freely as an EU citizen."
     },
     {
-      "num": 1,
+      "num": 2,
       "name": "Register your address (Anmeldung) within 14 days",
       "days": 3,
       "critical": true,
@@ -4120,7 +4115,7 @@ var stepsData = {
       "doneWhen": "You hold your Meldebescheinigung and tax ID."
     },
     {
-      "num": 7,
+      "num": 3,
       "name": "Register for health insurance and start work",
       "days": 4,
       "critical": true,
@@ -4131,7 +4126,7 @@ var stepsData = {
       "doneWhen": "You are enrolled in health insurance and legally working."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Find work (optional before moving)",
       "days": 2,
       "critical": false,
@@ -4155,7 +4150,7 @@ var stepsData = {
       "doneWhen": "You understand you may enter and work freely as an EU citizen."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Set up healthcare, banking, and tax",
       "days": 4,
       "critical": true,
@@ -4166,7 +4161,7 @@ var stepsData = {
       "doneWhen": "You have health cover, a bank account, and a tax number."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Register your residence (the local Comune (Anagrafe))",
       "days": 3,
       "critical": true,
@@ -4177,7 +4172,7 @@ var stepsData = {
       "doneWhen": "Your residence is registered and you hold the registration certificate."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Move and find work",
       "days": 2,
       "critical": false,
@@ -4201,7 +4196,7 @@ var stepsData = {
       "doneWhen": "You hold your Meldebescheinigung and your tax ID (Steuer-ID) arrives by post."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Gather and legalise your full document set",
       "days": 4,
       "critical": true,
@@ -4212,7 +4207,7 @@ var stepsData = {
       "doneWhen": "You have two complete, properly legalised and translated document sets matching the embassy checklist."
     },
     {
-      "num": 21,
+      "num": 3,
       "name": "Employer secures Federal Employment Agency approval",
       "days": 3,
       "critical": true,
@@ -4223,7 +4218,7 @@ var stepsData = {
       "doneWhen": "The Federal Employment Agency has issued approval (confirmed internally during processing)."
     },
     {
-      "num": 21,
+      "num": 4,
       "name": "Get your qualifications recognised (anabin / ZAB)",
       "days": 1,
       "critical": true,
@@ -4234,7 +4229,7 @@ var stepsData = {
       "doneWhen": "Your institution shows H+ on anabin, or you hold a ZAB Statement of Comparability."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Convert to a residence permit at the Ausländerbehörde",
       "days": 8,
       "critical": true,
@@ -4245,7 +4240,7 @@ var stepsData = {
       "doneWhen": "You hold your residence permit / EU Blue Card (eAT), or a Fiktionsbescheinigung confirming continued legal stay."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Book and attend your visa appointment",
       "days": 5,
       "critical": true,
@@ -4256,7 +4251,7 @@ var stepsData = {
       "doneWhen": "You have attended your appointment, submitted documents and biometrics, and hold a tracking reference."
     },
     {
-      "num": 42,
+      "num": 7,
       "name": "Receive your visa and enter Germany",
       "days": 6,
       "critical": false,
@@ -4267,7 +4262,7 @@ var stepsData = {
       "doneWhen": "You hold your passport with the German D-visa and have entered Germany."
     },
     {
-      "num": 60,
+      "num": 8,
       "name": "Secure a job offer meeting salary thresholds",
       "days": 2,
       "critical": true,
@@ -4291,7 +4286,7 @@ var stepsData = {
       "doneWhen": "You understand you may enter and work freely as an EU citizen."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Set up healthcare, banking, and tax",
       "days": 4,
       "critical": true,
@@ -4302,7 +4297,7 @@ var stepsData = {
       "doneWhen": "You have health cover, a bank account, and a tax number."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Register your residence (the local Meldeamt / district authority)",
       "days": 3,
       "critical": true,
@@ -4313,7 +4308,7 @@ var stepsData = {
       "doneWhen": "Your residence is registered and you hold the registration certificate."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Move and find work",
       "days": 2,
       "critical": false,
@@ -4337,7 +4332,7 @@ var stepsData = {
       "doneWhen": "You understand you may enter and work freely as an EU citizen."
     },
     {
-      "num": 1,
+      "num": 2,
       "name": "Register your address (Anmeldung) within 14 days",
       "days": 3,
       "critical": true,
@@ -4348,7 +4343,7 @@ var stepsData = {
       "doneWhen": "You hold your Meldebescheinigung and tax ID."
     },
     {
-      "num": 7,
+      "num": 3,
       "name": "Register for health insurance and start work",
       "days": 4,
       "critical": true,
@@ -4359,7 +4354,7 @@ var stepsData = {
       "doneWhen": "You are enrolled in health insurance and legally working."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Find work (optional before moving)",
       "days": 2,
       "critical": false,
@@ -4383,7 +4378,7 @@ var stepsData = {
       "doneWhen": "You hold your Meldebescheinigung and your tax ID (Steuer-ID) arrives by post."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Gather and legalise your full document set",
       "days": 4,
       "critical": true,
@@ -4394,7 +4389,7 @@ var stepsData = {
       "doneWhen": "You have two complete, properly legalised and translated document sets matching the embassy checklist."
     },
     {
-      "num": 21,
+      "num": 3,
       "name": "Employer secures Federal Employment Agency approval",
       "days": 3,
       "critical": true,
@@ -4405,7 +4400,7 @@ var stepsData = {
       "doneWhen": "The Federal Employment Agency has issued approval (confirmed internally during processing)."
     },
     {
-      "num": 21,
+      "num": 4,
       "name": "Get your qualifications recognised (anabin / ZAB)",
       "days": 1,
       "critical": true,
@@ -4416,7 +4411,7 @@ var stepsData = {
       "doneWhen": "Your institution shows H+ on anabin, or you hold a ZAB Statement of Comparability."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Convert to a residence permit at the Ausländerbehörde",
       "days": 8,
       "critical": true,
@@ -4427,7 +4422,7 @@ var stepsData = {
       "doneWhen": "You hold your residence permit / EU Blue Card (eAT), or a Fiktionsbescheinigung confirming continued legal stay."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Book and attend your visa appointment",
       "days": 5,
       "critical": true,
@@ -4438,7 +4433,7 @@ var stepsData = {
       "doneWhen": "You have attended your appointment, submitted documents and biometrics, and hold a tracking reference."
     },
     {
-      "num": 42,
+      "num": 7,
       "name": "Receive your visa and enter Germany",
       "days": 6,
       "critical": false,
@@ -4449,7 +4444,7 @@ var stepsData = {
       "doneWhen": "You hold your passport with the German D-visa and have entered Germany."
     },
     {
-      "num": 60,
+      "num": 8,
       "name": "Secure a job offer meeting salary thresholds",
       "days": 2,
       "critical": true,
@@ -4473,7 +4468,7 @@ var stepsData = {
       "doneWhen": "You understand you qualify for free temporary protection."
     },
     {
-      "num": 1,
+      "num": 2,
       "name": "Travel to Austria and register for protection",
       "days": 2,
       "critical": true,
@@ -4495,7 +4490,7 @@ var stepsData = {
       "doneWhen": "You are registered for healthcare and have applied for any benefits."
     },
     {
-      "num": 7,
+      "num": 4,
       "name": "Find work and enrol children in school",
       "days": 4,
       "critical": false,
@@ -4519,7 +4514,7 @@ var stepsData = {
       "doneWhen": "You are registered with a public health insurer and hold your insurance number/card."
     },
     {
-      "num": 1,
+      "num": 2,
       "name": "Understand your temporary protection rights",
       "days": 1,
       "critical": false,
@@ -4530,7 +4525,7 @@ var stepsData = {
       "doneWhen": "You understand that you qualify for free temporary protection and need no employer or standard visa."
     },
     {
-      "num": 1,
+      "num": 3,
       "name": "Register your address with the Ministry of Interior",
       "days": 5,
       "critical": true,
@@ -4541,7 +4536,7 @@ var stepsData = {
       "doneWhen": "Your current address is registered and matches where you actually live."
     },
     {
-      "num": 1,
+      "num": 4,
       "name": "Travel to the Czech Republic",
       "days": 2,
       "critical": false,
@@ -4552,7 +4547,7 @@ var stepsData = {
       "doneWhen": "You are in the Czech Republic with your arrival documented."
     },
     {
-      "num": 1,
+      "num": 5,
       "name": "Register at a Regional Assistance Centre (KACPU)",
       "days": 3,
       "critical": true,
@@ -4563,7 +4558,7 @@ var stepsData = {
       "doneWhen": "You hold your temporary protection visa/document confirming legal status."
     },
     {
-      "num": 3,
+      "num": 6,
       "name": "Apply for humanitarian benefits if needed",
       "days": 6,
       "critical": false,
@@ -4598,7 +4593,7 @@ var stepsData = {
       "doneWhen": "You hold your Meldebescheinigung and your tax ID (Steuer-ID) arrives by post."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Gather and legalise your full document set",
       "days": 4,
       "critical": true,
@@ -4609,7 +4604,7 @@ var stepsData = {
       "doneWhen": "You have two complete, properly legalised and translated document sets matching the embassy checklist."
     },
     {
-      "num": 21,
+      "num": 3,
       "name": "Get your qualifications recognised (anabin / ZAB)",
       "days": 1,
       "critical": true,
@@ -4620,7 +4615,7 @@ var stepsData = {
       "doneWhen": "Your institution shows H+ on anabin, or you hold a ZAB Statement of Comparability."
     },
     {
-      "num": 21,
+      "num": 4,
       "name": "Employer secures Federal Employment Agency approval",
       "days": 3,
       "critical": true,
@@ -4631,7 +4626,7 @@ var stepsData = {
       "doneWhen": "The Federal Employment Agency has issued approval (confirmed internally during processing)."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Convert to a residence permit at the Ausländerbehörde",
       "days": 8,
       "critical": true,
@@ -4642,7 +4637,7 @@ var stepsData = {
       "doneWhen": "You hold your residence permit / EU Blue Card (eAT), or a Fiktionsbescheinigung confirming continued legal stay."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Book and attend your visa appointment",
       "days": 5,
       "critical": true,
@@ -4653,7 +4648,7 @@ var stepsData = {
       "doneWhen": "You have attended your appointment, submitted documents and biometrics, and hold a tracking reference."
     },
     {
-      "num": 42,
+      "num": 7,
       "name": "Receive your visa and enter Germany",
       "days": 6,
       "critical": false,
@@ -4664,7 +4659,7 @@ var stepsData = {
       "doneWhen": "You hold your passport with the German D-visa and have entered Germany."
     },
     {
-      "num": 60,
+      "num": 8,
       "name": "Secure a job offer meeting salary thresholds",
       "days": 2,
       "critical": true,
@@ -4688,7 +4683,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -4699,7 +4694,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route matching your situation and confirmed you meet its requirements."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and apostille your documents",
       "days": 3,
       "critical": true,
@@ -4710,7 +4705,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, apostilled, translated document set with valid health insurance."
     },
     {
-      "num": 14,
+      "num": 4,
       "name": "Get your NIE / foreigner identity number",
       "days": 2,
       "critical": true,
@@ -4721,7 +4716,7 @@ var stepsData = {
       "doneWhen": "You hold your NIE number."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Receive your visa and travel to Spain",
       "days": 5,
       "critical": false,
@@ -4732,7 +4727,7 @@ var stepsData = {
       "doneWhen": "You hold your entry visa and have travelled to Spain."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Register and collect your TIE residence card",
       "days": 6,
       "critical": true,
@@ -4756,7 +4751,7 @@ var stepsData = {
       "doneWhen": "You understand you qualify for free temporary protection."
     },
     {
-      "num": 1,
+      "num": 2,
       "name": "Travel to Italy and register for protection",
       "days": 2,
       "critical": true,
@@ -4778,7 +4773,7 @@ var stepsData = {
       "doneWhen": "You are registered for healthcare and have applied for any benefits."
     },
     {
-      "num": 7,
+      "num": 4,
       "name": "Find work and enrol children in school",
       "days": 4,
       "critical": false,
@@ -4802,7 +4797,7 @@ var stepsData = {
       "doneWhen": "You hold your temporary protection status document."
     },
     {
-      "num": 1,
+      "num": 2,
       "name": "Understand your temporary protection rights",
       "days": 1,
       "critical": false,
@@ -4824,7 +4819,7 @@ var stepsData = {
       "doneWhen": "You are registered for healthcare and have applied for any benefits."
     },
     {
-      "num": 7,
+      "num": 4,
       "name": "Find work and enrol children in school",
       "days": 4,
       "critical": false,
@@ -4848,7 +4843,7 @@ var stepsData = {
       "doneWhen": "You hold your Meldebescheinigung and your tax ID (Steuer-ID) arrives by post."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Gather and legalise your full document set",
       "days": 4,
       "critical": true,
@@ -4859,7 +4854,7 @@ var stepsData = {
       "doneWhen": "You have two complete, properly legalised and translated document sets matching the embassy checklist."
     },
     {
-      "num": 21,
+      "num": 3,
       "name": "Employer secures Federal Employment Agency approval",
       "days": 3,
       "critical": true,
@@ -4870,7 +4865,7 @@ var stepsData = {
       "doneWhen": "The Federal Employment Agency has issued approval (confirmed internally during processing)."
     },
     {
-      "num": 21,
+      "num": 4,
       "name": "Get your qualifications recognised (anabin / ZAB)",
       "days": 1,
       "critical": true,
@@ -4881,7 +4876,7 @@ var stepsData = {
       "doneWhen": "Your institution shows H+ on anabin, or you hold a ZAB Statement of Comparability."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Book and attend your visa appointment",
       "days": 5,
       "critical": true,
@@ -4892,7 +4887,7 @@ var stepsData = {
       "doneWhen": "You have attended your appointment, submitted documents and biometrics, and hold a tracking reference."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Convert to a residence permit at the Ausländerbehörde",
       "days": 8,
       "critical": true,
@@ -4903,7 +4898,7 @@ var stepsData = {
       "doneWhen": "You hold your residence permit / EU Blue Card (eAT), or a Fiktionsbescheinigung confirming continued legal stay."
     },
     {
-      "num": 42,
+      "num": 7,
       "name": "Receive your visa and enter Germany",
       "days": 6,
       "critical": false,
@@ -4914,7 +4909,7 @@ var stepsData = {
       "doneWhen": "You hold your passport with the German D-visa and have entered Germany."
     },
     {
-      "num": 60,
+      "num": 8,
       "name": "Secure a job offer meeting salary thresholds",
       "days": 2,
       "critical": true,
@@ -4938,7 +4933,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -4949,7 +4944,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route matching your situation and confirmed you meet its requirements."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Get your NIE / foreigner identity number",
       "days": 2,
       "critical": true,
@@ -4960,7 +4955,7 @@ var stepsData = {
       "doneWhen": "You hold your NIE number."
     },
     {
-      "num": 14,
+      "num": 4,
       "name": "Gather and apostille your documents",
       "days": 3,
       "critical": true,
@@ -4971,7 +4966,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, apostilled, translated document set with valid health insurance."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Register and collect your TIE residence card",
       "days": 6,
       "critical": true,
@@ -4982,7 +4977,7 @@ var stepsData = {
       "doneWhen": "You have given biometrics and your TIE residence card is issued."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Receive your visa and travel to Spain",
       "days": 5,
       "critical": false,
@@ -5006,7 +5001,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -5017,7 +5012,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route and confirmed eligibility."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and legalise your documents",
       "days": 3,
       "critical": true,
@@ -5028,7 +5023,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, legalised, translated document set."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Complete residence registration",
       "days": 6,
       "critical": true,
@@ -5039,7 +5034,7 @@ var stepsData = {
       "doneWhen": "You have registered and your residence permit/card is issued."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Receive your visa and travel",
       "days": 5,
       "critical": false,
@@ -5050,7 +5045,7 @@ var stepsData = {
       "doneWhen": "You hold your entry visa and have travelled to Italy."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Secure your basis — job offer or income proof",
       "days": 2,
       "critical": true,
@@ -5074,7 +5069,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -5085,7 +5080,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route and confirmed eligibility."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and legalise your documents",
       "days": 3,
       "critical": true,
@@ -5096,7 +5091,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, legalised, translated document set."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Complete residence registration",
       "days": 6,
       "critical": true,
@@ -5107,7 +5102,7 @@ var stepsData = {
       "doneWhen": "You have registered and your residence permit/card is issued."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Receive your visa and travel",
       "days": 5,
       "critical": false,
@@ -5118,7 +5113,7 @@ var stepsData = {
       "doneWhen": "You hold your entry visa and have travelled to Netherlands."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Secure your basis — job offer or income proof",
       "days": 2,
       "critical": true,
@@ -5142,7 +5137,7 @@ var stepsData = {
       "doneWhen": "Your application is submitted with a tracking reference."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Choose your route and confirm eligibility",
       "days": 1,
       "critical": true,
@@ -5153,7 +5148,7 @@ var stepsData = {
       "doneWhen": "You have chosen the route and confirmed eligibility."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Gather and legalise your documents",
       "days": 3,
       "critical": true,
@@ -5164,7 +5159,7 @@ var stepsData = {
       "doneWhen": "You hold a complete, legalised, translated document set."
     },
     {
-      "num": 30,
+      "num": 4,
       "name": "Complete residence registration",
       "days": 6,
       "critical": true,
@@ -5175,7 +5170,7 @@ var stepsData = {
       "doneWhen": "You have registered and your residence permit/card is issued."
     },
     {
-      "num": 45,
+      "num": 5,
       "name": "Receive your visa and travel",
       "days": 5,
       "critical": false,
@@ -5186,7 +5181,7 @@ var stepsData = {
       "doneWhen": "You hold your entry visa and have travelled to Portugal."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Secure your basis — job offer or income proof",
       "days": 2,
       "critical": true,
@@ -5210,7 +5205,7 @@ var stepsData = {
       "doneWhen": "Your EOI is submitted and you await an invitation."
     },
     {
-      "num": 7,
+      "num": 2,
       "name": "Check your occupation is on the skilled list and assess points",
       "days": 1,
       "critical": true,
@@ -5221,7 +5216,7 @@ var stepsData = {
       "doneWhen": "Your occupation is listed and you know your points score."
     },
     {
-      "num": 30,
+      "num": 3,
       "name": "Take an English test (IELTS/PTE)",
       "days": 3,
       "critical": true,
@@ -5232,7 +5227,7 @@ var stepsData = {
       "doneWhen": "You hold an English result at the points level your calculation assumed."
     },
     {
-      "num": 60,
+      "num": 4,
       "name": "Get a positive skills assessment",
       "days": 2,
       "critical": true,
@@ -5243,7 +5238,7 @@ var stepsData = {
       "doneWhen": "You hold a positive skills assessment for your nominated occupation."
     },
     {
-      "num": 60,
+      "num": 5,
       "name": "Receive your invitation and lodge the visa",
       "days": 5,
       "critical": true,
@@ -5254,7 +5249,7 @@ var stepsData = {
       "doneWhen": "Your complete visa application is lodged within 60 days of invitation."
     },
     {
-      "num": 120,
+      "num": 6,
       "name": "Receive your visa and move to Australia",
       "days": 6,
       "critical": false,
@@ -5278,7 +5273,7 @@ var stepsData = {
       "doneWhen": "You hold your Meldebescheinigung and your tax ID (Steuer-ID) arrives by post."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Gather and legalise your full document set",
       "days": 4,
       "critical": true,
@@ -5289,7 +5284,7 @@ var stepsData = {
       "doneWhen": "You have two complete, properly legalised and translated document sets matching the embassy checklist."
     },
     {
-      "num": 21,
+      "num": 3,
       "name": "Employer secures Federal Employment Agency approval",
       "days": 3,
       "critical": true,
@@ -5300,7 +5295,7 @@ var stepsData = {
       "doneWhen": "The Federal Employment Agency has issued approval (confirmed internally during processing)."
     },
     {
-      "num": 21,
+      "num": 4,
       "name": "Get your qualifications recognised (anabin / ZAB)",
       "days": 1,
       "critical": true,
@@ -5311,7 +5306,7 @@ var stepsData = {
       "doneWhen": "Your institution shows H+ on anabin, or you hold a ZAB Statement of Comparability."
     },
     {
-      "num": 30,
+      "num": 5,
       "name": "Convert to a residence permit at the Ausländerbehörde",
       "days": 8,
       "critical": true,
@@ -5322,7 +5317,7 @@ var stepsData = {
       "doneWhen": "You hold your residence permit / EU Blue Card (eAT), or a Fiktionsbescheinigung confirming continued legal stay."
     },
     {
-      "num": 30,
+      "num": 6,
       "name": "Book and attend your visa appointment",
       "days": 5,
       "critical": true,
@@ -5333,7 +5328,7 @@ var stepsData = {
       "doneWhen": "You have attended your appointment, submitted documents and biometrics, and hold a tracking reference."
     },
     {
-      "num": 42,
+      "num": 7,
       "name": "Receive your visa and enter Germany",
       "days": 6,
       "critical": false,
@@ -5344,7 +5339,7 @@ var stepsData = {
       "doneWhen": "You hold your passport with the German D-visa and have entered Germany."
     },
     {
-      "num": 60,
+      "num": 8,
       "name": "Secure a job offer meeting salary thresholds",
       "days": 2,
       "critical": true,
@@ -5357,7 +5352,7 @@ var stepsData = {
   ],
   "ZA-GB": [
     {
-      "num": 14,
+      "num": 1,
       "name": "Meet the English language requirement",
       "days": 3,
       "critical": true,
@@ -5368,7 +5363,7 @@ var stepsData = {
       "doneWhen": "You hold an approved English result or an Ecctis exemption confirmation."
     },
     {
-      "num": 14,
+      "num": 2,
       "name": "Prepare finances, health checks, and documents",
       "days": 4,
       "critical": true,
@@ -5379,7 +5374,7 @@ var stepsData = {
       "doneWhen": "Funds held 28 days, any required TB test done, and all fees budgeted."
     },
     {
-      "num": 14,
+      "num": 3,
       "name": "Receive your Certificate of Sponsorship (CoS)",
       "days": 2,
       "critical": true,
@@ -5390,7 +5385,7 @@ var stepsData = {
       "doneWhen": "You hold a valid CoS reference with all details correct."
     },
     {
-      "num": 21,
+      "num": 4,
       "name": "Submit your application and biometrics",
       "days": 5,
       "critical": true,
@@ -5401,7 +5396,7 @@ var stepsData = {
       "doneWhen": "Your application and biometrics are submitted with a tracking reference."
     },
     {
-      "num": 21,
+      "num": 5,
       "name": "Receive your visa and travel to the UK",
       "days": 6,
       "critical": false,
@@ -5412,7 +5407,7 @@ var stepsData = {
       "doneWhen": "You have entered the UK and hold your BRP or active eVisa."
     },
     {
-      "num": 60,
+      "num": 6,
       "name": "Find a job with a licensed UK sponsor",
       "days": 1,
       "critical": true,

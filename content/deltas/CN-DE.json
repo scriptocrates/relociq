@@ -1,0 +1,107 @@
+{
+  "delta_key": "CN-DE",
+  "corridor": "CN-DE",
+  "framework_key": "DE-skilled-worker",
+  "origin": "CN",
+  "last_reviewed": "2026-05-23",
+  "source_url": "https://china.diplo.de",
+  "status": "Needs Review",
+  "operations": [
+    {
+      "op": "override",
+      "id": "recognition",
+      "fields": {
+        "days": 8
+      }
+    },
+    {
+      "op": "insert",
+      "after": "recognition",
+      "step": {
+        "id": "aps",
+        "name": "Gather and legalise your full document set",
+        "days": 5,
+        "critical": true,
+        "why": "Germany requires specific documents, most needing apostille or legalisation depending on your country. Missing or improperly legalised documents are the top cause of appointment rejections.",
+        "need": "Valid passport (12+ months), visa application form, biometric photos (35x45mm), employment contract, recognised degree proof, CV, health insurance, and accommodation proof.",
+        "action": "China joined the Apostille Convention in 2023; documents apostilled by the Chinese Ministry of Foreign Affairs or authorised local Foreign Affairs Offices. Chinese No Criminal Record Certificate, apostilled. Have non-German documents translated by a certified translator. Prepare two complete sets — originals and copies.",
+        "risks": "Legalisation backlogs can take weeks. Photos not meeting the German biometric spec are rejected at the counter. Health insurance must cover the initial entry period.",
+        "doneWhen": "You have two complete, properly legalised and translated document sets matching the embassy checklist."
+      }
+    },
+    {
+      "op": "override",
+      "id": "job-offer",
+      "fields": {
+        "name": "Get your qualifications recognised (anabin / ZAB)",
+        "days": 1,
+        "why": "Germany only grants skilled worker visas if your qualification is recognised as equivalent to a German one. This is the most common reason applications stall — verifying recognition first prevents wasted months.",
+        "need": "Your degree certificates and the anabin database (anabin.kmk.org). A ZAB Statement of Comparability costs around 200 EUR if formal evaluation is needed.",
+        "action": "Chinese qualifications require APS certificate (Akademische Prüfstelle) verification before anything else — this is a mandatory China-specific step. Then anabin/ZAB. Search anabin first; if your institution is rated H+ recognition is automatic, otherwise request a ZAB Statement of Comparability.",
+        "risks": "Regulated professions (doctors, nurses, teachers, lawyers) follow a separate, longer recognition process. Lesser-known universities often need full ZAB evaluation. Start this step first — it gates everything else.",
+        "doneWhen": "Your institution shows H+ on anabin, or you hold a ZAB Statement of Comparability."
+      }
+    },
+    {
+      "op": "override",
+      "id": "agency-approval",
+      "fields": {
+        "name": "Employer secures Federal Employment Agency approval",
+        "days": 4,
+        "why": "For most work visas the Bundesagentur für Arbeit must approve the role, confirming the pay matches local standards. EU Blue Card shortage roles often skip the priority check, which is why the Blue Card is faster.",
+        "need": "Your employer completes the \"Erklärung zum Beschäftigungsverhältnis\" declaration. You provide passport details and contract.",
+        "action": "Handled by your employer and the embassy in the background once you apply. Confirm your HR has the declaration form ready — embassy delays often trace to a missing employer declaration.",
+        "risks": "A slow or unresponsive employer stalls the whole visa. Below-norm salaries can trigger rejection. This runs in parallel with your embassy appointment.",
+        "doneWhen": "The Federal Employment Agency has issued approval (confirmed internally during processing)."
+      }
+    },
+    {
+      "op": "override",
+      "id": "documents",
+      "fields": {
+        "name": "Book and attend your visa appointment",
+        "days": 6,
+        "why": "Appointment slots at German missions are limited and can be booked out for weeks. Your consular jurisdiction depends on where you live — you cannot freely choose.",
+        "need": "The embassy booking portal, your passport, the visa fee (75 EUR), and your complete document set.",
+        "action": "Book the National Visa (D-visa) for employment as early as possible. German missions in China: Beijing, Shanghai, Guangzhou, Chengdu, Shenyang. Attend in person, submit documents, and give biometrics.",
+        "risks": "Booking in the wrong jurisdiction means rejection on the day. Peak-season waits (4-12 weeks) mean book the moment you have an offer. Third-party \"fast appointment\" agents are often scams.",
+        "doneWhen": "You have attended your appointment, submitted documents and biometrics, and hold a tracking reference."
+      }
+    },
+    {
+      "op": "override",
+      "id": "embassy",
+      "fields": {
+        "name": "Obtain your APS certificate (China-specific)",
+        "days": 2,
+        "why": "Chinese applicants must have academic credentials verified by the APS (Akademische Prüfstelle) before a German visa can be issued. This is a mandatory, China-only gate that does not exist for other origins.",
+        "need": "Your academic transcripts, degree certificates, and the APS fee.",
+        "action": "Apply to the APS office in Beijing for credential verification. This must be completed before the visa application and can be the longest single step.",
+        "risks": "Skipping APS means automatic visa refusal for Chinese applicants. Processing can take weeks to months — start in parallel with your job search.",
+        "doneWhen": "You hold your APS certificate."
+      }
+    },
+    {
+      "op": "override",
+      "id": "entry",
+      "fields": {
+        "days": 9
+      }
+    },
+    {
+      "op": "override",
+      "id": "anmeldung",
+      "fields": {
+        "days": 7
+      }
+    },
+    {
+      "op": "override",
+      "id": "auslaenderbehoerde",
+      "fields": {
+        "days": 3,
+        "action": "Apply via Make-it-in-Germany.com, LinkedIn, StepStone.de, and Xing. Be explicit that you need visa sponsorship. German B1+ usually required; APS process can be the longest single step."
+      }
+    }
+  ]
+}

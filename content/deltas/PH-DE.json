@@ -1,0 +1,58 @@
+{
+  "delta_key": "PH-DE",
+  "corridor": "PH-DE",
+  "framework_key": "DE-skilled-worker",
+  "origin": "PH",
+  "last_reviewed": "2026-05-23",
+  "source_url": "https://manila.diplo.de",
+  "status": "Needs Review",
+  "operations": [
+    {
+      "op": "override",
+      "id": "job-offer",
+      "fields": {
+        "action": "Philippine documents apostilled by the DFA (Department of Foreign Affairs). NBI Clearance (National Bureau of Investigation), apostilled by the DFA. Have non-German documents translated by a certified translator. Prepare two complete sets — originals and copies."
+      }
+    },
+    {
+      "op": "override",
+      "id": "agency-approval",
+      "fields": {
+        "name": "Employer secures Federal Employment Agency approval",
+        "days": 3,
+        "why": "For most work visas the Bundesagentur für Arbeit must approve the role, confirming the pay matches local standards. EU Blue Card shortage roles often skip the priority check, which is why the Blue Card is faster.",
+        "need": "Your employer completes the \"Erklärung zum Beschäftigungsverhältnis\" declaration. You provide passport details and contract.",
+        "action": "Handled by your employer and the embassy in the background once you apply. Confirm your HR has the declaration form ready — embassy delays often trace to a missing employer declaration.",
+        "risks": "A slow or unresponsive employer stalls the whole visa. Below-norm salaries can trigger rejection. This runs in parallel with your embassy appointment.",
+        "doneWhen": "The Federal Employment Agency has issued approval (confirmed internally during processing)."
+      }
+    },
+    {
+      "op": "override",
+      "id": "documents",
+      "fields": {
+        "name": "Get your qualifications recognised (anabin / ZAB)",
+        "days": 1,
+        "why": "Germany only grants skilled worker visas if your qualification is recognised as equivalent to a German one. This is the most common reason applications stall — verifying recognition first prevents wasted months.",
+        "need": "Your degree certificates and the anabin database (anabin.kmk.org). A ZAB Statement of Comparability costs around 200 EUR if formal evaluation is needed.",
+        "action": "Filipino qualifications checked on anabin; nursing and healthcare qualifications have a dedicated recognition route. The Triple Win programme recruits Filipino nurses directly. Search anabin first; if your institution is rated H+ recognition is automatic, otherwise request a ZAB Statement of Comparability.",
+        "risks": "Regulated professions (doctors, nurses, teachers, lawyers) follow a separate, longer recognition process. Lesser-known universities often need full ZAB evaluation. Start this step first — it gates everything else.",
+        "doneWhen": "Your institution shows H+ on anabin, or you hold a ZAB Statement of Comparability."
+      }
+    },
+    {
+      "op": "override",
+      "id": "embassy",
+      "fields": {
+        "action": "Book the National Visa (D-visa) for employment as early as possible. German Embassy Manila. Attend in person, submit documents, and give biometrics."
+      }
+    },
+    {
+      "op": "override",
+      "id": "auslaenderbehoerde",
+      "fields": {
+        "action": "Apply via Make-it-in-Germany.com, LinkedIn, StepStone.de, and Xing. Be explicit that you need visa sponsorship. German B1-B2 required for healthcare roles; often provided by recruitment programmes."
+      }
+    }
+  ]
+}

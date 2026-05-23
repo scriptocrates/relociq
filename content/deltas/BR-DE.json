@@ -1,0 +1,39 @@
+{
+  "delta_key": "BR-DE",
+  "corridor": "BR-DE",
+  "framework_key": "DE-skilled-worker",
+  "origin": "BR",
+  "last_reviewed": "2026-05-23",
+  "source_url": "https://brasilia.diplo.de",
+  "status": "Needs Review",
+  "operations": [
+    {
+      "op": "override",
+      "id": "job-offer",
+      "fields": {
+        "action": "Brazilian documents apostilled at a registered cartório (notary). Brazilian Federal Police criminal certificate (not state-level), apostilled at a cartório. Have non-German documents translated by a certified translator. Prepare two complete sets — originals and copies."
+      }
+    },
+    {
+      "op": "override",
+      "id": "agency-approval",
+      "fields": {
+        "action": "Brazilian degrees checked on anabin; many universities are H+/- and need ZAB evaluation. Engineering and IT degrees from federal universities clear more easily. Search anabin first; if your institution is rated H+ recognition is automatic, otherwise request a ZAB Statement of Comparability."
+      }
+    },
+    {
+      "op": "override",
+      "id": "embassy",
+      "fields": {
+        "action": "Book the National Visa (D-visa) for employment as early as possible. German missions in Brazil: Brasília, São Paulo, Rio de Janeiro, Recife, Porto Alegre. Attend in person, submit documents, and give biometrics."
+      }
+    },
+    {
+      "op": "override",
+      "id": "auslaenderbehoerde",
+      "fields": {
+        "action": "Apply via Make-it-in-Germany.com, LinkedIn, StepStone.de, and Xing. Be explicit that you need visa sponsorship. German required for most roles outside multinationals; Brazilian-German community concentrated in the south."
+      }
+    }
+  ]
+}
