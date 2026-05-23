@@ -263,7 +263,7 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
   .f-links{gap:16px}
 
   /* AUTH MODAL */
-  .auth-modal{padding:28px 20px;border-radius:12px}
+  .auth-modal{padding:28px 20px;border-radius:12px;max-height:90vh;overflow-y:auto}
   .auth-h{font-size:20px}
 
   /* PATHWAY RESULT CARD — fix 3-col grid */
@@ -324,7 +324,7 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
 <div class="auth-overlay" id="authOverlay">
   <div class="auth-modal">
     <button class="auth-close" onclick="closeAuth()">×</button>
-    <div class="auth-logo" style="display:flex;align-items:center;gap:8px;margin-bottom:20px"><svg width="24" height="24" viewBox="0 0 44 44" fill="none"><rect width="44" height="44" rx="10" fill="#1A1A1A"/><text x="4" y="34" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="30" font-weight="900" fill="#FAFAF8" letter-spacing="-1.5">R</text><circle cx="27" cy="11" r="7" fill="#C85A0A"/><circle cx="27" cy="11" r="3" fill="#FAFAF8"/></svg><span style="font-size:15px;font-weight:700;color:#1A1A1A;letter-spacing:-0.3px">reloc<b style="color:#C85A0A">iq</b></span></div>
+    <div class="auth-logo" style="font-size:17px;font-weight:800;color:#1A1A1A;letter-spacing:-0.4px;margin-bottom:20px">reloc<b style="color:#C85A0A">iq</b></div>
 
     <!-- Sign Up View -->
     <div id="authSignup">
@@ -397,7 +397,7 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
 
 <!-- NAV -->
 <nav class="nav">
-  <a href="#" class="nav-logo" style="display:flex;align-items:center;gap:10px;text-decoration:none"><svg width="28" height="28" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="44" height="44" rx="10" fill="#1A1A1A"/><text x="4" y="34" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="30" font-weight="900" fill="#FAFAF8" letter-spacing="-1.5">R</text><circle cx="27" cy="11" r="7" fill="#C85A0A"/><circle cx="27" cy="11" r="3" fill="#FAFAF8"/></svg><span style="font-size:16px;font-weight:700;color:#1A1A1A;letter-spacing:-0.3px">reloc<b style="color:#C85A0A">iq</b></span></a>
+  <a href="#" class="nav-logo" style="font-size:19px;font-weight:800;color:#1A1A1A;letter-spacing:-0.5px;text-decoration:none">reloc<b style="color:#C85A0A">iq</b></a>
   <div class="nav-links" id="navLinks">
     <a href="#how" class="nav-a">How it works</a>
     <a href="#pricing" class="nav-a">Pricing</a>
@@ -479,7 +479,7 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
     <div class="prod-lbl">Your dashboard</div>
     <h2 class="prod-h">Your move,<br/><em>step by step.</em></h2>
     <p class="prod-sub">Your exact pathway based on your nationality, destination, and situation. Every step, every document, every deadline — tracked.</p>
-    <a href="#" class="prod-link">See your pathway →</a>
+    <a href="#" class="prod-link" onclick="scrollToSelector();return false;">See your pathway →</a>
   </div>
   <div class="card">
     <div class="card-h">
@@ -553,7 +553,7 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
           <div class="p-feat">— &nbsp;Document vault</div>
           <div class="p-feat">— &nbsp;Lawyer referrals</div>
         </div>
-        <a href="#" class="p-btn">Get started free</a>
+        <a href="#" onclick="scrollToSelector();return false;" class="p-btn">Get started free</a>
       </div>
       <div class="p-card-pro">
         <div class="p-name-pro">Pro</div>
@@ -567,7 +567,7 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
           <div class="p-feat-pro">✓ &nbsp;Verified lawyer referrals</div>
           <div class="p-feat-pro">✓ &nbsp;Priority support</div>
         </div>
-        <a href="#" class="p-btn-pro">Start 14-day free trial</a>
+        <a href="#" onclick="openAuth(\'signup\');return false;" class="p-btn-pro">Start 14-day free trial</a>
       </div>
     </div>
   </div>
@@ -578,13 +578,13 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
   <div class="cta-lbl">Get started today</div>
   <h2 class="cta-h">Your move<br/>starts <em>here.</em></h2>
   <p class="cta-sub">Your personalised visa pathway in under 2 minutes.</p>
-  <a href="#" class="cta-btn">Get my free pathway →</a>
+  <a href="#" class="cta-btn" onclick="scrollToSelector();return false;">Get my free pathway →</a>
   <p class="cta-note">No account needed · Free to start · 2 minutes</p>
 </div>
 
 <!-- FOOTER -->
 <footer class="footer">
-  <a href="#" class="f-logo" style="display:flex;align-items:center;gap:8px;text-decoration:none"><svg width="24" height="24" viewBox="0 0 44 44" fill="none"><rect width="44" height="44" rx="10" fill="#2A2A2A"/><text x="4" y="34" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="30" font-weight="900" fill="#FAFAF8" letter-spacing="-1.5">R</text><circle cx="27" cy="11" r="7" fill="#C85A0A"/><circle cx="27" cy="11" r="3" fill="#FAFAF8"/></svg><span style="font-size:14px;font-weight:700;color:#FAFAF8;letter-spacing:-0.3px">reloc<b style="color:#C85A0A">iq</b></span></a>
+  <a href="#" class="f-logo" style="font-size:16px;font-weight:800;color:#FAFAF8;letter-spacing:-0.4px;text-decoration:none">reloc<b style="color:#C85A0A">iq</b></a>
   <div class="f-links">
     <a href="#" class="f-a">Privacy</a>
     <a href="#" class="f-a">Terms</a>
@@ -616,7 +616,7 @@ var origins=[{flag:'🇮🇳',name:'India',code:'IN'},
   {flag:'🇪🇬',name:'Egypt',code:'EG'}];
 var dests=[{flag:'🇩🇪',name:'Germany',code:'DE'},
   {flag:'🇵🇹',name:'Portugal',code:'PT'},
-  {flag:'🇨🇿',name:'Czech Republic',code:'CZ'},
+  {flag:'🇨🇿',name:'Czech Republic',code:'CZ'},{flag:'🇵🇱',name:'Poland',code:'PL'},
   {flag:'🇳🇱',name:'Netherlands',code:'NL'},
   {flag:'🇪🇸',name:'Spain',code:'ES'},
   {flag:'🇨🇦',name:'Canada',code:'CA'},
@@ -839,7 +839,7 @@ function handleCTA(){
       '<div style="background:#fff;border:1px solid #EBEBEA;border-radius:12px;padding:32px;margin-top:32px;text-align:center">'+
       '<div style="font-size:18px;font-weight:700;color:#1A1A1A;margin-bottom:10px">'+fromSel.flag+' '+fromSel.name+' to '+toSel.flag+' '+toSel.name+'</div>'+
       '<div style="font-size:14px;color:#888;margin-bottom:20px;line-height:1.6">This corridor is being added. We are expanding our pathway database every week.<br/>Sign up free and we will notify you when it launches.</div>'+
-      '<a href="#pricing" style="font-size:14px;background:#C85A0A;color:#fff;padding:12px 24px;border-radius:8px;font-weight:600;text-decoration:none">Get notified when it launches</a>'+
+      '<a href="#" onclick="openAuth(\'signup\');return false;" style="font-size:14px;background:#C85A0A;color:#fff;padding:12px 24px;border-radius:8px;font-weight:600;text-decoration:none">Get notified when it launches</a>'+
       '</div>';
     var hero=document.querySelector('.hero');
     hero.parentNode.insertBefore(div,hero.nextSibling);
@@ -891,7 +891,22 @@ function ensureClerk() {
 }
 
 ensureClerk().then(function(clerk) {
-  if (clerk.user) updateNavForUser(clerk.user);
+  // If returning from an OAuth (Google) redirect, complete the flow first.
+  if (window.location.search.indexOf('sso_callback=1') !== -1) {
+    clerk.handleRedirectCallback({
+      afterSignInUrl: window.location.origin + window.location.pathname,
+      afterSignUpUrl: window.location.origin + window.location.pathname
+    }, function(){ return Promise.resolve(); }).then(function() {
+      // Clean the URL and reflect signed-in state
+      history.replaceState({}, document.title, window.location.origin + window.location.pathname);
+      if (window.Clerk && window.Clerk.user) updateNavForUser(window.Clerk.user);
+    }).catch(function(e) {
+      console.error('OAuth callback error:', e);
+      history.replaceState({}, document.title, window.location.origin + window.location.pathname);
+    });
+  } else if (clerk.user) {
+    updateNavForUser(clerk.user);
+  }
 }).catch(function(e) { console.error('Clerk init error:', e); });
 
 function updateNavForUser(user) {
@@ -910,6 +925,11 @@ function openAuth(mode, pathway) {
   document.getElementById('authOverlay').classList.add('open');
   if (mode === 'signin') { showSignin(); } else { showSignup(); }
   document.body.style.overflow = 'hidden';
+}
+
+function scrollToSelector() {
+  var el = document.getElementById('selRow') || document.querySelector('.hero');
+  if (el) el.scrollIntoView({ behavior:'smooth', block:'center' });
 }
 
 function closeAuth() {
@@ -945,10 +965,11 @@ function hideMsg(id) {
 async function signInWithGoogle() {
   try {
     var clerk = await ensureClerk();
+    var base = window.location.origin + window.location.pathname;
     await clerk.client.signIn.authenticateWithRedirect({
       strategy: 'oauth_google',
-      redirectUrl: window.location.origin + window.location.pathname,
-      redirectUrlComplete: window.location.origin + window.location.pathname
+      redirectUrl: base + '?sso_callback=1',
+      redirectUrlComplete: base
     });
   } catch(e) {
     console.error('Google auth error:', e);
