@@ -2,7 +2,7 @@
 // Guards against the class of bug where the selector offers a country with no pathway data,
 // or a pathway exists with no guide. Fails loudly (non-zero exit) so a broken build can't ship.
 const fs = require('fs');
-const path = process.argv[2] || '/mnt/user-data/outputs/index.html';
+const path = process.argv[2] || 'index.html';
 const html = fs.readFileSync(path,'utf8');
 
 let errors = [];
