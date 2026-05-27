@@ -9,13 +9,13 @@ let errors = [];
 let warnings = [];
 
 // Parse the three data structures
-function grab(re, label){ const m=html.match(re); if(!m){errors.push('Could not find '+label);return null;} try{return eval('('+m[1]+')');}catch(e){errors.push(label+' failed to parse: '+e.message);return null;} }
+function grab(re, label){ const m=html.match(re); if(!m){errors.push('Could not find '+label);return null;} try{return JSON.parse(m[1]);}catch(e){errors.push(label+' failed to parse: '+e.message);return null;} }
 
 const origins = grab(/var origins\s*=\s*(\[[\s\S]*?\]);/, 'origins selector');
 const dests   = grab(/var dests\s*=\s*(\[[\s\S]*?\]);/, 'dests selector');
 const pathways= grab(/var pathwayData=(\[[\s\S]*?\]);/, 'pathwayData');
 const stepsM  = html.match(/var stepsData = (\{[\s\S]*?\n\});/);
-let stepsData=null; try{ stepsData=eval('('+stepsM[1]+')'); }catch(e){ errors.push('stepsData failed to parse'); }
+let stepsData=null; try{ stepsData=JSON.parse(stepsM[1]); }catch(e){ errors.push('stepsData failed to parse'); }
 
 if(origins && pathways){
   // Every selectable origin must appear in at least one pathway

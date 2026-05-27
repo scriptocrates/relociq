@@ -41,7 +41,7 @@ fs.readdirSync(path.join(CONTENT,'standalone')).filter(f=>f.endsWith('.json')).f
 let html = fs.readFileSync(HTML,'utf8');
 const m = html.match(/var stepsData = (\{[\s\S]*?\n\});/);
 if(!m) throw new Error('stepsData not found in HTML');
-const existing = eval('('+m[1]+')');
+const existing = JSON.parse(m[1]);
 
 // 5. Merge: content-built corridors override existing; rest persist unchanged
 const final = Object.assign({}, existing, built);
