@@ -2,19 +2,25 @@
 // Guards against the class of bug where the selector offers a country with no pathway data,
 // or a pathway exists with no guide. Fails loudly (non-zero exit) so a broken build can't ship.
 const fs = require('fs');
+const vm = require('vm');
 const path = process.argv[2] || 'index.html';
 const html = fs.readFileSync(path,'utf8');
 
 let errors = [];
 let warnings = [];
 
-// Parse the three data structures
-function grab(re, label){ const m=html.match(re); if(!m){errors.push('Could not find '+label);return null;} try{return JSON.parse(m[1]);}catch(e){errors.push(label+' failed to parse: '+e.message);return null;} }
+// origins/dests/pathwayData use JS object literal syntax (single-quoted keys) so they can't
+// be parsed with JSON.parse(). vm.runInNewContext() sandboxes the expression — no access to
+// require, process, fs, or any other Node global.
+function grabJs(re, label){ const m=html.match(re); if(!m){errors.push('Could not find '+label);return null;} try{const s={};vm.runInNewContext('__r='+m[1],s,{timeout:2000});return s.__r;}catch(e){errors.push(label+' failed to parse: '+e.message);return null;} }
 
-const origins = grab(/var origins\s*=\s*(\[[\s\S]*?\]);/, 'origins selector');
-const dests   = grab(/var dests\s*=\s*(\[[\s\S]*?\]);/, 'dests selector');
-const pathways= grab(/var pathwayData=(\[[\s\S]*?\]);/, 'pathwayData');
-const stepsM  = html.match(/var stepsData = (\{[\s\S]*?\n\});/);
+const origins = grabJs(/var origins\s*=\s*(\[[\s\S]*?\]);/, 'origins selector');
+const dests   = grabJs(/var dests\s*=\s*(\[[\s\S]*?\]);/, 'dests selector');
+const pathways= grabJs(/var pathwayData=(\[[\s\S]*?\]);/, 'pathwayData');
+// stepsData is written by build-site.js via JSON.stringify() so strict JSON.parse() is safe.
+// Regex terminates at "};\n" — semicolons never appear in JSON syntax so this is unambiguous
+// regardless of whether the value is compact (one line) or pretty-printed (indented).
+const stepsM  = html.match(/var stepsData = (\{[\s\S]*?\});\n/);
 let stepsData=null; try{ stepsData=JSON.parse(stepsM[1]); }catch(e){ errors.push('stepsData failed to parse'); }
 
 if(origins && pathways){
