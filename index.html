@@ -401,8 +401,8 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
   <div class="nav-links" id="navLinks">
     <a href="#how" class="nav-a">How it works</a>
     <a href="#pricing" class="nav-a">Pricing</a>
-    <a href="#" class="nav-a" onclick="openAuth('signin');return false;" id="navSignin">Sign in</a>
-    <a href="#" class="nav-cta" onclick="openAuth('signup');return false;" id="navSignup">Get started free</a>
+    <a href="#" class="nav-a" onclick="openAuth('signin');return false;" id="navSignin" style="opacity:0.5;pointer-events:none">Loading…</a>
+    <a href="#" class="nav-cta" onclick="openAuth('signup');return false;" id="navSignup" style="opacity:0.5;pointer-events:none">Loading…</a>
   </div>
   <div class="nav-user-wrap" id="navUser" style="display:none">
     <span class="nav-user-email" id="navUserEmail"></span>
@@ -553,7 +553,7 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
           <div class="p-feat">— &nbsp;Document vault</div>
           <div class="p-feat">— &nbsp;Lawyer referrals</div>
         </div>
-        <a href="#" onclick="scrollToSelector();return false;" class="p-btn">Get started free</a>
+        <a href="#" onclick="handleFreePlanClick();return false;" class="p-btn">Get started free</a>
       </div>
       <div class="p-card-pro">
         <div class="p-name-pro">Pro</div>
@@ -733,7 +733,7 @@ function showPathwayResult(pathway){
     '<div style="font-size:15px;color:#444;line-height:1.7;margin-bottom:24px">'+pathway.summary+'</div>'+
     '<div style="display:flex;gap:12px;flex-wrap:wrap">'+
     '<a href="#" onclick="handleGuideClick(currentPathway);return false;" style="font-size:14px;background:#C85A0A;color:#fff;padding:12px 24px;border-radius:8px;font-weight:600;text-decoration:none">Get full step-by-step guide</a>'+
-    '<a href="#pricing" style="font-size:14px;background:#FAFAF8;color:#1A1A1A;padding:12px 24px;border-radius:8px;font-weight:600;text-decoration:none;border:1px solid #EBEBEA">View pricing</a>'+
+    ((window.Clerk && window.Clerk.user) ? '' : '<a href="#pricing" style="font-size:14px;background:#FAFAF8;color:#1A1A1A;padding:12px 24px;border-radius:8px;font-weight:600;text-decoration:none;border:1px solid #EBEBEA">View pricing</a>')+
     '</div>'+
     '</div>';
   var hero=document.querySelector('.hero');
@@ -746,7 +746,14 @@ function handleCTA(){
     return p.from===fromSel.code && p.to===toSel.code;
   });
   if(match){
+    // Remove any existing full guide so it doesn't show stale data from a different corridor
+    var oldGuide=document.getElementById('fullGuide');
+    if(oldGuide)oldGuide.remove();
     showPathwayResult(match);
+    // If signed in, auto-load the new full guide too (no need to re-click "Get full guide")
+    if(window.Clerk && window.Clerk.user){
+      setTimeout(function(){ showFullGuide(match); }, 100);
+    }
   } else {
     var existing=document.getElementById('pathwayResult');
     if(existing)existing.remove();
@@ -822,6 +829,9 @@ ensureClerk().then(function(clerk) {
       // Clean the URL and reflect signed-in state
       history.replaceState({}, document.title, window.location.origin + window.location.pathname);
       checkProStatus();
+      // Clerk ready — restore nav buttons
+      var ns=document.getElementById('navSignup'); if(ns){ns.style.opacity='';ns.style.pointerEvents='';ns.textContent='Get started free';}
+      var si=document.getElementById('navSignin'); if(si){si.style.opacity='';si.style.pointerEvents='';si.textContent='Sign in';}
       if (window.Clerk && window.Clerk.user) updateNavForUser(window.Clerk.user);
     }).catch(function(e) {
       console.error('OAuth callback error:', e);
@@ -895,6 +905,16 @@ function showProWelcome() {
   document.body.prepend(banner);
   setTimeout(function(){ if(banner.parentNode) banner.remove(); }, 8000);
 }
+
+function handleFreePlanClick(){
+  // If not signed in, go straight to signup. If signed in, scroll to the selector to actually use the product.
+  if(!window.Clerk||!window.Clerk.user){
+    openAuth('signup');
+  } else {
+    scrollToSelector();
+  }
+}
+
 function scrollToSelector() {
   var el = document.getElementById('selRow') || document.querySelector('.hero');
   if (el) el.scrollIntoView({ behavior:'smooth', block:'center' });
