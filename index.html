@@ -896,21 +896,97 @@ function handleProUpgrade() {
     openAuth('signup');
     return;
   }
-  // Already signed in — go straight to Stripe
-  window.location.href = STRIPE_PAYMENT_LINK;
+  // Already signed in — append Clerk user ID and email so the webhook can identify the buyer
+  var user = window.Clerk.user;
+  var url = STRIPE_PAYMENT_LINK;
+  url += (url.indexOf('?') === -1 ? '?' : '&');
+  url += 'client_reference_id=' + encodeURIComponent(user.id);
+  var email = user.primaryEmailAddress && user.primaryEmailAddress.emailAddress;
+  if (email) url += '&prefilled_email=' + encodeURIComponent(email);
+  window.location.href = url;
 }
 
 function checkProStatus() {
-  // Check ?welcome=pro return from Stripe
-  if (window.location.search.indexOf('welcome=pro') !== -1) {
-    PRO_PLAN_ACTIVE = true;
-    localStorage.setItem('relociq_pro','1');
-    history.replaceState({}, document.title, window.location.pathname);
-    showProWelcome();
+  var prevPro = PRO_PLAN_ACTIVE;
+  // Source of truth: Clerk publicMetadata.pro (set server-side by Stripe webhook)
+  if (window.Clerk && window.Clerk.user && window.Clerk.user.publicMetadata) {
+    PRO_PLAN_ACTIVE = window.Clerk.user.publicMetadata.pro === true;
+  } else {
+    PRO_PLAN_ACTIVE = false;
   }
-  // Check localStorage (persists across sessions until manually cleared)
-  if (localStorage.getItem('relociq_pro') === '1') {
-    PRO_PLAN_ACTIVE = true;
+  // Clean up legacy localStorage flag — no longer authoritative
+  if (localStorage.getItem('relociq_pro')) {
+    localStorage.removeItem('relociq_pro');
+  }
+  // Handle returning from Stripe checkout
+  if (window.location.search.indexOf('welcome=pro') !== -1) {
+    history.replaceState({}, document.title, window.location.pathname);
+    if (PRO_PLAN_ACTIVE) {
+      showProWelcome();
+    } else {
+      // Optimistic UI while webhook syncs server-side
+      showProActivating();
+      pollForProSync();
+    }
+  }
+  // If status flipped, redraw any visible Pro-gated UI
+  if (prevPro !== PRO_PLAN_ACTIVE && typeof refreshFullGuide === 'function') {
+    refreshFullGuide();
+  }
+}
+
+// Poll Clerk for the Pro flag — webhook usually fires within 1–3 seconds of checkout
+function pollForProSync() {
+  var attempts = 0;
+  var maxAttempts = 20; // 20 × 2s = 40s window
+  var iv = setInterval(function () {
+    attempts++;
+    if (!window.Clerk || !window.Clerk.user) { clearInterval(iv); return; }
+    window.Clerk.user.reload().then(function () {
+      var pro = window.Clerk.user.publicMetadata && window.Clerk.user.publicMetadata.pro === true;
+      if (pro) {
+        clearInterval(iv);
+        PRO_PLAN_ACTIVE = true;
+        dismissProActivating();
+        showProWelcome();
+        if (typeof refreshFullGuide === 'function') refreshFullGuide();
+      } else if (attempts >= maxAttempts) {
+        clearInterval(iv);
+        dismissProActivating();
+        showProActivationTimeout();
+      }
+    }).catch(function () {
+      if (attempts >= maxAttempts) { clearInterval(iv); dismissProActivating(); }
+    });
+  }, 2000);
+}
+
+function showProActivating() {
+  var banner = document.createElement('div');
+  banner.id = 'proActivatingBanner';
+  banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#1A1A1A;color:#fff;padding:14px 24px;text-align:center;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:10px';
+  banner.innerHTML = '<span style="display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite"></span><span>Activating your Pro subscription...</span><style>@keyframes spin{to{transform:rotate(360deg)}}</style>';
+  document.body.prepend(banner);
+}
+
+function dismissProActivating() {
+  var b = document.getElementById('proActivatingBanner');
+  if (b && b.parentNode) b.remove();
+}
+
+function showProActivationTimeout() {
+  var banner = document.createElement('div');
+  banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#854F0B;color:#fff;padding:14px 24px;text-align:center;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:12px';
+  banner.innerHTML = '<span>Payment received — Pro is taking a moment to activate. Refresh the page in 30s or email hello@relociq.app if it persists.</span><button onclick="this.parentNode.remove()" style="background:rgba(255,255,255,0.2);border:none;color:#fff;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:13px">✕</button>';
+  document.body.prepend(banner);
+}
+
+// Redraw the full step-by-step guide in place — used when Pro state changes mid-session
+function refreshFullGuide() {
+  var existing = document.getElementById('fullGuide');
+  if (existing && existing.parentNode && currentPathway) {
+    existing.parentNode.removeChild(existing);
+    setTimeout(function () { showFullGuide(currentPathway); }, 50);
   }
 }
 
