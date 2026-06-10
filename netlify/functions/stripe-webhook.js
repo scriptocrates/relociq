@@ -16,6 +16,12 @@
 const crypto = require('crypto');
 
 exports.handler = async function (event) {
+  // Guard: fail fast if env vars are missing rather than throwing cryptic errors later
+  if (!process.env.STRIPE_WEBHOOK_SECRET || !process.env.CLERK_SECRET_KEY || !process.env.STRIPE_SECRET_KEY) {
+    console.error('Missing required environment variables (STRIPE_WEBHOOK_SECRET, CLERK_SECRET_KEY, STRIPE_SECRET_KEY)');
+    return { statusCode: 500, body: 'Server misconfiguration' };
+  }
+
   // Stripe webhooks are always POST
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method not allowed' };
@@ -56,21 +62,28 @@ exports.handler = async function (event) {
   } catch (err) {
     console.error('Webhook handler error:', err);
     // Return 500 so Stripe retries (transient failures recover automatically)
-    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
+    return { statusCode: 500, body: 'Internal error' };
   }
 };
 
 // ─── Signature verification ───
 function verifyStripeSignature(body, sigHeader, secret) {
   if (!sigHeader || !secret) return false;
-  const parts = {};
+
+  // Collect all t= and v1= values — Stripe sends multiple v1= during secret rotation
+  const timestamps = [];
+  const signatures = [];
   sigHeader.split(',').forEach(p => {
-    const [k, v] = p.split('=');
-    if (k && v) parts[k.trim()] = v.trim();
+    const eq = p.indexOf('=');
+    if (eq === -1) return;
+    const k = p.slice(0, eq).trim();
+    const v = p.slice(eq + 1).trim();
+    if (k === 't') timestamps.push(v);
+    if (k === 'v1') signatures.push(v);
   });
-  const timestamp = parts.t;
-  const signature = parts.v1;
-  if (!timestamp || !signature) return false;
+
+  const timestamp = timestamps[0];
+  if (!timestamp || signatures.length === 0) return false;
 
   // Reject events older than 5 minutes (replay protection)
   const age = Math.floor(Date.now() / 1000) - parseInt(timestamp, 10);
@@ -78,12 +91,21 @@ function verifyStripeSignature(body, sigHeader, secret) {
 
   const payload = `${timestamp}.${body}`;
   const expected = crypto.createHmac('sha256', secret).update(payload).digest('hex');
+  const expectedBuf = Buffer.from(expected, 'hex');
 
-  try {
-    return crypto.timingSafeEqual(Buffer.from(signature, 'hex'), Buffer.from(expected, 'hex'));
-  } catch (_) {
-    return false;
-  }
+  // Accept if ANY signature matches (covers rotation window)
+  return signatures.some(sig => {
+    try {
+      return crypto.timingSafeEqual(Buffer.from(sig, 'hex'), expectedBuf);
+    } catch (_) {
+      return false;
+    }
+  });
+}
+
+// ─── Clerk user ID validation ───
+function isValidClerkUserId(id) {
+  return typeof id === 'string' && /^user_[a-zA-Z0-9]+$/.test(id);
 }
 
 // ─── Event handlers ───
@@ -94,6 +116,18 @@ async function handleCheckoutCompleted(session) {
 
   if (!clerkUserId) {
     console.warn('checkout.session.completed without client_reference_id', session.id);
+    return;
+  }
+
+  // Validate format before use in API URL (prevents path traversal)
+  if (!isValidClerkUserId(clerkUserId)) {
+    console.warn('checkout.session.completed with invalid client_reference_id format', session.id);
+    return;
+  }
+
+  // Only grant Pro when payment is actually confirmed
+  if (session.payment_status !== 'paid' && session.payment_status !== 'no_payment_required') {
+    console.warn('checkout completed but payment not confirmed:', session.id, session.payment_status);
     return;
   }
 
