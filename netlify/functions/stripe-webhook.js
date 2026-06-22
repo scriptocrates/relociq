@@ -2,8 +2,9 @@
 //
 // Stripe → Clerk Pro-flag bridge.
 //
-// On checkout.session.completed: sets clerk.user.publicMetadata.pro = true
-// On customer.subscription.deleted / canceled: sets pro = false
+// On checkout.session.completed (paid/no_payment_required): sets clerk.user.publicMetadata.pro = true
+// On checkout.session.async_payment_succeeded: same as above, for BACS/SEPA/ACH/bank-transfer customers
+// On customer.subscription.deleted: sets pro = false
 // On customer.subscription.updated: syncs status (active/trialing → pro=true, anything else → pro=false)
 //
 // Required environment variables (set in Netlify project settings → Environment):
@@ -16,7 +17,7 @@
 const crypto = require('crypto');
 
 exports.handler = async function (event) {
-  // Guard: fail fast if env vars are missing rather than throwing cryptic errors later
+  // Fail fast if env vars are missing rather than throwing cryptic errors later
   if (!process.env.STRIPE_WEBHOOK_SECRET || !process.env.CLERK_SECRET_KEY || !process.env.STRIPE_SECRET_KEY) {
     console.error('Missing required environment variables (STRIPE_WEBHOOK_SECRET, CLERK_SECRET_KEY, STRIPE_SECRET_KEY)');
     return { statusCode: 500, body: 'Server misconfiguration' };
@@ -48,6 +49,10 @@ exports.handler = async function (event) {
       case 'checkout.session.completed':
         await handleCheckoutCompleted(evt.data.object);
         break;
+      // Fires for BACS, SEPA, ACH, bank transfer — payment settles after checkout completes
+      case 'checkout.session.async_payment_succeeded':
+        await handleCheckoutCompleted(evt.data.object);
+        break;
       case 'customer.subscription.deleted':
         await handleSubscriptionDeleted(evt.data.object);
         break;
@@ -60,7 +65,7 @@ exports.handler = async function (event) {
     }
     return { statusCode: 200, body: JSON.stringify({ received: true }) };
   } catch (err) {
-    console.error('Webhook handler error:', err);
+    console.error('Webhook handler error:', err.message);
     // Return 500 so Stripe retries (transient failures recover automatically)
     return { statusCode: 500, body: 'Internal error' };
   }
@@ -71,23 +76,22 @@ function verifyStripeSignature(body, sigHeader, secret) {
   if (!sigHeader || !secret) return false;
 
   // Collect all t= and v1= values — Stripe sends multiple v1= during secret rotation
-  const timestamps = [];
+  let timestamp = null;
   const signatures = [];
   sigHeader.split(',').forEach(p => {
     const eq = p.indexOf('=');
     if (eq === -1) return;
     const k = p.slice(0, eq).trim();
     const v = p.slice(eq + 1).trim();
-    if (k === 't') timestamps.push(v);
+    if (k === 't' && timestamp === null) timestamp = v;
     if (k === 'v1') signatures.push(v);
   });
 
-  const timestamp = timestamps[0];
   if (!timestamp || signatures.length === 0) return false;
 
-  // Reject events older than 5 minutes (replay protection)
+  // Reject events older than 5 minutes (replay protection), and future-dated events (clock skew)
   const age = Math.floor(Date.now() / 1000) - parseInt(timestamp, 10);
-  if (Number.isNaN(age) || age > 300) return false;
+  if (Number.isNaN(age) || age < 0 || age > 300) return false;
 
   const payload = `${timestamp}.${body}`;
   const expected = crypto.createHmac('sha256', secret).update(payload).digest('hex');
@@ -115,32 +119,46 @@ async function handleCheckoutCompleted(session) {
   const stripeSubId = session.subscription;
 
   if (!clerkUserId) {
-    console.warn('checkout.session.completed without client_reference_id', session.id);
+    console.warn('checkout event without client_reference_id', session.id);
     return;
   }
 
   // Validate format before use in API URL (prevents path traversal)
   if (!isValidClerkUserId(clerkUserId)) {
-    console.warn('checkout.session.completed with invalid client_reference_id format', session.id);
+    console.warn('checkout event with invalid client_reference_id format', session.id);
     return;
   }
 
-  // Only grant Pro when payment is actually confirmed
+  // For checkout.session.completed: only grant Pro when payment is confirmed.
+  // async_payment_succeeded events always represent a successful payment so this check is safe for both.
   if (session.payment_status !== 'paid' && session.payment_status !== 'no_payment_required') {
     console.warn('checkout completed but payment not confirmed:', session.id, session.payment_status);
     return;
   }
 
-  // 1. Grant Pro on the Clerk user
-  await updateClerkUserPro(clerkUserId, true, {
+  // Grant Pro and tag the Stripe customer in parallel — the two writes are independent.
+  // If the Stripe tag fails we log a warning (Pro is still granted) rather than throwing
+  // and triggering a Stripe retry that would re-grant already-active Pro.
+  const clerkWrite = updateClerkUserPro(clerkUserId, true, {
     stripe_customer_id: stripeCustomerId,
     stripe_subscription_id: stripeSubId,
     subscribed_at: new Date().toISOString()
   });
 
-  // 2. Tag the Stripe customer with clerk_user_id so subsequent events can find them
-  if (stripeCustomerId) {
-    await updateStripeCustomerMetadata(stripeCustomerId, { clerk_user_id: clerkUserId });
+  const stripeTag = stripeCustomerId
+    ? updateStripeCustomerMetadata(stripeCustomerId, { clerk_user_id: clerkUserId })
+    : Promise.resolve();
+
+  const [clerkResult, stripeResult] = await Promise.allSettled([clerkWrite, stripeTag]);
+
+  if (clerkResult.status === 'rejected') {
+    // Re-throw so Stripe retries — Pro has not been granted yet
+    throw clerkResult.reason;
+  }
+  if (stripeResult.status === 'rejected') {
+    // Log and continue — Pro is granted; the missing tag means future sub events may
+    // not resolve this user, but that is preferable to denying access to a paying customer
+    console.warn('Stripe customer tag failed for', stripeCustomerId, '—', stripeResult.reason.message);
   }
 
   console.log(`Granted Pro to Clerk user ${clerkUserId} (sub ${stripeSubId})`);
@@ -187,8 +205,8 @@ async function updateClerkUserPro(userId, pro, extraMetadata) {
     })
   });
   if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Clerk metadata update failed (${res.status}): ${text}`);
+    // Don't include the response body — it may contain user-identifying fields
+    throw new Error(`Clerk metadata update failed (${res.status})`);
   }
 }
 
@@ -196,13 +214,26 @@ async function updateClerkUserPro(userId, pro, extraMetadata) {
 async function resolveClerkUserIdFromCustomer(customerId) {
   if (!customerId) return null;
   const customer = await getStripeCustomer(customerId);
-  return customer && customer.metadata ? customer.metadata.clerk_user_id : null;
+  if (!customer) return null;
+  const id = customer.metadata && customer.metadata.clerk_user_id;
+  // Validate before use in API URL — same guard as the checkout path
+  if (!isValidClerkUserId(id)) {
+    if (id) console.warn('clerk_user_id in Stripe metadata failed validation:', customerId);
+    return null;
+  }
+  return id;
 }
 
 async function getStripeCustomer(customerId) {
   const res = await fetch(`https://api.stripe.com/v1/customers/${customerId}`, {
     headers: { 'Authorization': `Bearer ${process.env.STRIPE_SECRET_KEY}` }
   });
+  // 404 means the customer was hard-deleted — treat as unresolvable rather than throwing
+  // (throwing would cause Stripe to retry and eventually permanently drop the event)
+  if (res.status === 404) {
+    console.warn('Stripe customer not found (hard-deleted?):', customerId);
+    return null;
+  }
   if (!res.ok) throw new Error(`Stripe customer fetch failed (${res.status})`);
   return res.json();
 }
@@ -221,7 +252,6 @@ async function updateStripeCustomerMetadata(customerId, metadata) {
     body: form.toString()
   });
   if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Stripe customer metadata update failed (${res.status}): ${text}`);
+    throw new Error(`Stripe customer metadata update failed (${res.status})`);
   }
 }
