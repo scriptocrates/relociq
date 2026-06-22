@@ -406,6 +406,94 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
   </div>
 </div>
 
+<!-- RECOMMENDER MODAL -->
+<div class="auth-overlay" id="recOverlay" onclick="if(event.target===this)closeRecommender()">
+  <div class="auth-modal" style="max-width:640px;padding:32px 28px">
+    <button onclick="closeRecommender()" style="position:absolute;top:14px;right:14px;background:none;border:none;font-size:24px;color:#888;cursor:pointer;line-height:1;padding:0;width:30px;height:30px">×</button>
+
+    <!-- STEP 1: Form -->
+    <div id="recFormStep">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#AAA;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px">Personalised recommendations</div>
+      <h2 style="font-size:22px;font-weight:800;color:#1A1A1A;letter-spacing:-0.5px;margin-bottom:8px">Where should you move?</h2>
+      <p style="font-size:14px;color:#666;line-height:1.55;margin-bottom:22px">Answer 7 quick questions. We'll rank the 3 best destinations for your specific situation across 18 countries.</p>
+
+      <div id="recForm" style="display:flex;flex-direction:column;gap:16px">
+
+        <div>
+          <label style="display:block;font-size:13px;font-weight:600;color:#1A1A1A;margin-bottom:6px">Your nationality</label>
+          <select id="recNationality" style="width:100%;padding:10px 12px;font-size:14px;border:1px solid #DDD;border-radius:6px;background:#fff;color:#1A1A1A">
+            <option value="">Select your nationality...</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="display:block;font-size:13px;font-weight:600;color:#1A1A1A;margin-bottom:6px">Your role / field</label>
+          <input type="text" id="recRole" placeholder="e.g. Software engineer, Designer, Doctor" style="width:100%;padding:10px 12px;font-size:14px;border:1px solid #DDD;border-radius:6px;background:#fff;color:#1A1A1A"/>
+        </div>
+
+        <div>
+          <label style="display:block;font-size:13px;font-weight:600;color:#1A1A1A;margin-bottom:6px">Current annual salary (USD, gross)</label>
+          <input type="number" id="recSalary" placeholder="e.g. 80000" min="0" step="5000" style="width:100%;padding:10px 12px;font-size:14px;border:1px solid #DDD;border-radius:6px;background:#fff;color:#1A1A1A"/>
+        </div>
+
+        <div>
+          <label style="display:block;font-size:13px;font-weight:600;color:#1A1A1A;margin-bottom:6px">Languages you speak (working level)</label>
+          <input type="text" id="recLanguages" placeholder="e.g. English, Spanish, Portuguese" style="width:100%;padding:10px 12px;font-size:14px;border:1px solid #DDD;border-radius:6px;background:#fff;color:#1A1A1A"/>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div>
+            <label style="display:block;font-size:13px;font-weight:600;color:#1A1A1A;margin-bottom:6px">Moving with partner?</label>
+            <select id="recPartner" style="width:100%;padding:10px 12px;font-size:14px;border:1px solid #DDD;border-radius:6px;background:#fff;color:#1A1A1A">
+              <option value="false">Just me</option>
+              <option value="true">With partner</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-size:13px;font-weight:600;color:#1A1A1A;margin-bottom:6px">Children</label>
+            <select id="recChildren" style="width:100%;padding:10px 12px;font-size:14px;border:1px solid #DDD;border-radius:6px;background:#fff;color:#1A1A1A">
+              <option value="0">None</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3+</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label style="display:block;font-size:13px;font-weight:600;color:#1A1A1A;margin-bottom:6px">What matters most? <span style="color:#999;font-weight:400">(pick up to 3)</span></label>
+          <div id="recPriorities" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+        </div>
+
+        <div>
+          <label style="display:block;font-size:13px;font-weight:600;color:#1A1A1A;margin-bottom:6px">Anything else? <span style="color:#999;font-weight:400">(optional)</span></label>
+          <textarea id="recNotes" rows="2" placeholder="e.g. remote-first work, vegan, dual citizenship by descent..." style="width:100%;padding:10px 12px;font-size:14px;border:1px solid #DDD;border-radius:6px;background:#fff;color:#1A1A1A;font-family:inherit;resize:vertical"></textarea>
+        </div>
+
+        <button onclick="submitRecommender()" id="recSubmitBtn" style="margin-top:8px;padding:14px 24px;font-size:15px;font-weight:600;background:#C85A0A;color:#fff;border:none;border-radius:8px;cursor:pointer;transition:opacity 0.15s">Get my top 3 destinations →</button>
+        <div id="recError" style="display:none;color:#993C1D;font-size:13px;margin-top:4px"></div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Loading -->
+    <div id="recLoadingStep" style="display:none;text-align:center;padding:40px 20px">
+      <div style="display:inline-block;width:32px;height:32px;border:3px solid #EEE;border-top-color:#C85A0A;border-radius:50%;animation:recspin 0.8s linear infinite"></div>
+      <style>@keyframes recspin{to{transform:rotate(360deg)}}</style>
+      <h3 style="font-size:18px;font-weight:700;color:#1A1A1A;margin-top:18px;margin-bottom:6px">Analysing 18 destinations...</h3>
+      <p style="font-size:13px;color:#666">Reviewing visa routes, salary thresholds, language fit, and lifestyle match for your specific profile.</p>
+    </div>
+
+    <!-- STEP 3: Results -->
+    <div id="recResultsStep" style="display:none">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#AAA;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px">Your top 3 matches</div>
+      <h2 style="font-size:22px;font-weight:800;color:#1A1A1A;letter-spacing:-0.5px;margin-bottom:6px">Here's where you'd fit best</h2>
+      <p style="font-size:13px;color:#666;line-height:1.55;margin-bottom:20px">Ranked by your profile, priorities, and visa accessibility.</p>
+      <div id="recResultsList" style="display:flex;flex-direction:column;gap:14px"></div>
+      <button onclick="resetRecommender()" style="margin-top:18px;padding:10px 18px;font-size:13px;background:transparent;color:#666;border:1px solid #DDD;border-radius:6px;cursor:pointer">← Start over with different answers</button>
+    </div>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav class="nav">
   <a href="#" class="nav-logo" style="font-size:19px;font-weight:800;color:#1A1A1A;letter-spacing:-0.5px;text-decoration:none">reloc<b style="color:#C85A0A">iq</b></a>
@@ -464,6 +552,13 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
     </div>
 
     <button class="sel-cta" onclick="handleCTA()">Show my pathway →</button>
+  </div>
+
+  <div style="margin-top:18px;text-align:center">
+    <a href="#" onclick="openRecommender();return false;" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;color:#666;text-decoration:none;border-bottom:1px dashed #999;padding-bottom:2px;transition:color 0.15s" onmouseover="this.style.color='#C85A0A';this.style.borderColor='#C85A0A'" onmouseout="this.style.color='#666';this.style.borderColor='#999'">
+      <span style="color:#C85A0A;font-weight:600">✨</span>
+      <span>Not sure where to go? <b style="color:#1A1A1A;font-weight:600">Get personalised recommendations</b> →</span>
+    </a>
   </div>
 
   <div class="hero-trust">
@@ -1035,6 +1130,196 @@ function openInfo(kind) {
 function closeInfo() {
   document.getElementById('infoOverlay').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+// ─── RECOMMENDER (reverse search) ───────────────────────────────────────
+// Endpoint of the deployed Netlify function. Update if you host elsewhere.
+var RECOMMENDER_ENDPOINT = 'https://relociq.netlify.app/.netlify/functions/recommend-destination';
+
+var RECOMMENDER_PRIORITIES = [
+  { key: 'career_growth', label: 'Career growth' },
+  { key: 'high_salary', label: 'High salary' },
+  { key: 'low_cost', label: 'Low cost of living' },
+  { key: 'family_friendly', label: 'Family-friendly' },
+  { key: 'lifestyle', label: 'Lifestyle / culture' },
+  { key: 'climate', label: 'Warm climate' },
+  { key: 'low_taxes', label: 'Low taxes' },
+  { key: 'english_speaking', label: 'English-speaking' },
+  { key: 'easy_visa', label: 'Easy visa route' }
+];
+var recSelectedPriorities = [];
+
+function openRecommender() {
+  initRecommenderForm();
+  document.getElementById('recFormStep').style.display = '';
+  document.getElementById('recLoadingStep').style.display = 'none';
+  document.getElementById('recResultsStep').style.display = 'none';
+  document.getElementById('recOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeRecommender() {
+  document.getElementById('recOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function initRecommenderForm() {
+  // Populate nationality dropdown from existing origins data
+  var sel = document.getElementById('recNationality');
+  if (sel.options.length <= 1 && typeof origins !== 'undefined') {
+    origins.forEach(function (o) {
+      var opt = document.createElement('option');
+      opt.value = o.code;
+      opt.textContent = o.flag + '  ' + o.name;
+      sel.appendChild(opt);
+    });
+  }
+  // Render priority chips (only if empty)
+  var pri = document.getElementById('recPriorities');
+  if (!pri.children.length) {
+    RECOMMENDER_PRIORITIES.forEach(function (p) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.dataset.key = p.key;
+      b.textContent = p.label;
+      b.style.cssText = 'padding:8px 14px;font-size:13px;background:#F7F5F0;color:#666;border:1px solid #E5E1D8;border-radius:20px;cursor:pointer;transition:all 0.15s';
+      b.onclick = function () { togglePriority(p.key, b); };
+      pri.appendChild(b);
+    });
+  }
+  document.getElementById('recError').style.display = 'none';
+}
+
+function togglePriority(key, btn) {
+  var idx = recSelectedPriorities.indexOf(key);
+  if (idx >= 0) {
+    recSelectedPriorities.splice(idx, 1);
+    btn.style.background = '#F7F5F0';
+    btn.style.color = '#666';
+    btn.style.borderColor = '#E5E1D8';
+  } else if (recSelectedPriorities.length < 3) {
+    recSelectedPriorities.push(key);
+    btn.style.background = '#C85A0A';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#C85A0A';
+  }
+}
+
+async function submitRecommender() {
+  var nationality = document.getElementById('recNationality').value;
+  var role = document.getElementById('recRole').value.trim();
+  var salary = parseInt(document.getElementById('recSalary').value || '0', 10);
+  var languages = document.getElementById('recLanguages').value.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+  var partner = document.getElementById('recPartner').value === 'true';
+  var children = parseInt(document.getElementById('recChildren').value || '0', 10);
+  var notes = document.getElementById('recNotes').value.trim();
+
+  var err = document.getElementById('recError');
+  if (!nationality) { err.textContent = 'Please select your nationality.'; err.style.display = 'block'; return; }
+  if (!role) { err.textContent = 'Please tell us your role or field.'; err.style.display = 'block'; return; }
+  err.style.display = 'none';
+
+  document.getElementById('recFormStep').style.display = 'none';
+  document.getElementById('recLoadingStep').style.display = 'block';
+
+  try {
+    var res = await fetch(RECOMMENDER_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nationality: nationality,
+        role: role,
+        salary_usd: salary || undefined,
+        languages: languages,
+        partner: partner,
+        children: children,
+        priorities: recSelectedPriorities,
+        notes: notes || undefined
+      })
+    });
+
+    if (!res.ok) {
+      var errBody = await res.json().catch(function () { return {}; });
+      throw new Error(errBody.error || ('Request failed: ' + res.status));
+    }
+
+    var data = await res.json();
+    renderRecommenderResults(data.recommendations, nationality);
+  } catch (e) {
+    console.error('Recommender error:', e);
+    document.getElementById('recLoadingStep').style.display = 'none';
+    document.getElementById('recFormStep').style.display = '';
+    err.textContent = 'Could not generate recommendations right now. Please try again in a moment.';
+    err.style.display = 'block';
+  }
+}
+
+function renderRecommenderResults(recommendations, nationality) {
+  var list = document.getElementById('recResultsList');
+  list.innerHTML = '';
+
+  recommendations.sort(function (a, b) { return a.rank - b.rank; }).forEach(function (rec, idx) {
+    var card = document.createElement('div');
+    var medal = ['🥇','🥈','🥉'][idx] || '';
+    card.style.cssText = 'border:1px solid #E5E1D8;border-radius:12px;padding:18px 18px 16px;background:#FBFAF7;transition:border-color 0.15s';
+    card.innerHTML = ''
+      + '<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;gap:12px">'
+      +   '<div style="display:flex;align-items:center;gap:10px"><span style="font-size:22px">' + medal + '</span>'
+      +     '<div><div style="font-size:16px;font-weight:700;color:#1A1A1A;line-height:1.1">' + escapeHtml(rec.country_name) + '</div>'
+      +     '<div style="font-size:11px;color:#999;margin-top:2px">via ' + escapeHtml(rec.visa_route) + ' · ~€' + rec.monthly_cost_estimate_eur.toLocaleString() + '/mo</div></div></div>'
+      +   '<div style="font-size:11px;color:#666;background:#fff;border:1px solid #E5E1D8;padding:3px 8px;border-radius:12px">' + Math.round(rec.match_score * 100) + '% match</div>'
+      + '</div>'
+      + '<p style="font-size:13.5px;color:#444;line-height:1.55;margin:10px 0 12px">' + escapeHtml(rec.rationale) + '</p>'
+      + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px">'
+      +   '<div><div style="color:#777;font-weight:600;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Advantages</div>'
+      +     '<ul style="margin:0;padding-left:14px;color:#444;line-height:1.5">' + rec.key_advantages.map(function (a) { return '<li>' + escapeHtml(a) + '</li>'; }).join('') + '</ul></div>'
+      +   '<div><div style="color:#777;font-weight:600;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Watch out for</div>'
+      +     '<ul style="margin:0;padding-left:14px;color:#444;line-height:1.5">' + rec.considerations.map(function (c) { return '<li>' + escapeHtml(c) + '</li>'; }).join('') + '</ul></div>'
+      + '</div>'
+      + '<button onclick="loadCorridorFromRecommendation(\'' + nationality + '\',\'' + rec.country + '\')" style="margin-top:14px;padding:9px 16px;font-size:13px;font-weight:600;background:#1A1A1A;color:#fff;border:none;border-radius:6px;cursor:pointer">See full ' + escapeHtml(rec.country_name) + ' pathway →</button>';
+    list.appendChild(card);
+  });
+
+  document.getElementById('recLoadingStep').style.display = 'none';
+  document.getElementById('recResultsStep').style.display = '';
+}
+
+function loadCorridorFromRecommendation(originCode, destCode) {
+  closeRecommender();
+  // Update the existing corridor selector to match the recommendation
+  if (typeof origins !== 'undefined' && typeof dests !== 'undefined') {
+    var origin = origins.find(function (o) { return o.code === originCode; });
+    var dest = dests.find(function (d) { return d.code === destCode; });
+    if (origin && dest) {
+      document.getElementById('fromFlag').textContent = origin.flag;
+      document.getElementById('fromVal').textContent = origin.name;
+      document.getElementById('toFlag').textContent = dest.flag;
+      document.getElementById('toVal').textContent = dest.name;
+      // Trigger the existing pathway display
+      handleCTA();
+      // Smooth-scroll to the result area
+      setTimeout(function () {
+        var result = document.getElementById('result');
+        if (result) result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    }
+  }
+}
+
+function resetRecommender() {
+  recSelectedPriorities = [];
+  document.querySelectorAll('#recPriorities button').forEach(function (b) {
+    b.style.background = '#F7F5F0';
+    b.style.color = '#666';
+    b.style.borderColor = '#E5E1D8';
+  });
+  document.getElementById('recForm').querySelectorAll('input, select, textarea').forEach(function (el) {
+    if (el.tagName === 'SELECT') el.selectedIndex = 0;
+    else el.value = '';
+  });
+  document.getElementById('recFormStep').style.display = '';
+  document.getElementById('recResultsStep').style.display = 'none';
+  document.getElementById('recLoadingStep').style.display = 'none';
 }
 
 function showSignup() {
