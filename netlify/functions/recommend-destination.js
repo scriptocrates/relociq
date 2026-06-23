@@ -107,7 +107,7 @@ exports.handler = async function (event) {
 
   } catch (err) {
     console.error('Recommend handler error:', err);
-    return { statusCode: 500, headers: corsHeaders, body: JSON.stringify({ error: err.message }) };
+    return { statusCode: 500, headers: corsHeaders, body: JSON.stringify({ error: 'Internal error' }) };
   }
 };
 
@@ -141,11 +141,11 @@ function buildUserMessage(profile) {
   if (profile.current_location) fields.push(`- Current location: ${profile.current_location}`);
   if (profile.role) fields.push(`- Role / field: ${profile.role}`);
   if (profile.salary_usd) fields.push(`- Current annual salary: ~$${profile.salary_usd.toLocaleString()} USD`);
-  if (profile.languages && profile.languages.length) fields.push(`- Languages spoken: ${profile.languages.join(', ')}`);
+  if (Array.isArray(profile.languages) && profile.languages.length) fields.push(`- Languages spoken: ${profile.languages.join(', ')}`);
   if (typeof profile.partner === 'boolean') fields.push(`- Partner moving too: ${profile.partner ? 'yes' : 'no'}`);
   if (typeof profile.children === 'number') fields.push(`- Children: ${profile.children}`);
-  if (profile.priorities && profile.priorities.length) fields.push(`- Stated priorities (in rank order): ${profile.priorities.join(' > ')}`);
-  if (profile.notes) fields.push(`- Additional context: ${profile.notes}`);
+  if (Array.isArray(profile.priorities) && profile.priorities.length) fields.push(`- Stated priorities (in rank order): ${profile.priorities.join(' > ')}`);
+  if (profile.notes) fields.push(`- Additional context: ${String(profile.notes).slice(0, 500)}`);
 
   return `Recommend the best 3 destinations for this user:\n\n${fields.join('\n')}`;
 }
