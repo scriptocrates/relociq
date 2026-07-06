@@ -14,7 +14,7 @@
 // Required env vars:
 //   ANTHROPIC_API_KEY — sk-ant-...
 
-const destinationProfiles = require('./destination-profiles');
+const destinationProfiles = require('../destination-profiles');
 
 const ANTHROPIC_API = 'https://api.anthropic.com/v1/messages';
 const MODEL = 'claude-sonnet-4-6';

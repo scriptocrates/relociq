@@ -1086,7 +1086,6 @@ function refreshFullGuide() {
 }
 
 // ─── AI CONCIERGE ───────────────────────────────────────────────────
-// TODO: update to your deployed Netlify URL (or https://relociq.app/.netlify/functions/concierge once the domain points at Netlify)
 var CONCIERGE_ENDPOINT = 'https://relociq.app/.netlify/functions/concierge';
 var conciergeHistory = [];
 var conciergeCorridor = null;
@@ -1131,15 +1130,26 @@ function closeConcierge() {
   document.getElementById('conciergePanel').style.display = 'none';
 }
 
+function renderConciergeMarkdown(text) {
+  var s = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  s = s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  s = s.replace(/\*(.+?)\*/g,'<em>$1</em>');
+  s = s.replace(/`(.+?)`/g,'<code style="background:#F0EDE6;padding:1px 4px;border-radius:3px;font-size:12px">$1</code>');
+  s = s.replace(/\n\n/g,'</p><p style="margin:0 0 8px">');
+  s = s.replace(/\n- /g,'<br>• ');
+  s = s.replace(/\n/g,'<br>');
+  return '<p style="margin:0 0 8px">' + s + '</p>';
+}
+
 function addConciergeMessage(role, text) {
   var container = document.getElementById('conciergeMessages');
   var msg = document.createElement('div');
   var isUser = role === 'user';
-  msg.style.cssText = 'max-width:90%;padding:10px 14px;border-radius:12px;font-size:13.5px;line-height:1.55;white-space:pre-wrap;word-wrap:break-word;'
+  msg.style.cssText = 'max-width:90%;padding:10px 14px;border-radius:12px;font-size:13.5px;line-height:1.55;word-wrap:break-word;'
     + (isUser
       ? 'align-self:flex-end;background:#1A1A1A;color:#fff;border-bottom-right-radius:4px'
       : 'align-self:flex-start;background:#fff;color:#1A1A1A;border:1px solid #E5E1D8;border-bottom-left-radius:4px');
-  msg.textContent = text;
+  if (isUser) { msg.textContent = text; } else { msg.innerHTML = renderConciergeMarkdown(text); }
   container.appendChild(msg);
   container.scrollTop = container.scrollHeight;
 }

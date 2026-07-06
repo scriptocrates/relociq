@@ -16,7 +16,7 @@
 // Optional:
 //   CLERK_SECRET_KEY     — enables server-side Pro verification
 
-const destinationProfiles = require('./destination-profiles');
+const destinationProfiles = require('../destination-profiles');
 
 const ANTHROPIC_API = 'https://api.anthropic.com/v1/messages';
 const MODEL = 'claude-sonnet-4-6';
