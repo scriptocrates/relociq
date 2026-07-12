@@ -930,6 +930,14 @@ function ensureClerk() {
 }
 
 checkProStatus();
+function restoreNavButtons() {
+  var ns = document.getElementById('navSignup');
+  if (ns) { ns.style.opacity = ''; ns.style.pointerEvents = ''; ns.textContent = 'Get started free'; }
+  var si = document.getElementById('navSignin');
+  if (si) { si.style.opacity = ''; si.style.pointerEvents = ''; si.textContent = 'Sign in'; }
+}
+// Safety net: whatever happens with Clerk, never leave the nav dead for more than 6s
+setTimeout(restoreNavButtons, 6000);
 ensureClerk().then(function(clerk) {
   // If returning from an OAuth (Google) redirect, complete the flow first.
   if (window.location.search.indexOf('sso_callback=1') !== -1) {
@@ -948,10 +956,14 @@ ensureClerk().then(function(clerk) {
       console.error('OAuth callback error:', e);
       history.replaceState({}, document.title, window.location.origin + window.location.pathname);
     });
-  } else if (clerk.user) {
-    updateNavForUser(clerk.user);
+  } else {
+    restoreNavButtons();
+    if (clerk.user) updateNavForUser(clerk.user);
   }
-}).catch(function(e) { console.error('Clerk init error:', e); });
+}).catch(function(e) {
+  console.error('Clerk init error:', e);
+  restoreNavButtons(); // degrade gracefully: buttons clickable; handlers retry ensureClerk on click
+});
 
 function updateNavForUser(user) {
   var si = document.getElementById('navSignin');
@@ -1420,7 +1432,7 @@ async function submitRecommender() {
     }
 
     var data = await res.json();
-    renderRecommenderResults(data.recommendations, nationality);
+    renderRecommenderResults(data.recommendations, nationality, data.honest_note);
   } catch (e) {
     console.error('Recommender error:', e);
     document.getElementById('recLoadingStep').style.display = 'none';
@@ -1430,9 +1442,15 @@ async function submitRecommender() {
   }
 }
 
-function renderRecommenderResults(recommendations, nationality) {
+function renderRecommenderResults(recommendations, nationality, honestNote) {
   var list = document.getElementById('recResultsList');
   list.innerHTML = '';
+  if (honestNote) {
+    var note = document.createElement('div');
+    note.style.cssText = 'padding:12px 14px;background:#FBF3E8;border:1px solid #E8D5B5;border-radius:10px;font-size:13px;color:#5A3A1A;line-height:1.5';
+    note.textContent = honestNote;
+    list.appendChild(note);
+  }
 
   recommendations.sort(function (a, b) { return a.rank - b.rank; }).forEach(function (rec, idx) {
     var card = document.createElement('div');
