@@ -20,7 +20,7 @@ const ANTHROPIC_API = 'https://api.anthropic.com/v1/messages';
 // Netlify's free/Personal plans hard-kill a synchronous function at 10s.
 // Everything below is tuned to finish comfortably inside that budget.
 const MODEL = 'claude-haiku-4-5-20251001';
-const ANTHROPIC_DEADLINE_MS = 8000; // abort before Netlify kills us, so we can return a clean error
+const ANTHROPIC_DEADLINE_MS = 9500; // abort before Netlify kills us, so we can return a clean error
 
 exports.handler = async function (event) {
   const corsHeaders = {
@@ -71,7 +71,7 @@ exports.handler = async function (event) {
   try {
     const data = await callAnthropicWithRetry({
       model: MODEL,
-      max_tokens: 1400,
+      max_tokens: 900,
       system: systemBlocks,
       messages: [{ role: 'user', content: buildUserMessage(clean) }],
       tools: [{
