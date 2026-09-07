@@ -22,7 +22,7 @@ const ANTHROPIC_API = 'https://api.anthropic.com/v1/messages';
 // The 10s figure in Netlify's docs applies ONLY to *streamed* responses
 // (the stream() decorator). This function returns a buffered JSON response,
 // so the 60s budget applies. Do not add stream() without revisiting this.
-const MODEL = 'claude-sonnet-4-6';
+const MODEL = 'claude-haiku-4-5-20251001';
 const ANTHROPIC_DEADLINE_MS = 45000; // platform allows 60s; leave ~15s for cold start, validation and serialising
 
 exports.handler = async function (event) {
