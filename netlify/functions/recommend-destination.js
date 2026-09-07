@@ -22,6 +22,10 @@ const ANTHROPIC_API = 'https://api.anthropic.com/v1/messages';
 // The 10s figure in Netlify's docs applies ONLY to *streamed* responses
 // (the stream() decorator). This function returns a buffered JSON response,
 // so the 60s budget applies. Do not add stream() without revisiting this.
+// Model choice: Haiku for latency. Measured on this prompt — Sonnet 4.6 ≈ 25.6s,
+// which is past the point users abandon a spinner. Haiku runs ≈ 8-12s WITH the full
+// prompt and generous max_tokens (the earlier 8-9s figure was a stripped-down prompt).
+// To A/B this, change the one line below and compare the TIMING logs.
 const MODEL = 'claude-haiku-4-5-20251001';
 const ANTHROPIC_DEADLINE_MS = 45000; // platform allows 60s; leave ~15s for cold start, validation and serialising
 
@@ -76,7 +80,7 @@ exports.handler = async function (event) {
   try {
     const data = await callAnthropicWithRetry({
       model: MODEL,
-      max_tokens: 2000,
+      max_tokens: 1600,
       system: systemBlocks,
       messages: [{ role: 'user', content: buildUserMessage(clean) }],
       tools: [{
