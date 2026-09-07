@@ -1473,7 +1473,7 @@ function togglePriority(key, btn) {
 
 var recInFlight = false;
 var recRequestSeq = 0;
-var REC_TIMEOUT_MS = 30000;
+var REC_TIMEOUT_MS = 15000; // platform kills the function at 10s; 15s covers cold start + response
 
 function setRecSubmitting(on) {
   var btn = document.getElementById('recSubmitBtn');
