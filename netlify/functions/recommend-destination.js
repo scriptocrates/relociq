@@ -20,7 +20,7 @@ const ANTHROPIC_API = 'https://api.anthropic.com/v1/messages';
 // Netlify's free/Personal plans hard-kill a synchronous function at 10s.
 // Everything below is tuned to finish comfortably inside that budget.
 const MODEL = 'claude-haiku-4-5-20251001';
-const ANTHROPIC_DEADLINE_MS = 9500; // abort before Netlify kills us, so we can return a clean error
+const ANTHROPIC_DEADLINE_MS = 9200; // Netlify hard-kills at 10s; leave ~800ms to serialise the reply
 
 exports.handler = async function (event) {
   const corsHeaders = {
@@ -63,15 +63,17 @@ exports.handler = async function (event) {
   const systemBlocks = [
     {
       type: 'text',
-      text: buildStaticSystemPrompt(),
-      cache_control: { type: 'ephemeral' }
+      text: buildStaticSystemPrompt()
+      // No cache_control: at low traffic every call is a cache MISS, so caching
+      // only ever pays the (slower) write cost and never collects the read benefit.
     }
   ];
 
+  const t0 = Date.now();
   try {
     const data = await callAnthropicWithRetry({
       model: MODEL,
-      max_tokens: 900,
+      max_tokens: 1000,
       system: systemBlocks,
       messages: [{ role: 'user', content: buildUserMessage(clean) }],
       tools: [{
@@ -111,6 +113,12 @@ exports.handler = async function (event) {
       tool_choice: { type: 'tool', name: 'submit_recommendations' }
     });
 
+    const elapsed = Date.now() - t0;
+    // Visible in Netlify → Logs → Functions. Tells us whether we are near the 10s wall.
+    console.log('TIMING anthropic_ms=' + elapsed +
+      ' in_tokens=' + ((data.usage && data.usage.input_tokens) || '?') +
+      ' out_tokens=' + ((data.usage && data.usage.output_tokens) || '?'));
+
     const toolUse = (data.content || []).find(b => b.type === 'tool_use');
     if (!toolUse || !toolUse.input || !Array.isArray(toolUse.input.recommendations)) {
       console.error('Malformed response:', JSON.stringify(data).slice(0, 500));
@@ -119,7 +127,7 @@ exports.handler = async function (event) {
 
     return { statusCode: 200, headers: corsHeaders, body: JSON.stringify(toolUse.input) };
   } catch (err) {
-    console.error('Recommend handler error:', err);
+    console.error('TIMING failed_after_ms=' + (Date.now() - t0) + ' reason=' + (err && err.message ? err.message.slice(0, 200) : 'unknown'));
     const isOverload = /429|529|overloaded/i.test(String(err.message));
     return {
       statusCode: isOverload ? 503 : 500,
@@ -201,7 +209,7 @@ Your reasoning process:
 
 Rules:
 - Never recommend a destination they fundamentally cannot access.
-- rationale must reference at least 2 specifics from their profile, in 2 sentences maximum. Be concise everywhere: this runs under a strict time budget.
+- rationale: at most 2 short sentences. key_advantages and considerations: at most 3 words each, not sentences. This runs under a hard time budget — brevity is a requirement, not a preference.
 - Be honest about trade-offs in considerations — this is what makes the recommendation trustworthy.
 - match_score: 0-1. Reserve 0.9+ for genuinely excellent fits.
 - monthly_cost_estimate_eur: comfortable single-person budget in the primary expat city.
