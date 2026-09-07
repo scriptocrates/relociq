@@ -563,9 +563,9 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
 
   <div class="hero-trust">
     <span><b>✓</b> Free to start</span>
-    <span><b>✓</b> No lawyer needed</span>
-    <span><b>✓</b> Real-time updates</span>
-    <span><b>✓</b> 30 countries</span>
+    <span><b>✓</b> No account needed to preview</span>
+    <span><b>✓</b> Sourced to 2026 rules</span>
+    <span><b>✓</b> 18 origins · 18 destinations</span>
   </div>
 </div>
 
@@ -610,8 +610,8 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
       <div class="feat-card"><div class="feat-num">02</div><div class="feat-title">Document tracker</div><div class="feat-text">Every document you need, where to get it, how long it takes, and when it expires. Checked off as you go.</div></div>
       <div class="feat-card"><div class="feat-num">03</div><div class="feat-title">Deadline intelligence</div><div class="feat-text">Relociq watches your deadlines while you focus on your move. Alerts you before anything expires.</div></div>
       <div class="feat-card"><div class="feat-num">04</div><div class="feat-title">AI-powered answers</div><div class="feat-text">Ask anything about your move. Get answers specific to your situation, not generic government guidance.</div></div>
-      <div class="feat-card"><div class="feat-num">05</div><div class="feat-title">Verified lawyers</div><div class="feat-text">When your case is complex, connect to a verified immigration specialist in your destination country.</div></div>
-      <div class="feat-card"><div class="feat-num">06</div><div class="feat-title">Always current</div><div class="feat-text">Rules change constantly. Relociq monitors official sources and updates your pathway automatically.</div></div>
+      <div class="feat-card"><div class="feat-num">05</div><div class="feat-title">Know when to get a lawyer</div><div class="feat-text">Each pathway flags the points where a case usually needs professional advice, so you can seek it early rather than after a refusal.</div></div>
+      <div class="feat-card"><div class="feat-num">06</div><div class="feat-title">Reviewed against 2026 rules</div><div class="feat-text">Every destination was checked against official sources for the 2026 rules. Immigration rules change — confirm current details with the authority before you act.</div></div>
     </div>
   </div>
 </div>
@@ -669,8 +669,8 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
           <div class="p-feat-pro">✓ &nbsp;Unlimited pathways</div>
           <div class="p-feat-pro">✓ &nbsp;Real-time deadline alerts</div>
           <div class="p-feat-pro">✓ &nbsp;Document vault</div>
-          <div class="p-feat-pro">✓ &nbsp;AI pathway updates</div>
-          <div class="p-feat-pro">✓ &nbsp;Verified lawyer referrals</div>
+          <div class="p-feat-pro">✓ &nbsp;AI pathway concierge</div>
+          <div class="p-feat-pro">✓ &nbsp;Unlimited concierge questions</div>
           <div class="p-feat-pro">✓ &nbsp;Priority support</div>
         </div>
         <a href="#" onclick="handleProUpgrade();return false;" class="p-btn-pro">Start 14-day free trial</a>
@@ -764,6 +764,39 @@ function select(type,code){
   if(type==='from'){fromSel=c;document.getElementById('fromFlag').textContent=c.flag;document.getElementById('fromVal').textContent=c.name;}
   else{toSel=c;document.getElementById('toFlag').textContent=c.flag;document.getElementById('toVal').textContent=c.name;}
   closeAll();
+  markResultStale();
+}
+
+// A displayed result belongs to one specific origin/destination pair. As soon as
+// the selection no longer matches what is on screen, that result is stale: dim it,
+// say so, and remove the guide rather than leaving a confidently wrong answer up.
+function markResultStale(){
+  var res=document.getElementById('pathwayResult');
+  if(!res) return;
+  var stillMatches = currentPathway && fromSel && toSel &&
+    currentPathway.from===fromSel.code && currentPathway.to===toSel.code;
+  if(stillMatches){ clearResultStale(); return; }
+
+  var guide=document.getElementById('fullGuide');
+  if(guide) guide.remove();
+
+  res.style.opacity='0.45';
+  res.style.transition='opacity 0.15s';
+  if(!document.getElementById('staleBanner')){
+    var b=document.createElement('div');
+    b.id='staleBanner';
+    b.style.cssText='max-width:1100px;margin:0 auto 10px;padding:10px 16px;background:#FBF3E8;border:1px solid #E8D5B5;border-radius:8px;font-size:13px;color:#5A3A1A;line-height:1.4';
+    b.textContent='Your selection changed. Press "Show my pathway" to see results for '+
+      (fromSel?fromSel.name:'?')+' → '+(toSel?toSel.name:'?')+'.';
+    res.parentNode.insertBefore(b,res);
+  }
+}
+
+function clearResultStale(){
+  var b=document.getElementById('staleBanner');
+  if(b) b.remove();
+  var res=document.getElementById('pathwayResult');
+  if(res) res.style.opacity='';
 }
 
 function toggle(type){
@@ -808,8 +841,56 @@ function getDifficultyColor(d){
 }
 
 var currentPathway=null;
+// ─── Cost model ───────────────────────────────────────────────────────
+// The stored `cost` figure is a rough all-in setup estimate, NOT an official
+// government fee schedule. It has not been verified per-route against official
+// sources. These helpers make the card say only what we can actually support.
+//
+// Rule that matters most: a route requiring no visa must never display a visa fee.
+
+function routeRequiresNoVisa(pathway) {
+  var v = (pathway && pathway.visa) ? String(pathway.visa) : '';
+  return /freedom of movement/i.test(v);
+}
+
+// Returns { amount:Number|null, label:String, qualifier:String }
+function costPresentation(pathway) {
+  var amount = (pathway && isFinite(Number(pathway.cost))) ? Number(pathway.cost) : null;
+  if (amount !== null && amount <= 0) amount = null;
+
+  if (routeRequiresNoVisa(pathway)) {
+    // EU/EEA freedom of movement: no visa fee exists at all.
+    return {
+      amount: amount,
+      label: 'Setup costs',
+      qualifier: amount === null
+        ? 'No visa fee — freedom of movement'
+        : 'No visa fee. Rough estimate for registration, documents and translations.'
+    };
+  }
+  if (amount === null) {
+    return { amount: null, label: 'Cost estimate', qualifier: 'Not yet verified for this route' };
+  }
+  return {
+    amount: amount,
+    label: 'Cost estimate',
+    qualifier: 'Rough all-in estimate: government fees, documents and translations. Not an official fee schedule — check the authority for current amounts.'
+  };
+}
+
+function costBlockHTML(pathway) {
+  var c = costPresentation(pathway);
+  var valueText = (c.amount === null) ? '—' : ('EUR ' + c.amount.toLocaleString());
+  return '<div style="background:#FAFAF8;border-radius:8px;padding:14px">' +
+    '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:#AAA;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">' + c.label + '</div>' +
+    '<div style="font-size:14px;font-weight:600;color:#1A1A1A">' + valueText + '</div>' +
+    '<div style="font-size:11px;color:#AAA;margin-top:3px;line-height:1.35">' + c.qualifier + '</div>' +
+    '</div>';
+}
+
 function showPathwayResult(pathway){
   currentPathway=pathway;
+  clearResultStale();
   var existing=document.getElementById('pathwayResult');
   if(existing)existing.remove();
   var div=document.createElement('div');
@@ -833,12 +914,9 @@ function showPathwayResult(pathway){
     '</div>'+
     '<div style="background:#FAFAF8;border-radius:8px;padding:14px">'+
     '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:#AAA;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Timeline</div>'+
-    '<div style="font-size:14px;font-weight:600;color:#1A1A1A">~'+pathway.days+' days</div>'+
+    '<div style="font-size:14px;font-weight:600;color:#1A1A1A">~'+pathway.days+' days</div>'+'<div style="font-size:11px;color:#AAA;margin-top:3px;line-height:1.35">Typical end-to-end estimate, not a guaranteed processing time</div>'+
     '</div>'+
-    '<div style="background:#FAFAF8;border-radius:8px;padding:14px">'+
-    '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:#AAA;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Cost estimate</div>'+
-    '<div style="font-size:14px;font-weight:600;color:#1A1A1A">EUR '+pathway.cost.toLocaleString()+'</div>'+'<div style="font-size:11px;color:#AAA;margin-top:3px">visa fees only</div>'+
-    '</div>'+
+    costBlockHTML(pathway)+
     '</div>'+
     '<div style="font-size:15px;color:#444;line-height:1.7;margin-bottom:18px">'+pathway.summary+'</div>'+
     '<div style="margin-bottom:24px;padding:12px 14px;background:#FBFAF7;border:1px solid #EFEDE6;border-radius:8px;font-size:12px;color:#999;line-height:1.55"><strong style="color:#777">Guidance, not legal advice.</strong> Immigration rules change and individual cases vary. Verify with the relevant official authority or a qualified immigration lawyer before acting on this pathway.</div>'+
@@ -1393,7 +1471,32 @@ function togglePriority(key, btn) {
   }
 }
 
+var recInFlight = false;
+var recRequestSeq = 0;
+var REC_TIMEOUT_MS = 30000;
+
+function setRecSubmitting(on) {
+  var btn = document.getElementById('recSubmitBtn');
+  if (btn) { btn.disabled = on; btn.style.opacity = on ? '0.5' : ''; btn.style.cursor = on ? 'not-allowed' : 'pointer'; }
+}
+
+function showRecError(msg) {
+  var err = document.getElementById('recError');
+  err.textContent = msg;
+  err.style.display = 'block';
+}
+
+// Returns the form to a usable state with every answer preserved.
+function recBackToForm() {
+  document.getElementById('recLoadingStep').style.display = 'none';
+  document.getElementById('recResultsStep').style.display = 'none';
+  document.getElementById('recFormStep').style.display = '';
+  setRecSubmitting(false);
+}
+
 async function submitRecommender() {
+  if (recInFlight) return; // duplicate submit guard
+
   var nationality = document.getElementById('recNationality').value;
   var role = document.getElementById('recRole').value.trim();
   var salary = parseInt(document.getElementById('recSalary').value || '0', 10);
@@ -1402,75 +1505,226 @@ async function submitRecommender() {
   var children = parseInt(document.getElementById('recChildren').value || '0', 10);
   var notes = document.getElementById('recNotes').value.trim();
 
-  var err = document.getElementById('recError');
-  if (!nationality) { err.textContent = 'Please select your nationality.'; err.style.display = 'block'; return; }
-  if (!role) { err.textContent = 'Please tell us your role or field.'; err.style.display = 'block'; return; }
-  err.style.display = 'none';
+  document.getElementById('recError').style.display = 'none';
+  if (!nationality) { showRecError('Please select your nationality.'); return; }
+  if (!role) { showRecError('Please tell us your role or field.'); return; }
 
+  var seq = ++recRequestSeq;
+  recInFlight = true;
+  setRecSubmitting(true);
   document.getElementById('recFormStep').style.display = 'none';
   document.getElementById('recLoadingStep').style.display = 'block';
 
+  // Bounded request: abort rather than spin forever.
+  var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+  var timedOut = false;
+  var timer = setTimeout(function () { timedOut = true; if (controller) controller.abort(); }, REC_TIMEOUT_MS);
+
+  // stage is used only to tell the user (and the console) which layer failed.
+  var stage = 'request';
   try {
     var res = await fetch(RECOMMENDER_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        nationality: nationality,
-        role: role,
-        salary_usd: salary || undefined,
-        languages: languages,
-        partner: partner,
-        children: children,
-        priorities: recSelectedPriorities,
-        notes: notes || undefined
-      })
+        nationality: nationality, role: role,
+        salary_usd: salary || undefined, languages: languages,
+        partner: partner, children: children,
+        priorities: recSelectedPriorities, notes: notes || undefined
+      }),
+      signal: controller ? controller.signal : undefined
     });
+    clearTimeout(timer);
+    if (seq !== recRequestSeq) return; // a newer submission superseded this one
 
     if (!res.ok) {
       var errBody = await res.json().catch(function () { return {}; });
-      throw new Error(errBody.error || ('Request failed: ' + res.status));
+      var e1 = new Error(errBody.error || ('Request failed: ' + res.status));
+      e1.status = res.status;
+      throw e1;
     }
 
+    stage = 'parse';
     var data = await res.json();
-    renderRecommenderResults(data.recommendations, nationality, data.honest_note);
+
+    stage = 'render';
+    renderRecommenderResults(data && data.recommendations, nationality, data && data.honest_note);
+    setRecSubmitting(false);
+    recInFlight = false;
+    return;
+
   } catch (e) {
-    console.error('Recommender error:', e);
-    document.getElementById('recLoadingStep').style.display = 'none';
-    document.getElementById('recFormStep').style.display = '';
-    err.textContent = 'Could not generate recommendations right now. Please try again in a moment.';
-    err.style.display = 'block';
+    clearTimeout(timer);
+    if (seq !== recRequestSeq) { recInFlight = false; return; }
+
+    // Safe developer log: stage + status only. Never the profile contents.
+    console.error('Recommender failed at stage=' + stage +
+      (e && e.status ? ' status=' + e.status : '') +
+      (timedOut ? ' (timeout)' : '') + ': ' + (e && e.name ? e.name : 'Error'));
+
+    recBackToForm();
+    if (timedOut) {
+      showRecError('That took too long to come back. Your answers are saved — press the button to try again.');
+    } else if (stage === 'render') {
+      showRecError('We got a response but could not display it. Your answers are saved — please try again.');
+    } else if (stage === 'parse') {
+      showRecError('The response came back in an unexpected format. Your answers are saved — please try again.');
+    } else if (e && e.status === 503) {
+      showRecError('The service is busy right now. Your answers are saved — try again in a few seconds.');
+    } else if (e && e.status === 400) {
+      showRecError('Some answers could not be processed. Please check the form and try again.');
+    } else {
+      showRecError('Could not reach the recommendation service. Your answers are saved — please try again.');
+    }
   }
+  recInFlight = false;
+}
+
+// ─── Recommender result validation + safe rendering ───────────────────
+// Model output is untrusted. Every value is validated, then written to the DOM
+// via textContent / element construction — never via innerHTML string concat.
+
+var REC_VALID_COUNTRIES = null; // built lazily from the real dest list
+
+function recSupportedCountryCodes() {
+  if (REC_VALID_COUNTRIES) return REC_VALID_COUNTRIES;
+  REC_VALID_COUNTRIES = (typeof dests !== 'undefined' && Array.isArray(dests))
+    ? dests.map(function (d) { return d.code; })
+    : [];
+  return REC_VALID_COUNTRIES;
+}
+
+// Returns { ok:[...], rejected:[{reason,raw}] } — never throws on bad input.
+function validateRecommendations(raw) {
+  var ok = [], rejected = [];
+  if (!Array.isArray(raw)) return { ok: ok, rejected: [{ reason: 'not-an-array', raw: raw }] };
+  var supported = recSupportedCountryCodes();
+
+  raw.forEach(function (r) {
+    if (!r || typeof r !== 'object') { rejected.push({ reason: 'not-an-object', raw: r }); return; }
+    var code = typeof r.country === 'string' ? r.country.trim().toUpperCase() : '';
+    if (!/^[A-Z]{2}$/.test(code)) { rejected.push({ reason: 'bad-country-code', raw: code }); return; }
+    if (supported.length && supported.indexOf(code) === -1) { rejected.push({ reason: 'unsupported-destination', raw: code }); return; }
+
+    var name = typeof r.country_name === 'string' && r.country_name.trim() ? r.country_name.trim() : code;
+    var rationale = typeof r.rationale === 'string' ? r.rationale.trim() : '';
+    var visaRoute = typeof r.visa_route === 'string' && r.visa_route.trim() ? r.visa_route.trim() : null;
+
+    var score = Number(r.match_score);
+    if (!isFinite(score) || score < 0 || score > 1) score = null;
+
+    var cost = Number(r.monthly_cost_estimate_eur);
+    if (!isFinite(cost) || cost <= 0) cost = null;
+
+    function strList(v) {
+      if (!Array.isArray(v)) return [];
+      return v.filter(function (x) { return typeof x === 'string' && x.trim(); })
+              .map(function (x) { return x.trim().slice(0, 240); })
+              .slice(0, 4);
+    }
+
+    ok.push({
+      rank: isFinite(Number(r.rank)) ? Number(r.rank) : ok.length + 1,
+      country: code,
+      country_name: name.slice(0, 80),
+      match_score: score,
+      rationale: rationale.slice(0, 1000),
+      key_advantages: strList(r.key_advantages),
+      considerations: strList(r.considerations),
+      visa_route: visaRoute ? visaRoute.slice(0, 120) : null,
+      monthly_cost_estimate_eur: cost
+    });
+  });
+  return { ok: ok, rejected: rejected };
+}
+
+// Small DOM helpers — text only, no HTML parsing anywhere.
+function el(tag, css, text) {
+  var n = document.createElement(tag);
+  if (css) n.style.cssText = css;
+  if (text != null) n.textContent = String(text);
+  return n;
 }
 
 function renderRecommenderResults(recommendations, nationality, honestNote) {
   var list = document.getElementById('recResultsList');
-  list.innerHTML = '';
-  if (honestNote) {
-    var note = document.createElement('div');
-    note.style.cssText = 'padding:12px 14px;background:#FBF3E8;border:1px solid #E8D5B5;border-radius:10px;font-size:13px;color:#5A3A1A;line-height:1.5';
-    note.textContent = honestNote;
-    list.appendChild(note);
+  list.textContent = '';
+
+  var v = validateRecommendations(recommendations);
+  if (v.rejected.length) {
+    // Safe developer log: reasons and codes only, never form contents.
+    console.warn('Recommender: dropped ' + v.rejected.length + ' invalid item(s):',
+      v.rejected.map(function (x) { return x.reason; }).join(', '));
   }
 
-  recommendations.sort(function (a, b) { return a.rank - b.rank; }).forEach(function (rec, idx) {
-    var card = document.createElement('div');
-    var medal = ['🥇','🥈','🥉'][idx] || '';
-    card.style.cssText = 'border:1px solid #E5E1D8;border-radius:12px;padding:18px 18px 16px;background:#FBFAF7;transition:border-color 0.15s';
-    card.innerHTML = ''
-      + '<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;gap:12px">'
-      +   '<div style="display:flex;align-items:center;gap:10px"><span style="font-size:22px">' + medal + '</span>'
-      +     '<div><div style="font-size:16px;font-weight:700;color:#1A1A1A;line-height:1.1">' + escapeHtml(rec.country_name) + '</div>'
-      +     '<div style="font-size:11px;color:#999;margin-top:2px">via ' + escapeHtml(rec.visa_route) + ' · ~€' + rec.monthly_cost_estimate_eur.toLocaleString() + '/mo</div></div></div>'
-      +   '<div style="font-size:11px;color:#666;background:#fff;border:1px solid #E5E1D8;padding:3px 8px;border-radius:12px">' + Math.round(rec.match_score * 100) + '% match</div>'
-      + '</div>'
-      + '<p style="font-size:13.5px;color:#444;line-height:1.55;margin:10px 0 12px">' + escapeHtml(rec.rationale) + '</p>'
-      + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px">'
-      +   '<div><div style="color:#777;font-weight:600;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Advantages</div>'
-      +     '<ul style="margin:0;padding-left:14px;color:#444;line-height:1.5">' + rec.key_advantages.map(function (a) { return '<li>' + escapeHtml(a) + '</li>'; }).join('') + '</ul></div>'
-      +   '<div><div style="color:#777;font-weight:600;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Watch out for</div>'
-      +     '<ul style="margin:0;padding-left:14px;color:#444;line-height:1.5">' + rec.considerations.map(function (c) { return '<li>' + escapeHtml(c) + '</li>'; }).join('') + '</ul></div>'
-      + '</div>'
-      + '<button onclick="loadCorridorFromRecommendation(\'' + nationality + '\',\'' + rec.country + '\')" style="margin-top:14px;padding:9px 16px;font-size:13px;font-weight:600;background:#1A1A1A;color:#fff;border:none;border-radius:6px;cursor:pointer">See full ' + escapeHtml(rec.country_name) + ' pathway →</button>';
+  if (!v.ok.length) {
+    var empty = el('div', 'padding:16px;background:#FBF3E8;border:1px solid #E8D5B5;border-radius:10px;font-size:13.5px;color:#5A3A1A;line-height:1.55',
+      'We could not produce usable recommendations from that profile. Your answers are saved — you can adjust them and try again.');
+    list.appendChild(empty);
+    document.getElementById('recLoadingStep').style.display = 'none';
+    document.getElementById('recResultsStep').style.display = '';
+    return;
+  }
+
+  if (honestNote && typeof honestNote === 'string' && honestNote.trim()) {
+    list.appendChild(el('div',
+      'padding:12px 14px;background:#FBF3E8;border:1px solid #E8D5B5;border-radius:10px;font-size:13px;color:#5A3A1A;line-height:1.5',
+      honestNote.trim().slice(0, 600)));
+  }
+
+  v.ok.sort(function (a, b) { return a.rank - b.rank; }).forEach(function (rec, idx) {
+    var card = el('div', 'border:1px solid #E5E1D8;border-radius:12px;padding:18px 18px 16px;background:#FBFAF7');
+
+    // Header row
+    var head = el('div', 'display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;gap:12px');
+    var left = el('div', 'display:flex;align-items:center;gap:10px');
+    left.appendChild(el('span', 'font-size:22px', ['🥇','🥈','🥉'][idx] || ''));
+    var titles = el('div');
+    titles.appendChild(el('div', 'font-size:16px;font-weight:700;color:#1A1A1A;line-height:1.1', rec.country_name));
+    var metaBits = [];
+    if (rec.visa_route) metaBits.push('via ' + rec.visa_route);
+    if (rec.monthly_cost_estimate_eur) metaBits.push('~€' + rec.monthly_cost_estimate_eur.toLocaleString() + '/mo living cost');
+    if (metaBits.length) titles.appendChild(el('div', 'font-size:11px;color:#999;margin-top:2px', metaBits.join(' · ')));
+    left.appendChild(titles);
+    head.appendChild(left);
+    if (rec.match_score != null) {
+      head.appendChild(el('div', 'font-size:11px;color:#666;background:#fff;border:1px solid #E5E1D8;padding:3px 8px;border-radius:12px;white-space:nowrap',
+        Math.round(rec.match_score * 100) + '% match'));
+    }
+    card.appendChild(head);
+
+    if (rec.rationale) {
+      card.appendChild(el('p', 'font-size:13.5px;color:#444;line-height:1.55;margin:10px 0 12px', rec.rationale));
+    }
+
+    if (rec.key_advantages.length || rec.considerations.length) {
+      var grid = el('div', 'display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px');
+      [['Advantages', rec.key_advantages], ['Watch out for', rec.considerations]].forEach(function (pair) {
+        if (!pair[1].length) return;
+        var col = el('div');
+        col.appendChild(el('div', 'color:#777;font-weight:600;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:0.5px', pair[0]));
+        var ul = el('ul', 'margin:0;padding-left:14px;color:#444;line-height:1.5');
+        pair[1].forEach(function (t) { ul.appendChild(el('li', null, t)); });
+        col.appendChild(ul);
+        grid.appendChild(col);
+      });
+      card.appendChild(grid);
+    }
+
+    // Only offer the pathway handoff when the corridor actually exists in our data.
+    var corridorKey = nationality + '-' + rec.country;
+    var haveCorridor = (typeof stepsData !== 'undefined' && stepsData[corridorKey]);
+    if (haveCorridor) {
+      var btn = el('button', 'margin-top:14px;padding:9px 16px;font-size:13px;font-weight:600;background:#1A1A1A;color:#fff;border:none;border-radius:6px;cursor:pointer',
+        'See full ' + rec.country_name + ' pathway →');
+      // Listener, not an inline onclick string — no injection surface.
+      btn.addEventListener('click', function () { loadCorridorFromRecommendation(nationality, rec.country); });
+      card.appendChild(btn);
+    } else {
+      card.appendChild(el('div', 'margin-top:14px;font-size:12px;color:#999',
+        'Full step-by-step pathway for this route is not in our data yet.'));
+    }
+
     list.appendChild(card);
   });
 
