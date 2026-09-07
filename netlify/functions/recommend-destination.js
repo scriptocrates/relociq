@@ -17,10 +17,13 @@
 const destinationProfiles = require('../destination-profiles');
 
 const ANTHROPIC_API = 'https://api.anthropic.com/v1/messages';
-// Netlify's free/Personal plans hard-kill a synchronous function at 10s.
-// Everything below is tuned to finish comfortably inside that budget.
-const MODEL = 'claude-haiku-4-5-20251001';
-const ANTHROPIC_DEADLINE_MS = 9200; // Netlify hard-kills at 10s; leave ~800ms to serialise the reply
+// VERIFIED against docs.netlify.com/build/functions/configuration (7 Sep 2026):
+//   Synchronous execution limit = 60 seconds, not configurable, no plan tier.
+// The 10s figure in Netlify's docs applies ONLY to *streamed* responses
+// (the stream() decorator). This function returns a buffered JSON response,
+// so the 60s budget applies. Do not add stream() without revisiting this.
+const MODEL = 'claude-sonnet-4-6';
+const ANTHROPIC_DEADLINE_MS = 45000; // platform allows 60s; leave ~15s for cold start, validation and serialising
 
 exports.handler = async function (event) {
   const corsHeaders = {
@@ -73,7 +76,7 @@ exports.handler = async function (event) {
   try {
     const data = await callAnthropicWithRetry({
       model: MODEL,
-      max_tokens: 1000,
+      max_tokens: 2000,
       system: systemBlocks,
       messages: [{ role: 'user', content: buildUserMessage(clean) }],
       tools: [{
@@ -209,7 +212,7 @@ Your reasoning process:
 
 Rules:
 - Never recommend a destination they fundamentally cannot access.
-- rationale: at most 2 short sentences. key_advantages and considerations: at most 3 words each, not sentences. This runs under a hard time budget — brevity is a requirement, not a preference.
+- rationale: 2-3 sentences referencing at least 2 specifics from their profile. key_advantages and considerations: short phrases, not paragraphs.
 - Be honest about trade-offs in considerations — this is what makes the recommendation trustworthy.
 - match_score: 0-1. Reserve 0.9+ for genuinely excellent fits.
 - monthly_cost_estimate_eur: comfortable single-person budget in the primary expat city.
