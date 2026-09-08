@@ -1654,6 +1654,57 @@ function recSupportedCountryCodes() {
   return REC_VALID_COUNTRIES;
 }
 
+// Models drift from the schema: they may return "Czech Republic" instead of "CZ",
+// "UK" instead of "GB", or lowercase codes. Dropping those items silently produced an
+// empty results panel even though the model answered correctly. Resolve rather than reject:
+// try code, alias, then name — and only give up when nothing matches a supported destination.
+var DEST_ALIASES = {
+  UK: 'GB', GBR: 'GB', 'GREAT BRITAIN': 'GB', BRITAIN: 'GB', ENGLAND: 'GB',
+  'UNITED KINGDOM': 'GB',
+  USA: 'US', 'U.S.': 'US', 'U.S.A.': 'US', 'UNITED STATES': 'US',
+  'UNITED STATES OF AMERICA': 'US', AMERICA: 'US',
+  CZECHIA: 'CZ', 'CZECH REPUBLIC': 'CZ', 'THE CZECH REPUBLIC': 'CZ',
+  HOLLAND: 'NL', 'THE NETHERLANDS': 'NL', NETHERLANDS: 'NL', NLD: 'NL',
+  UAE: 'AE', 'U.A.E.': 'AE', 'UNITED ARAB EMIRATES': 'AE', DUBAI: 'AE',
+  DEU: 'DE', GERMANY: 'DE', DEUTSCHLAND: 'DE',
+  FRA: 'FR', FRANCE: 'FR',
+  ESP: 'ES', SPAIN: 'ES',
+  PRT: 'PT', PORTUGAL: 'PT',
+  IRL: 'IE', IRELAND: 'IE', 'REPUBLIC OF IRELAND': 'IE',
+  AUT: 'AT', AUSTRIA: 'AT',
+  ITA: 'IT', ITALY: 'IT',
+  BEL: 'BE', BELGIUM: 'BE',
+  SWE: 'SE', SWEDEN: 'SE',
+  POL: 'PL', POLAND: 'PL',
+  SGP: 'SG', SINGAPORE: 'SG',
+  AUS: 'AU', AUSTRALIA: 'AU',
+  CAN: 'CA', CANADA: 'CA'
+};
+
+function resolveDestinationCode(rawCode, rawName) {
+  var supported = recSupportedCountryCodes();
+  var isSupported = function (c) { return !supported.length || supported.indexOf(c) !== -1; };
+
+  var candidates = [rawCode, rawName];
+  for (var i = 0; i < candidates.length; i++) {
+    var v = candidates[i];
+    if (typeof v !== 'string' || !v.trim()) continue;
+    var norm = v.trim().toUpperCase();
+
+    // 1. Already a supported two-letter code
+    if (/^[A-Z]{2}$/.test(norm) && isSupported(norm)) return norm;
+    // 2. Known alias or full country name
+    if (DEST_ALIASES[norm] && isSupported(DEST_ALIASES[norm])) return DEST_ALIASES[norm];
+    // 3. Match against the real destination list by name
+    if (typeof dests !== 'undefined' && Array.isArray(dests)) {
+      for (var j = 0; j < dests.length; j++) {
+        if (dests[j].name && dests[j].name.toUpperCase() === norm) return dests[j].code;
+      }
+    }
+  }
+  return null;
+}
+
 // Returns { ok:[...], rejected:[{reason,raw}] } — never throws on bad input.
 function validateRecommendations(raw) {
   var ok = [], rejected = [];
@@ -1662,11 +1713,14 @@ function validateRecommendations(raw) {
 
   raw.forEach(function (r) {
     if (!r || typeof r !== 'object') { rejected.push({ reason: 'not-an-object', raw: r }); return; }
-    var code = typeof r.country === 'string' ? r.country.trim().toUpperCase() : '';
-    if (!/^[A-Z]{2}$/.test(code)) { rejected.push({ reason: 'bad-country-code', raw: code }); return; }
-    if (supported.length && supported.indexOf(code) === -1) { rejected.push({ reason: 'unsupported-destination', raw: code }); return; }
+    var code = resolveDestinationCode(r.country, r.country_name);
+    if (!code) { rejected.push({ reason: 'unresolvable-destination', raw: String(r.country || r.country_name || '') }); return; }
 
     var name = typeof r.country_name === 'string' && r.country_name.trim() ? r.country_name.trim() : code;
+    if (typeof dests !== 'undefined' && Array.isArray(dests)) {
+      var known = dests.find(function (d) { return d.code === code; });
+      if (known && known.name) name = known.name; // prefer our canonical name over model phrasing
+    }
     var rationale = typeof r.rationale === 'string' ? r.rationale.trim() : '';
     var visaRoute = typeof r.visa_route === 'string' && r.visa_route.trim() ? r.visa_route.trim() : null;
 
