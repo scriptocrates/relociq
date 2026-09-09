@@ -1829,11 +1829,19 @@ function renderRecommenderResults(recommendations, nationality, honestNote) {
     var corridorKey = nationality + '-' + rec.country;
     var haveCorridor = (typeof stepsData !== 'undefined' && stepsData[corridorKey]);
     if (haveCorridor) {
-      var btn = el('button', 'margin-top:14px;padding:9px 16px;font-size:13px;font-weight:600;background:#1A1A1A;color:#fff;border:none;border-radius:6px;cursor:pointer',
+      var btnRow = el('div', 'display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap');
+      var btn = el('button', 'padding:9px 16px;font-size:13px;font-weight:600;background:#1A1A1A;color:#fff;border:none;border-radius:6px;cursor:pointer',
         'See full ' + rec.country_name + ' pathway →');
-      // Listener, not an inline onclick string — no injection surface.
       btn.addEventListener('click', function () { loadCorridorFromRecommendation(nationality, rec.country); });
-      card.appendChild(btn);
+      btnRow.appendChild(btn);
+      var concBtn = el('button', 'padding:9px 16px;font-size:13px;font-weight:500;background:#fff;color:#1A1A1A;border:1px solid #D0CBC0;border-radius:6px;cursor:pointer',
+        'Chat with AI concierge →');
+      concBtn.addEventListener('click', function () {
+        loadCorridorFromRecommendation(nationality, rec.country);
+        setTimeout(openConcierge, 400);
+      });
+      btnRow.appendChild(concBtn);
+      card.appendChild(btnRow);
     } else {
       card.appendChild(el('div', 'margin-top:14px;font-size:12px;color:#999',
         'Full step-by-step pathway for this route is not in our data yet.'));
