@@ -1,37 +1,50 @@
-// netlify/functions/concierge.js — v2 (Fable upgrades)
+// netlify/functions/concierge.js — v3
 //
 // AI Concierge: Pro-gated chat about a user's specific corridor.
 // Stateless server; client sends conversation history with each call.
 //
-// v2 upgrades:
-//   - Prompt caching: the large system prompt (corridor steps + destination profile)
-//     is cached across turns → ~90% cheaper input tokens on every message after the first
-//   - Suggested follow-up questions returned with every reply (structured tool output)
-//   - Prompt-injection hardening: step data and user text delimited as data, not instructions
-//   - Retry with backoff on 429/529 (Anthropic overload)
-//   - Model: claude-sonnet-4-6
+// Auth (v3): fails closed when any required config is absent.
+//   - Frontend sends Authorization: Bearer <clerk-session-token>
+//   - JWT is verified locally via JWKS (WebCrypto, no npm); algorithm, signature,
+//     issuer, exp and nbf are all enforced.
+//   - Verified sub is used for entitlement; clerkUserId in request body is ignored.
+//   - CLERK_AUTHORIZED_PARTY (optional): if set, the azp claim must match exactly.
 //
 // Required env vars:
-//   ANTHROPIC_API_KEY    — sk-ant-...
+//   ANTHROPIC_API_KEY     — sk-ant-...
+//   CLERK_SECRET_KEY      — sk_live_... or sk_test_...
+//   CLERK_JWKS_URL        — https://<clerk-frontend-api>/.well-known/jwks.json
+//                           e.g. https://picked-mutt-18.clerk.accounts.dev/.well-known/jwks.json
 // Optional:
-//   CLERK_SECRET_KEY     — enables server-side Pro verification
+//   CLERK_AUTHORIZED_PARTY — e.g. https://relociq.app  (azp claim must match if set)
+//
+// Timeout budget:
+//   JWKS fetch (uncached): 3 s   — cached after first call, subsequent auth ~0 ms
+//   Clerk Pro lookup:      3 s
+//   Anthropic:            40 s
+//   Total worst case:     46 s  < 50 s frontend timeout < 60 s Netlify limit
 
 const destinationProfiles = require('../destination-profiles');
+const { webcrypto } = require('node:crypto');
 
 const ANTHROPIC_API = 'https://api.anthropic.com/v1/messages';
-// VERIFIED: Netlify synchronous execution limit is 60s (not 10s — that figure
-// applies only to streamed responses). Buffered JSON response, so 60s applies.
-// Haiku: chat needs conversational latency. 25s per message is unusable.
 const MODEL = 'claude-haiku-4-5-20251001';
-const ANTHROPIC_DEADLINE_MS = 45000;
+const ANTHROPIC_DEADLINE_MS = 40000;
+const JWKS_TIMEOUT_MS = 3000;
+const CLERK_TIMEOUT_MS = 3000;
 const MAX_HISTORY_MESSAGES = 20;
 const MAX_TOTAL_INPUT_CHARS = 60000;
+
+// JWKS cache — persists across invocations in the same function instance
+let _jwksCache = null;
+let _jwksCacheAt = 0;
+const JWKS_TTL_MS = 5 * 60 * 1000;
 
 exports.handler = async function (event) {
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, X-Clerk-User-Id',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Content-Type': 'application/json'
   };
 
@@ -42,16 +55,46 @@ exports.handler = async function (event) {
   try { payload = JSON.parse(event.body || '{}'); }
   catch (_) { return badRequest(corsHeaders, 'Invalid JSON'); }
 
-  const { corridor, message, history = [], stepsData, pathwaySummary, clerkUserId } = payload;
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    return badRequest(corsHeaders, 'Invalid request body');
+  }
+
+  const { corridor, message, history = [], stepsData, pathwaySummary } = payload;
 
   if (!corridor || typeof corridor !== 'string' || !/^[A-Z]{2}-[A-Z]{2}$/.test(corridor)) return badRequest(corsHeaders, 'Missing or invalid corridor');
   if (!message || typeof message !== 'string') return badRequest(corsHeaders, 'Missing or invalid message');
   if (message.length > 2000) return badRequest(corsHeaders, 'Message too long (max 2000 chars)');
 
-  // Optional server-side Pro check via Clerk
-  if (process.env.CLERK_SECRET_KEY && clerkUserId) {
-    const isPro = await verifyClerkPro(clerkUserId);
-    if (!isPro) return { statusCode: 403, headers: corsHeaders, body: JSON.stringify({ error: 'Pro subscription required' }) };
+  // Auth — fails closed: any missing config or invalid token blocks the request
+  // before Anthropic is called.
+  if (!process.env.CLERK_SECRET_KEY) {
+    return { statusCode: 503, headers: corsHeaders, body: JSON.stringify({ error: 'Concierge authentication not configured' }) };
+  }
+  const jwksUrl = process.env.CLERK_JWKS_URL;
+  if (!jwksUrl) {
+    return { statusCode: 503, headers: corsHeaders, body: JSON.stringify({ error: 'Concierge authentication not configured' }) };
+  }
+
+  // Issuer is derived from the server-configured JWKS URL, never from the token.
+  const expectedIssuer = jwksUrl.replace(/\/\.well-known\/jwks\.json$/, '');
+
+  const authHeader = event.headers && (event.headers['authorization'] || event.headers['Authorization']);
+  const token = (authHeader && authHeader.startsWith('Bearer ')) ? authHeader.slice(7) : null;
+  if (!token) {
+    return { statusCode: 401, headers: corsHeaders, body: JSON.stringify({ error: 'Authentication required' }) };
+  }
+
+  let verifiedUserId;
+  try { verifiedUserId = await verifyClerkJWT(token, jwksUrl, expectedIssuer); }
+  catch (_) { verifiedUserId = null; }
+
+  if (!verifiedUserId) {
+    return { statusCode: 401, headers: corsHeaders, body: JSON.stringify({ error: 'Invalid or expired session' }) };
+  }
+
+  const isPro = await verifyClerkPro(verifiedUserId);
+  if (!isPro) {
+    return { statusCode: 403, headers: corsHeaders, body: JSON.stringify({ error: 'Pro subscription required' }) };
   }
 
   const [from, to] = corridor.split('-');
@@ -62,10 +105,6 @@ exports.handler = async function (event) {
     .filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
     .slice(-MAX_HISTORY_MESSAGES);
 
-  // System prompt is split into two blocks:
-  //   Block 1 (static per corridor): instructions + destination profile + step data → CACHED
-  //   The cache_control marker on this block means turns 2..N of a conversation reuse it
-  //   at ~10% of the input price instead of paying full price every message.
   const systemBlocks = [
     {
       type: 'text',
@@ -110,7 +149,7 @@ exports.handler = async function (event) {
 
     const toolUse = (data.content || []).find(b => b.type === 'tool_use');
     if (!toolUse || !toolUse.input || !toolUse.input.reply) {
-      console.error('Malformed response:', JSON.stringify(data).slice(0, 500));
+      console.error('Concierge malformed response stop_reason=' + (data && data.stop_reason));
       return { statusCode: 502, headers: corsHeaders, body: JSON.stringify({ error: 'Empty response from concierge' }) };
     }
 
@@ -124,8 +163,8 @@ exports.handler = async function (event) {
       })
     };
   } catch (err) {
-    console.error('Concierge handler error:', err);
     const isOverload = /429|529|overloaded/i.test(String(err.message));
+    console.error('Concierge handler error code=' + (err.code || err.name));
     return {
       statusCode: isOverload ? 503 : 500,
       headers: corsHeaders,
@@ -135,7 +174,6 @@ exports.handler = async function (event) {
 };
 
 async function callAnthropicWithRetry(body) {
-  // No internal retries — they cannot fit in a 10s platform budget.
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), ANTHROPIC_DEADLINE_MS);
   try {
@@ -166,11 +204,91 @@ function badRequest(headers, msg) {
   return { statusCode: 400, headers, body: JSON.stringify({ error: msg }) };
 }
 
+// Verifies a Clerk session JWT. Returns the verified sub (user ID) or null.
+// Enforces: RS256 algorithm, valid signature, configured issuer, exp, nbf.
+// Optional: azp check against CLERK_AUTHORIZED_PARTY env var.
+// Never uses token claims to locate verification keys (SSRF prevention).
+async function verifyClerkJWT(token, jwksUrl, expectedIssuer) {
+  if (!token || typeof token !== 'string') return null;
+  const parts = token.split('.');
+  if (parts.length !== 3) return null;
+
+  const b64url = s => s.replace(/-/g, '+').replace(/_/g, '/');
+  let header, payload;
+  try {
+    header = JSON.parse(Buffer.from(b64url(parts[0]), 'base64').toString('utf8'));
+    payload = JSON.parse(Buffer.from(b64url(parts[1]), 'base64').toString('utf8'));
+  } catch (_) { return null; }
+
+  // Reject non-RS256 tokens — prevents algorithm confusion attacks
+  if (!header || header.alg !== 'RS256') return null;
+
+  const now = Math.floor(Date.now() / 1000);
+  if (!payload || !payload.sub || typeof payload.sub !== 'string') return null;
+  if (!payload.exp || payload.exp <= now) return null;
+  // Reject tokens with nbf more than 60 s in the future (clock-skew allowance)
+  if (payload.nbf && payload.nbf > now + 60) return null;
+
+  // Issuer must match the server-configured expected value
+  if (payload.iss !== expectedIssuer) return null;
+
+  // Optional: authorised party must match if env var is configured
+  const authorizedParty = process.env.CLERK_AUTHORIZED_PARTY;
+  if (authorizedParty) {
+    if (!payload.azp || payload.azp !== authorizedParty) return null;
+  }
+
+  // Fetch JWKS from trusted env var; cache for 5 minutes
+  let keys;
+  try {
+    if (_jwksCache && (Date.now() - _jwksCacheAt) < JWKS_TTL_MS) {
+      keys = _jwksCache;
+    } else {
+      const res = await fetch(jwksUrl, { signal: AbortSignal.timeout(JWKS_TIMEOUT_MS) });
+      if (!res.ok) return null;
+      const data = await res.json();
+      keys = Array.isArray(data.keys) ? data.keys : [];
+      _jwksCache = keys;
+      _jwksCacheAt = Date.now();
+    }
+  } catch (_) { return null; }
+
+  // Key must have matching kid, RS256 algorithm, and sig use
+  const jwk = keys.find(k => k.kid === header.kid && k.alg === 'RS256' && k.use === 'sig');
+  if (!jwk) return null;
+
+  try {
+    const key = await webcrypto.subtle.importKey(
+      'jwk', jwk, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['verify']
+    );
+    const sigInput = new TextEncoder().encode(parts[0] + '.' + parts[1]);
+    const sigBytes = Buffer.from(b64url(parts[2]), 'base64');
+    const valid = await webcrypto.subtle.verify('RSASSA-PKCS1-v1_5', key, sigBytes, sigInput);
+    if (!valid) return null;
+  } catch (_) { return null; }
+
+  if (!payload.sub.startsWith('user_')) return null;
+  return payload.sub;
+}
+
+async function verifyClerkPro(userId) {
+  try {
+    const res = await fetch(`https://api.clerk.com/v1/users/${encodeURIComponent(userId)}`, {
+      headers: { 'Authorization': `Bearer ${process.env.CLERK_SECRET_KEY}` },
+      signal: AbortSignal.timeout(CLERK_TIMEOUT_MS)
+    });
+    if (!res.ok) return false;
+    const user = await res.json();
+    return !!(user && user.public_metadata && user.public_metadata.pro === true);
+  } catch (_) {
+    return false;
+  }
+}
+
 function buildSystemPrompt({ from, to, destProfile, stepsData, pathwaySummary }) {
   const stepsContext = Array.isArray(stepsData) && stepsData.length
     ? stepsData.map(s => {
         const lines = [`STEP ${s.num} — ${s.name} (estimated ${s.days} days)`];
-        // Trimmed: keeps the decision-relevant content, drops length that costs latency.
         var cap = function (t, max) { return t.length > max ? t.slice(0, max) + '…' : t; };
         if (s.why) lines.push(`  Why: ${cap(s.why, 300)}`);
         if (s.need) lines.push(`  Need: ${cap(s.need, 300)}`);
@@ -207,17 +325,4 @@ How to respond:
 - Answer directly; don't restate the question.
 
 Always respond by calling the respond tool.`;
-}
-
-async function verifyClerkPro(userId) {
-  try {
-    const res = await fetch(`https://api.clerk.com/v1/users/${encodeURIComponent(userId)}`, {
-      headers: { 'Authorization': `Bearer ${process.env.CLERK_SECRET_KEY}` }
-    });
-    if (!res.ok) return false;
-    const user = await res.json();
-    return !!(user && user.public_metadata && user.public_metadata.pro === true);
-  } catch (_) {
-    return false;
-  }
 }

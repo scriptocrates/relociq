@@ -1386,16 +1386,22 @@ async function sendConciergeMessage() {
   try {
     var corridorKey = currentPathway.from + '-' + currentPathway.to;
     var steps = (typeof stepsData !== 'undefined' && stepsData[corridorKey]) ? stepsData[corridorKey] : null;
+    var sessionToken = null;
+    if (window.Clerk && window.Clerk.session) {
+      try { sessionToken = await window.Clerk.session.getToken(); } catch (_) {}
+    }
+    var reqHeaders = { 'Content-Type': 'application/json' };
+    if (sessionToken) reqHeaders['Authorization'] = 'Bearer ' + sessionToken;
     var res = await fetch(CONCIERGE_ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: reqHeaders,
+      signal: AbortSignal.timeout(50000),
       body: JSON.stringify({
         corridor: corridorKey,
         message: text,
         history: conciergeHistory.slice(0, -1),
         stepsData: steps,
-        pathwaySummary: currentPathway.summary || '',
-        clerkUserId: (window.Clerk && window.Clerk.user) ? window.Clerk.user.id : null
+        pathwaySummary: currentPathway.summary || ''
       })
     });
 
@@ -1413,9 +1419,10 @@ async function sendConciergeMessage() {
     }
   } catch (e) {
     hideConciergeTyping();
-    addConciergeMessage('assistant', '⚠️ Connection error — please try again.');
+    var isTimeout = e.name === 'TimeoutError' || e.name === 'AbortError';
+    addConciergeMessage('assistant', isTimeout ? '⚠️ Request timed out — please try again.' : '⚠️ Connection error — please try again.');
     conciergeHistory.pop();
-    console.error('Concierge error:', e);
+    console.error('Concierge error:', e.name);
   } finally {
     conciergeBusy = false;
     document.getElementById('conciergeSendBtn').style.opacity = '1';

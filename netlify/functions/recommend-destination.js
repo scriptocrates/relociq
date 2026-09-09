@@ -1,53 +1,44 @@
-// netlify/functions/recommend-destination.js — v2 (Fable upgrades)
-//
-// Reverse search: given a user profile, return top 3 destination recommendations.
-//
-// v2 upgrades:
-//   - Prompt caching on the destination-profiles block (identical every call →
-//     input cost drops ~90% after the first request in each 5-min window)
-//   - Retry with backoff on 429/529
-//   - Input clamping/sanitisation (salary bounds, string length caps)
-//   - Model: claude-sonnet-4-6
-//   - Honest-mismatch support: model may return fewer than 3 if the profile
-//     genuinely fits fewer destinations, with an explanation
-//
-// Required env vars:
-//   ANTHROPIC_API_KEY — sk-ant-...
-
 const destinationProfiles = require('../destination-profiles');
 
 const ANTHROPIC_API = 'https://api.anthropic.com/v1/messages';
-// VERIFIED against docs.netlify.com/build/functions/configuration (7 Sep 2026):
-//   Synchronous execution limit = 60 seconds, not configurable, no plan tier.
-// The 10s figure in Netlify's docs applies ONLY to *streamed* responses
-// (the stream() decorator). This function returns a buffered JSON response,
-// so the 60s budget applies. Do not add stream() without revisiting this.
-// Model choice: Haiku for latency. Measured on this prompt — Sonnet 4.6 ≈ 25.6s,
-// which is past the point users abandon a spinner. Haiku runs ≈ 8-12s WITH the full
-// prompt and generous max_tokens (the earlier 8-9s figure was a stripped-down prompt).
-// To A/B this, change the one line below and compare the TIMING logs.
+// Buffered response; one bounded upstream request, no automatic retries.
 const MODEL = 'claude-haiku-4-5-20251001';
 const ANTHROPIC_DEADLINE_MS = 45000; // platform allows 60s; leave ~15s for cold start, validation and serialising
 
 exports.handler = async function (event) {
+  const requestId = require('node:crypto').randomUUID();
+  const t0 = Date.now();
+  const log = (stage, fields = {}) => console.log(JSON.stringify({ function: 'recommend-destination', request_id: requestId, stage, elapsed_ms: Date.now() - t0, ...fields }));
+  log('handler_start');
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'X-Relociq-Request-Id': requestId,
+    'Access-Control-Expose-Headers': 'X-Relociq-Request-Id',
+    'Cache-Control': 'no-store'
   };
 
   if (event.httpMethod === 'OPTIONS') return { statusCode: 200, headers: corsHeaders, body: '' };
   if (event.httpMethod !== 'POST') return { statusCode: 405, headers: corsHeaders, body: JSON.stringify({ error: 'Method not allowed' }) };
 
+  const fail = (statusCode, code, error) => {
+    log('response_error', { code, status: statusCode });
+    return { statusCode, headers: corsHeaders, body: JSON.stringify({ error, code, request_id: requestId }) };
+  };
+  if (event.isBase64Encoded) return fail(400, 'INVALID_ENCODING', 'Send a JSON request');
+  if (Buffer.byteLength(event.body || '', 'utf8') > 16384) return fail(413, 'PAYLOAD_TOO_LARGE', 'Request too large');
   let profile;
   try { profile = JSON.parse(event.body || '{}'); }
   catch (_) { return { statusCode: 400, headers: corsHeaders, body: JSON.stringify({ error: 'Invalid JSON' }) }; }
 
-  if (!profile.nationality || !/^[A-Z]{2}$/.test(String(profile.nationality))) {
+  if (!profile || typeof profile !== 'object' || Array.isArray(profile)) return fail(400, 'INVALID_PROFILE', 'Expected a profile object');
+
+  if (typeof profile.nationality !== 'string' || !profile.nationality || !/^[A-Z]{2}$/.test(String(profile.nationality))) {
     return { statusCode: 400, headers: corsHeaders, body: JSON.stringify({ error: 'Missing or invalid nationality' }) };
   }
-  if (!profile.role || typeof profile.role !== 'string') {
+  if (typeof profile.role !== 'string' || !profile.role.trim()) {
     return { statusCode: 400, headers: corsHeaders, body: JSON.stringify({ error: 'Missing field: role' }) };
   }
 
@@ -64,23 +55,13 @@ exports.handler = async function (event) {
     current_location: profile.current_location ? String(profile.current_location).slice(0, 80) : undefined
   };
 
-  // System prompt split into two blocks:
-  //   Block 1: static instructions + destination profiles → CACHED (identical for every request)
-  //   User message: the individual profile (small, varies per request)
-  const systemBlocks = [
-    {
-      type: 'text',
-      text: buildStaticSystemPrompt()
-      // No cache_control: at low traffic every call is a cache MISS, so caching
-      // only ever pays the (slower) write cost and never collects the read benefit.
-    }
-  ];
-
-  const t0 = Date.now();
+  if (!process.env.ANTHROPIC_API_KEY) return fail(503, 'SERVICE_NOT_CONFIGURED', 'Recommendation service unavailable');
   try {
-    const data = await callAnthropicWithRetry({
+    const systemBlocks = [{ type: 'text', text: buildStaticSystemPrompt() }];
+    log('upstream_start', { model: MODEL, max_tokens: 2000 });
+    const data = await callAnthropic({
       model: MODEL,
-      max_tokens: 1200,
+      max_tokens: 2000,
       system: systemBlocks,
       messages: [{ role: 'user', content: buildUserMessage(clean) }],
       tools: [{
@@ -120,33 +101,46 @@ exports.handler = async function (event) {
       tool_choice: { type: 'tool', name: 'submit_recommendations' }
     });
 
-    const elapsed = Date.now() - t0;
-    // Visible in Netlify → Logs → Functions. Tells us whether we are near the 10s wall.
-    console.log('TIMING anthropic_ms=' + elapsed +
-      ' in_tokens=' + ((data.usage && data.usage.input_tokens) || '?') +
-      ' out_tokens=' + ((data.usage && data.usage.output_tokens) || '?'));
-
-    const toolUse = (data.content || []).find(b => b.type === 'tool_use');
-    if (!toolUse || !toolUse.input || !Array.isArray(toolUse.input.recommendations)) {
-      console.error('Malformed response:', JSON.stringify(data).slice(0, 500));
-      return { statusCode: 502, headers: corsHeaders, body: JSON.stringify({ error: 'Malformed recommendation response' }) };
+    log('upstream_complete', {
+      stop_reason: data && data.stop_reason,
+      input_tokens: data && data.usage && data.usage.input_tokens,
+      output_tokens: data && data.usage && data.usage.output_tokens
+    });
+    if (data && data.stop_reason === 'max_tokens') {
+      return fail(502, 'OUTPUT_TRUNCATED', 'Recommendation response was incomplete. Please try again.');
     }
-
+    const blocks = data && Array.isArray(data.content) ? data.content : [];
+    const toolUse = blocks.find(b => b && b.type === 'tool_use' && b.name === 'submit_recommendations');
+    if (!data || data.stop_reason !== 'tool_use' || !toolUse || !validRecommendations(toolUse.input)) {
+      return fail(502, 'INVALID_MODEL_OUTPUT', 'Malformed recommendation response');
+    }
+    log('response_success');
     return { statusCode: 200, headers: corsHeaders, body: JSON.stringify(toolUse.input) };
   } catch (err) {
-    console.error('TIMING failed_after_ms=' + (Date.now() - t0) + ' reason=' + (err && err.message ? err.message.slice(0, 200) : 'unknown'));
-    const isOverload = /429|529|overloaded/i.test(String(err.message));
-    return {
-      statusCode: isOverload ? 503 : 500,
-      headers: corsHeaders,
-      body: JSON.stringify({ error: isOverload ? 'Service is busy — try again in a few seconds.' : 'Recommendation service unavailable' })
-    };
+    const code = err.code || 'INTERNAL_ERROR';
+    log('upstream_failed', { code, upstream_status: err.upstreamStatus });
+    if (code === 'UPSTREAM_TIMEOUT') return fail(504, code, 'Recommendation service took too long. Please try again.');
+    if (err.upstreamStatus === 429 || err.upstreamStatus === 529) return fail(503, 'UPSTREAM_BUSY', 'Service is busy — try again in a few seconds.');
+    return fail(code === 'INTERNAL_ERROR' ? 500 : 502, code, 'Recommendation service unavailable');
   }
 };
 
-async function callAnthropicWithRetry(body) {
-  // No internal retries: on a 10s platform budget a retry cannot fit. Fail fast
-  // and let the client offer a retry, which the UI already supports.
+function validRecommendations(input) {
+  if (!input || !Array.isArray(input.recommendations) || input.recommendations.length < 1 || input.recommendations.length > 3) return false;
+  if (input.honest_note !== undefined && typeof input.honest_note !== 'string') return false;
+  const countries = new Set();
+  const strings = (a, min, max) => Array.isArray(a) && a.length >= min && a.length <= max && a.every(s => typeof s === 'string' && s.trim());
+  return input.recommendations.every((r, i) => {
+    if (!r || r.rank !== i + 1 || typeof r.country !== 'string' || !Object.hasOwn(destinationProfiles, r.country) || countries.has(r.country)) return false;
+    countries.add(r.country);
+    return ['country_name', 'rationale', 'visa_route'].every(k => typeof r[k] === 'string' && r[k].trim()) &&
+      Number.isFinite(r.match_score) && r.match_score >= 0 && r.match_score <= 1 &&
+      Number.isInteger(r.monthly_cost_estimate_eur) && r.monthly_cost_estimate_eur >= 0 &&
+      strings(r.key_advantages, 2, 4) && strings(r.considerations, 1, 3);
+  });
+}
+
+async function callAnthropic(body) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), ANTHROPIC_DEADLINE_MS);
   try {
@@ -157,20 +151,19 @@ async function callAnthropicWithRetry(body) {
         'anthropic-version': '2023-06-01',
         'content-type': 'application/json'
       },
-      body: JSON.stringify(body),
-      signal: controller.signal
+      body: JSON.stringify(body), signal: controller.signal
     });
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(`Anthropic ${res.status}: ${text.slice(0, 200)}`);
+    if (!res.ok) throw Object.assign(new Error('Upstream HTTP failure'), { code: 'UPSTREAM_HTTP_ERROR', upstreamStatus: res.status });
+    try { return await res.json(); }
+    catch (err) {
+      if (controller.signal.aborted || err.name === 'AbortError') throw err;
+      throw Object.assign(new Error('Invalid upstream JSON'), { code: 'UPSTREAM_INVALID_JSON' });
     }
-    return await res.json();
-  } catch (e) {
-    if (e.name === 'AbortError') throw new Error('529 upstream deadline exceeded');
-    throw e;
-  } finally {
-    clearTimeout(timer);
-  }
+  } catch (err) {
+    if (controller.signal.aborted || err.name === 'AbortError') throw Object.assign(new Error('Upstream deadline exceeded'), { code: 'UPSTREAM_TIMEOUT' });
+    if (!err.code) err.code = 'UPSTREAM_NETWORK_ERROR';
+    throw err;
+  } finally { clearTimeout(timer); }
 }
 
 // Compact profiles: only fields the model reasons over. ~2000 tokens vs ~4500 for full profiles.

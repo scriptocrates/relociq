@@ -1,1 +1,30 @@
-*.csv
+# OS
+.DS_Store
+Thumbs.db
+
+# Archives / review packages (never commit these to the web root)
+*.zip
+*.tar.gz
+
+# Images that land in root accidentally
+*.png
+*.jpg
+*.jpeg
+
+# Stray source copies in root — definitive files are in netlify/ and netlify/functions/
+/concierge.js
+/recommend-destination.js
+/destination-profiles.js
+/stripe-webhook.js
+
+# Old site drafts
+/relociq.html
+
+# Internal docs that should not be publicly served
+/STRIPE_WEBHOOK_SETUP.md
+
+# Root-level test one-offs — canonical tests live in tests/ and verification/
+/test_audit_repro.js
+/test_full_flow.js
+/test_costs.js
+/test_recommender.js
