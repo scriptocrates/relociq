@@ -330,7 +330,7 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
     <div id="authSignup">
       <h2 class="auth-h">Get your free pathway</h2>
       <p class="auth-sub">Create a free account to unlock the full step-by-step guide, document checklist, and deadline tracker.</p>
-      <div class="auth-pill" id="authPill">Your pathway is ready</div>
+      <div class="auth-pill" id="authPill" style="display:none"></div>
       <button class="auth-google" onclick="signInWithGoogle()">
         <svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/><path d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
         Continue with Google
@@ -624,23 +624,13 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
     <div class="how-step"><div class="how-n">01</div><div><div class="how-title">Tell us your situation</div><div class="how-text">Nationality, destination, timeline, family setup. Under two minutes.</div><div class="how-pill">No account needed</div></div></div>
     <div class="how-step"><div class="how-n">02</div><div><div class="how-title">Get your personalised pathway</div><div class="how-text">Exact visa route, timeline, cost estimate, and difficulty level for your situation.</div><div class="how-pill">Powered by Claude AI</div></div></div>
     <div class="how-step"><div class="how-n">03</div><div><div class="how-title">Follow your step-by-step plan</div><div class="how-text">Every document, deadline, and appointment tracked in the right order.</div><div class="how-pill">Ordered checklist</div></div></div>
-    <div class="how-step"><div class="how-n">04</div><div><div class="how-title">Arrive. Settled.</div><div class="how-text">Relociq stays active tracking renewals, expiries, and local registration steps.</div><div class="how-pill">Ongoing protection</div></div></div>
+    <div class="how-step"><div class="how-n">04</div><div><div class="how-title">Arrive. Settled.</div><div class="how-text">Your guide covers post-arrival registration steps and the renewal deadlines that follow. Automated reminders are planned, not yet available.</div><div class="how-pill">Post-arrival steps</div></div></div>
   </div>
 </div>
 
-<!-- TESTIMONIALS -->
-<div class="tests">
-  <div class="tests-inner">
-    <div class="tests-lbl">What people say</div>
-    <h2 class="tests-h">Real moves. <em>Real people.</em></h2>
-    <div class="tests-grid">
-      <div class="test-card"><div class="test-route">🇮🇳 India → 🇩🇪 Germany</div><p class="test-q">"I spent 3 weeks googling visa requirements. Relociq gave me the exact steps in 5 minutes. I'm now registered in Berlin."</p><div class="test-author"><div class="test-av">PK</div><div><div class="test-name">Priya K.</div><div class="test-role">Software Engineer</div></div></div></div>
-      <div class="test-card"><div class="test-route">🇬🇧 UK → 🇵🇹 Portugal</div><p class="test-q">"The document checklist alone saved me from a rejected application. Every item, exactly when I needed it."</p><div class="test-author"><div class="test-av">JM</div><div><div class="test-name">James M.</div><div class="test-role">Freelancer</div></div></div></div>
-      <div class="test-card"><div class="test-route">🇺🇦 Ukraine → 🇨🇿 Czech Republic</div><p class="test-q">"The whole process felt impossible. Relociq laid it out step by step. I had my protection status in 3 weeks."</p><div class="test-author"><div class="test-av">OV</div><div><div class="test-name">Olena V.</div><div class="test-role">Teacher</div></div></div></div>
-    </div>
-  </div>
-</div>
-
+<!-- TESTIMONIALS — section removed 9 Sep 2026: three named customer quotes were being
+     shown on a pre-launch product with no customers. Restore only with real,
+     permissioned quotes from actual users. -->
 <!-- PRICING -->
 <div class="pricing" id="pricing">
   <div class="pricing-inner">
@@ -865,32 +855,39 @@ function routeRequiresNoVisa(pathway) {
 
 // Returns { amount:Number|null, label:String, qualifier:String }
 function costPresentation(pathway) {
+  // COST FIGURES ARE WITHHELD.
+  // The stored `cost` values were rough estimates with no itemisation and no source.
+  // Showing an unsupported total next to official-looking guidance is worse than
+  // showing nothing, so the amount is suppressed until each route's costs can be
+  // itemised (government fees / documents / optional services / funds to demonstrate)
+  // with an official source and a genuine review date.
+  // To restore: set COST_FIGURES_SUBSTANTIATED = true once that data exists.
+  var COST_FIGURES_SUBSTANTIATED = false;
+
   var amount = (pathway && isFinite(Number(pathway.cost))) ? Number(pathway.cost) : null;
   if (amount !== null && amount <= 0) amount = null;
 
   if (routeRequiresNoVisa(pathway)) {
-    // EU/EEA freedom of movement: no visa fee exists at all.
     return {
-      amount: amount,
-      label: 'Setup costs',
-      qualifier: amount === null
-        ? 'No visa fee — freedom of movement'
-        : 'No visa fee. Rough estimate for registration, documents and translations.'
+      amount: COST_FIGURES_SUBSTANTIATED ? amount : null,
+      label: 'Visa fee',
+      qualifier: COST_FIGURES_SUBSTANTIATED
+        ? 'No visa fee. Estimate covers registration, documents and translations.'
+        : 'None — freedom of movement. Registration and document costs vary; we do not yet publish a figure.'
     };
   }
-  if (amount === null) {
-    return { amount: null, label: 'Cost estimate', qualifier: 'Not yet verified for this route' };
-  }
   return {
-    amount: amount,
+    amount: COST_FIGURES_SUBSTANTIATED ? amount : null,
     label: 'Cost estimate',
-    qualifier: 'Rough all-in estimate: government fees, documents and translations. Not an official fee schedule — check the authority for current amounts.'
+    qualifier: COST_FIGURES_SUBSTANTIATED
+      ? 'Government fees, documents and translations. Not an official fee schedule.'
+      : 'Not published yet. Costs vary by consulate, document set and translation needs — check the relevant authority for current fees.'
   };
 }
 
 function costBlockHTML(pathway) {
   var c = costPresentation(pathway);
-  var valueText = (c.amount === null) ? '—' : ('EUR ' + c.amount.toLocaleString());
+  var valueText = (c.amount === null) ? 'Not published' : ('EUR ' + c.amount.toLocaleString());
   return '<div style="background:#FAFAF8;border-radius:8px;padding:14px">' +
     '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:#AAA;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">' + c.label + '</div>' +
     '<div style="font-size:14px;font-weight:600;color:#1A1A1A">' + valueText + '</div>' +
@@ -1126,6 +1123,20 @@ function updateNavForUser(user) {
 }
 
 function openAuth(mode, pathway) {
+  // The "your pathway is ready" pill must reflect reality: only show it when a
+  // pathway genuinely exists. Opening signup from a same-country or unsupported
+  // selection previously still claimed a pathway had been generated.
+  var pill = document.getElementById('authPill');
+  if (pill) {
+    var ready = pathway || currentPathway;
+    if (ready && ready.from && ready.to) {
+      pill.textContent = 'Your pathway is ready';
+      pill.style.display = '';
+    } else {
+      pill.textContent = '';
+      pill.style.display = 'none';
+    }
+  }
   if (pathway) pendingPathway = pathway;
   document.getElementById('authOverlay').classList.add('open');
   if (mode === 'signin') { showSignin(); } else { showSignup(); }
