@@ -80,7 +80,7 @@ exports.handler = async function (event) {
   try {
     const data = await callAnthropicWithRetry({
       model: MODEL,
-      max_tokens: 1600,
+      max_tokens: 1200,
       system: systemBlocks,
       messages: [{ role: 'user', content: buildUserMessage(clean) }],
       tools: [{
