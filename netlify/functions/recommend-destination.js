@@ -173,7 +173,8 @@ async function callAnthropicWithRetry(body) {
   }
 }
 
-// Only the fields the model actually reasons over. Prose we never use costs latency.
+// Compact profiles: only fields the model reasons over. ~2000 tokens vs ~4500 for full profiles.
+// Dropped: language (subsumed by english), family, notable (prose), lifestyle.
 function compactProfiles() {
   const out = {};
   Object.keys(destinationProfiles).forEach(k => {
@@ -184,12 +185,9 @@ function compactProfiles() {
       visa_non_eu: d.visa_for_non_eu,
       visa_eu: d.visa_for_eu,
       salary_eur_month: d.typical_salary_tech_eur,
-      living_cost_eur_month: costKey ? d[costKey] : null,
-      language: d.primary_language,
+      cost_eur_month: costKey ? d[costKey] : null,
       english: d.english_workability,
       industries: d.industries,
-      family: d.family_friendliness,
-      notable: d.notable,
       weak_for: d.weak_for
     };
   });
