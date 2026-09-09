@@ -673,7 +673,7 @@ body{background:#FAFAF8;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif
           <div class="p-feat-pro">✓ &nbsp;Unlimited concierge questions</div>
           <div class="p-feat-pro">✓ &nbsp;Priority support</div>
         </div>
-        <a href="#" onclick="handleProUpgrade();return false;" class="p-btn-pro">Start 14-day free trial</a>
+        <a href="#" onclick="handleProUpgrade();return false;" class="p-btn-pro">Upgrade to Pro</a>
       </div>
     </div>
   </div>
@@ -1414,7 +1414,7 @@ async function sendConciergeMessage() {
 function showProWelcome() {
   var banner = document.createElement('div');
   banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#2D7A2D;color:#fff;padding:14px 24px;text-align:center;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:12px';
-  banner.innerHTML = '<span>🎉 Welcome to Relociq Pro! Your 14-day free trial has started.</span><button onclick="this.parentNode.remove()" style="background:rgba(255,255,255,0.2);border:none;color:#fff;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:13px">✕</button>';
+  banner.innerHTML = '<span>🎉 Welcome to Relociq Pro! You now have full access.</span><button onclick="this.parentNode.remove()" style="background:rgba(255,255,255,0.2);border:none;color:#fff;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:13px">✕</button>';
   document.body.prepend(banner);
   setTimeout(function(){ if(banner.parentNode) banner.remove(); }, 8000);
 }
